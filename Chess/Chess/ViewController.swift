@@ -80,6 +80,51 @@ class ViewController: NSViewController {
             return nil
         }
     }
+    private func loadObject(loader: PNSceneLoader, name: String) -> PNNode<PNSceneNode> {
+        guard let model = loader.resource(name: name,
+                                          extension: "obj",
+                                          bundle: Bundle.main)?.rootNode else {
+            fatalError("Could not initialize the scene")
+        }
+        return model
+    }
+    private func set(material: PNMaterial, node: PNNode<PNSceneNode>) {
+        PNINodeInteractor().forEach(node: node) { n in
+            guard let meshNode = n.data as? PNIMeshNode else {
+                return
+            }
+            for index in meshNode.mesh.pieceDescriptions.count.naturalExclusive {
+                meshNode.mesh.pieceDescriptions[index].material = material
+            }
+        }
+    }
+    private func load(loader: PNSceneLoader, name: String, material: PNMaterial) -> PNNode<PNSceneNode> {
+        let object = loadObject(loader: loader, name: name)
+        set(material: material, node: object)
+        return object
+    }
+    private func loadPieces(loader: PNSceneLoader, material: PNMaterial) -> [[PNNode<PNSceneNode>]] {
+        let bishop = load(loader: loader, name: "Bishop", material: material)
+        let knight = load(loader: loader, name: "Knight", material: material)
+        let rook = load(loader: loader, name: "Rook", material: material)
+        let queen = load(loader: loader, name: "Queen", material: material)
+        let king = load(loader: loader, name: "King", material: material)
+        let pawn = load(loader: loader, name: "Pawn", material: material)
+        var nodes = [
+            [rook, knight, bishop, king, queen, bishop, knight, rook],
+            [pawn, pawn, pawn, pawn, pawn, pawn, pawn, pawn]
+        ]
+        for j in 0 ..< 2 {
+            for i in 0 ..< 8 {
+                let transform = PNNode(data: PNISceneNode(transform: .compose(translation: [-3.5 + Float(i), 2, Float(j)],
+                                                                              rotation: .init(),
+                                                                              scale: [0.2, 0.2, 0.2])) as PNSceneNode)
+                transform.add(child: nodes[j][i])
+                nodes[j][i] = transform
+            }
+        }
+        return nodes
+    }
     private func createScene() {
         guard let device = engineView.device else {
             fatalError("Could not initialize the scene")
@@ -87,37 +132,28 @@ class ViewController: NSViewController {
         let loader = PNISceneLoader(device: device,
                                     assetLoader: PNIAssetLoader(),
                                     translator: PNISceneTranslator(device: device))
+        let textureLoader = MTKTextureLoader(device: engineView.device!)
+        let sapeleTexture = try! textureLoader.newTexture(name: "sapele",
+                                                    scaleFactor: 1,
+                                                    bundle: Bundle.main,
+                                                    options: nil)
+        let mahoganyTexture = try! textureLoader.newTexture(name: "mahogany",
+                                                    scaleFactor: 1,
+                                                    bundle: Bundle.main,
+                                                    options: nil)
+        let sapeleMaterial = PNIMaterial(name: "sapele",
+                                   albedo: sapeleTexture,
+                                   roughness: sapeleTexture,
+                                   normals: sapeleTexture,
+                                   metallic: sapeleTexture)
+        let mahoganyMaterial = PNIMaterial(name: "mahogany",
+                                   albedo: mahoganyTexture,
+                                   roughness: mahoganyTexture,
+                                   normals: mahoganyTexture,
+                                   metallic: mahoganyTexture)
+
+        let board = loadObject(loader: loader, name: "Board")
         
-        guard let bishop = loader.resource(name: "Bishop",
-                                           extension: "obj",
-                                           bundle: Bundle.main)?.rootNode else {
-            fatalError("Could not initialize the scene")
-        }
-        guard let knight = loader.resource(name: "Knight",
-                                           extension: "obj",
-                                           bundle: Bundle.main)?.rootNode else {
-            fatalError("Could not initialize the scene")
-        }
-        guard let rook = loader.resource(name: "Rook",
-                                         extension: "obj",
-                                         bundle: Bundle.main)?.rootNode else {
-            fatalError("Could not initialize the scene")
-        }
-        guard let board = loader.resource(name: "Board",
-                                         extension: "obj",
-                                         bundle: Bundle.main)?.rootNode else {
-            fatalError("Could not initialize the scene")
-        }
-        guard let queen = loader.resource(name: "Queen",
-                                         extension: "obj",
-                                         bundle: Bundle.main)?.rootNode else {
-            fatalError("Could not initialize the scene")
-        }
-        guard let king = loader.resource(name: "King",
-                                         extension: "obj",
-                                         bundle: Bundle.main)?.rootNode else {
-            fatalError("Could not initialize the scene")
-        }
         guard let cubeMahogany = loader.resource(name: "Cube",
                                          extension: "obj",
                                          bundle: Bundle.main)?.rootNode else {
@@ -133,26 +169,10 @@ class ViewController: NSViewController {
 //                        color: simd_float3(1, 1, 1),
 //                        position: [0, 0, 0])
         cameraNode = addCamera(scene: engine.scene, position: [0, 2, -1])
-        let textureLoader = MTKTextureLoader(device: engineView.device!)
-        let sapeleTexture = try! textureLoader.newTexture(name: "sapele",
-                                                    scaleFactor: 1,
-                                                    bundle: Bundle.main,
-                                                    options: nil)
-        let mahoganyTexture = try! textureLoader.newTexture(name: "mahogany",
-                                                    scaleFactor: 1,
-                                                    bundle: Bundle.main,
-                                                    options: nil)
         
-        let sapeleMaterial = PNIMaterial(name: "sapele",
-                                   albedo: sapeleTexture,
-                                   roughness: sapeleTexture,
-                                   normals: sapeleTexture,
-                                   metallic: sapeleTexture)
-        let mahoganyMaterial = PNIMaterial(name: "mahogany",
-                                   albedo: mahoganyTexture,
-                                   roughness: mahoganyTexture,
-                                   normals: mahoganyTexture,
-                                   metallic: mahoganyTexture)
+        
+        
+        
         if let meshNode = (board.children[0].data as? PNIMeshNode) {
             for d in meshNode.mesh.pieceDescriptions.count.naturalExclusive {
                 meshNode.mesh.pieceDescriptions[d].material = sapeleMaterial
@@ -170,28 +190,25 @@ class ViewController: NSViewController {
         }
         
         
-        let scaleNode = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 1.9, 3.5], rotation: .init(), scale: [0.17, 0.2, 0.17])) as PNSceneNode)
-        scaleNode.add(child: board)
-        let rookTransform = PNNode(data: PNISceneNode(transform: .compose(translation: [-3.5, 2, 0], rotation: .init(), scale: [0.2, 0.2, 0.2])) as PNSceneNode)
-        rookTransform.add(child: rook)
-        let knightTransform = PNNode(data: PNISceneNode(transform: .compose(translation: [-2.5, 2, 0], rotation: .init(), scale: [0.2, 0.2, 0.2])) as PNSceneNode)
-        knightTransform.add(child: knight)
-        let bishopTransform = PNNode(data: PNISceneNode(transform: .compose(translation: [-1.5, 2, 0], rotation: .init(), scale: [0.2, 0.2, 0.2])) as PNSceneNode)
-        bishopTransform.add(child: bishop)
-        let queenTransform = PNNode(data: PNISceneNode(transform: .compose(translation: [-0.5, 2, 0], rotation: .init(), scale: [0.2, 0.2, 0.2])) as PNSceneNode)
-        queenTransform.add(child: queen)
-        let kingTransform = PNNode(data: PNISceneNode(transform: .compose(translation: [0.5, 2, 0], rotation: .init(), scale: [0.2, 0.2, 0.2])) as PNSceneNode)
-        kingTransform.add(child: king)
-        let bishopTransform2 = PNNode(data: PNISceneNode(transform: .compose(translation: [1.5, 2, 0], rotation: .init(), scale: [0.2, 0.2, 0.2])) as PNSceneNode)
-        bishopTransform2.add(child: bishop)
-        let knightTransform2 = PNNode(data: PNISceneNode(transform: .compose(translation: [2.5, 2, 0], rotation: .init(), scale: [0.2, 0.2, 0.2])) as PNSceneNode)
-        knightTransform2.add(child: knight)
-        let rookTransform2 = PNNode(data: PNISceneNode(transform: .compose(translation: [3.5, 2, 0], rotation: .init(), scale: [0.2, 0.2, 0.2])) as PNSceneNode)
-        rookTransform2.add(child: rook)
-        let whites = PNNode(data: PNISceneNode(transform: .compose(translation: .zero, rotation: .init(), scale: [1, 1, 1])) as PNSceneNode)
-        whites.add(children: rookTransform, knightTransform, bishopTransform, queenTransform, kingTransform, bishopTransform2, knightTransform2, rookTransform2)
-        let black = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 0, 7], rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]), scale: .one)) as PNSceneNode)
-        black.add(children: rookTransform, knightTransform, bishopTransform, queenTransform, kingTransform, bishopTransform2, knightTransform2, rookTransform2)
+        let boardTransform = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 1.9, 3.5], rotation: .init(), scale: [0.17, 0.2, 0.17])) as PNSceneNode)
+        boardTransform.add(child: board)
+
+        
+        
+        
+        let whites = PNNode(data: PNISceneNode(transform: .compose(translation: .zero,
+                                                                   rotation: .init(),
+                                                                   scale: [1, 1, 1])) as PNSceneNode)
+        for row in loadPieces(loader: loader, material: sapeleMaterial) {
+            whites.add(children: row)
+        }
+        let black = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 0, 7],
+                                                                  rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
+                                                                  scale: .one)) as PNSceneNode)
+        for row in loadPieces(loader: loader, material: mahoganyMaterial) {
+            black.add(children: row)
+        }
+        black.add(children: loadPieces(loader: loader, material: mahoganyMaterial)[0])
         let fields = PNNode(data: PNISceneNode(transform: .compose(translation: [-3.5, 2.5, 0], rotation: .init(), scale: [1, 1, 1])) as PNSceneNode)
         for i in 0 ..< 8 {
             for j in 0 ..< 8 {
@@ -204,7 +221,7 @@ class ViewController: NSViewController {
         let all = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 0, 0],
                                                                 rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
                                                                 scale: [0.5, 0.5, 0.5])) as PNSceneNode)
-        all.add(children: whites, black, scaleNode, fields)
+        all.add(children: whites, black, boardTransform, fields)
         engine.scene.rootNode.add(child: all)
         addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(0, 1, -0.1).normalized, castsShadows: false)
         addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(0, -1, 0.1).normalized, castsShadows: false)
