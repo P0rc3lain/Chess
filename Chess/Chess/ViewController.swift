@@ -117,13 +117,27 @@ class ViewController: NSViewController {
         for j in 0 ..< 2 {
             for i in 0 ..< 8 {
                 let transform = PNNode(data: PNISceneNode(transform: .compose(translation: [-3.5 + Float(i), 2, Float(j)],
-                                                                              rotation: .init(),
                                                                               scale: [0.2, 0.2, 0.2])) as PNSceneNode)
                 transform.add(child: nodes[j][i])
                 nodes[j][i] = transform
             }
         }
         return nodes
+    }
+    private func loadBoardFields(loader: PNSceneLoader, mahogany: PNMaterial, sapele: PNMaterial) -> PNNode<PNSceneNode> {
+        let cubeMahogany = load(loader: loader, name: "Cube", material: mahogany)
+        let cubeSapele = load(loader: loader, name: "Cube", material: sapele)
+        let fields = PNNode(data: PNISceneNode(transform: .compose(translation: [-3.5, 2.5, 0],
+                                                                   scale: [1, 1, 1])) as PNSceneNode)
+        for i in 0 ..< 8 {
+            for j in 0 ..< 8 {
+                let cubeNode = PNNode(data: PNISceneNode(transform: .compose(translation: [Float(i), -1.6, Float(j)], scale: [0.5, 0.1, 0.5])) as PNSceneNode)
+                let isWhite = ((i + j) % 2) == 0
+                cubeNode.add(child: isWhite ? cubeSapele : cubeMahogany)
+                fields.add(child: cubeNode)
+            }
+        }
+        return fields
     }
     private func loadMaterial(loader: MTKTextureLoader, textureName name: String) -> PNMaterial {
         guard let texture = try? loader.newTexture(name: name,
@@ -138,6 +152,13 @@ class ViewController: NSViewController {
                            normals: texture,
                            metallic: texture)
     }
+    private func loadBoard(loader: PNSceneLoader, material: PNMaterial) -> PNNode<PNSceneNode> {
+        let board = load(loader: loader, name: "Board", material: material)
+        let boardTransform = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 1.9, 3.5],
+                                                                           scale: [0.17, 0.2, 0.17])) as PNSceneNode)
+        boardTransform.add(child: board)
+        return boardTransform
+    }
     private func createScene() {
         guard let device = engineView.device else {
             fatalError("Could not initialize the scene")
@@ -148,27 +169,14 @@ class ViewController: NSViewController {
         let textureLoader = MTKTextureLoader(device: engineView.device!)
         let sapeleMaterial = loadMaterial(loader: textureLoader, textureName: "sapele")
         let mahoganyMaterial = loadMaterial(loader: textureLoader, textureName: "mahogany")
-
-        let board = load(loader: loader, name: "Board", material: sapeleMaterial)
-        let cubeMahogany = load(loader: loader, name: "Cube", material: mahoganyMaterial)
-        let cubeSapele = load(loader: loader, name: "Cube", material: sapeleMaterial)
-//        addAmbientLight(scene: engine.scene,
-//                        intensity: 0.2,
-//                        color: simd_float3(1, 1, 1),
-//                        position: [0, 0, 0])
+        addAmbientLight(scene: engine.scene,
+                        intensity: 0.2,
+                        color: simd_float3(1, 1, 1),
+                        position: [0, 0, 0])
         cameraNode = addCamera(scene: engine.scene, position: [0, 2, -1])
         
-        
-        
-        
-        let boardTransform = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 1.9, 3.5], rotation: .init(), scale: [0.17, 0.2, 0.17])) as PNSceneNode)
-        boardTransform.add(child: board)
-
-        
-        
-        
+        let board = loadBoard(loader: loader, material: sapeleMaterial)
         let whites = PNNode(data: PNISceneNode(transform: .compose(translation: .zero,
-                                                                   rotation: .init(),
                                                                    scale: [1, 1, 1])) as PNSceneNode)
         for row in loadPieces(loader: loader, material: sapeleMaterial) {
             whites.add(children: row)
@@ -180,19 +188,12 @@ class ViewController: NSViewController {
             black.add(children: row)
         }
         black.add(children: loadPieces(loader: loader, material: mahoganyMaterial)[0])
-        let fields = PNNode(data: PNISceneNode(transform: .compose(translation: [-3.5, 2.5, 0], rotation: .init(), scale: [1, 1, 1])) as PNSceneNode)
-        for i in 0 ..< 8 {
-            for j in 0 ..< 8 {
-                let cubeNode = PNNode(data: PNISceneNode(transform: .compose(translation: [Float(i), -1.6, Float(j)], rotation: .init(), scale: [0.5, 0.1, 0.5])) as PNSceneNode)
-                let isWhite = ((i + j) % 2) == 0
-                cubeNode.add(child: isWhite ? cubeSapele : cubeMahogany)
-                fields.add(child: cubeNode)
-            }
-        }
+        
         let all = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 0, 0],
                                                                 rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
                                                                 scale: [0.5, 0.5, 0.5])) as PNSceneNode)
-        all.add(children: whites, black, boardTransform, fields)
+        let fields = loadBoardFields(loader: loader, mahogany: mahoganyMaterial, sapele: sapeleMaterial)
+        all.add(children: whites, black, board, fields)
         engine.scene.rootNode.add(child: all)
         addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(0, 1, -0.1).normalized, castsShadows: false)
         addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(0, -1, 0.1).normalized, castsShadows: false)
