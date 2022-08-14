@@ -56,16 +56,6 @@ class ViewController: NSViewController {
         scene.rootNode.children.append(treeNode)
         return node
     }
-//    private func addOmniLight(scene: PNScene,
-//                              intensity: Float,
-//                              color: simd_float3,
-//                              position: simd_float3,
-//                              castsShadows: Bool) {
-//        let light = PNIOmniLight(color: color, intensity: intensity, castsShadows: castsShadows)
-//        let treeNode = PNNode(data: PNIOmniLightNode(light: light, transform: .translation(vector: position)),
-//                              parent: scene.rootNode)
-//        scene.rootNode.children.append(treeNode)
-//    }
     private func addAmbientLight(scene: PNScene,
                                  intensity: Float,
                                  color: simd_float3,
@@ -83,71 +73,6 @@ class ViewController: NSViewController {
         let light = PNIDirectionalLight(color: color, intensity: intensity, direction: direction, castsShadows: castsShadows)
         scene.directionalLights.append(light)
     }
-//    private func addSpotLight(scene: PNScene,
-//                              intensity: Float,
-//                              color: simd_float3,
-//                              coneAngle: Float,
-//                              position: simd_float3,
-//                              castsShadows: Bool) {
-//        let light = PNISpotLight(color: color, intensity: intensity, coneAngle: coneAngle, castsShadows: castsShadows)
-//        let node = PNISpotLightNode(light: light, transform: .translation(vector: position))
-//        let treeNode = PNNode(data: node, parent: scene.rootNode)
-//        scene.rootNode.children.append(treeNode)
-//    }
-//    private func planeAnimation() -> PNAnimatedCoordinateSpace {
-//        let scale: Float = 0.1
-//        let height: Float = 2
-//        let translation = PNIAnimatedValue<simd_float3>(keyFrames: [[0, height, 0], [3, height, 0], [-3, height, 0], [0, height, 0]],
-//                                                        times: [0, 2, 4, 6],
-//                                                        maximumTime: 8)
-//        let orientation = PNIAnimatedValue<simd_quatf>(keyFrames: [simd_quatf(angle: Float(90).radians, axis: [0, 1, 0]),
-//                                                                   simd_quatf(angle: Float(90).radians, axis: [0, 1, 0]),
-//                                                                   simd_quatf(angle: Float(-90).radians, axis: [0, 1, 0]),
-//                                                                   simd_quatf(angle: Float(-90).radians, axis: [0, 1, 0]),
-//                                                                   simd_quatf(angle: Float(90).radians, axis: [0, 1, 0])],
-//                                                       times: [0, 2, 2.1, 4, 4.1], maximumTime: 8)
-//        return PNAnimatedCoordinateSpace(translation: PNAnyAnimatedValue(translation),
-//                                         rotation: PNAnyAnimatedValue(orientation),
-//                                         scale: PNAnyAnimatedValue(PNIAnimatedValue.static(from: [scale, scale, scale])))
-//    }
-//    private func buildEngineForDrummerScene() {
-//        guard let device = metalView.device else {
-//            fatalError("Could not initialize the scene")
-//        }
-//        let loader = PNISceneLoader(device: device,
-//                                    assetLoader: PNIAssetLoader(),
-//                                    translator: PNISceneTranslator(device: device))
-//        guard var scene = loader.resource(name: "Bishop",
-//                                          extension: "obj",
-//                                          bundle: Bundle.main) else {
-//            fatalError("Could not initialize the scene")
-//        }
-////        let plane = toyBiplane(loader: loader)
-////        let ball = soccerBall(loader: loader)
-////        let drummer = toyDrummer(loader: loader)
-//        engine.scene.rootNode.add(child: scene.rootNode)
-////        engine.scene.rootNode.add(children: [plane, ball, drummer])
-////        engine.scene.environmentMap = loadEnvironmentMap()
-//        addCamera(scene: engine.scene, position: [0, 2, -1])
-//        addSpotLight(scene: engine.scene, intensity: 1, color: [1, 0, 0], coneAngle: Float(90).radians, position: [-1, 1, 0], castsShadows: false)
-////        addSpotLight(scene: engine.scene, intensity: 1, color: [0, 1, 0], coneAngle: Float(90).radians, position: [-2, 1, 1], castsShadows: false)
-////        addSpotLight(scene: engine.scene, intensity: 1, color: [0, 0, 1], coneAngle: Float(90).radians, position: [0, 1, 2], castsShadows: false)
-////        addSpotLight(scene: engine.scene, intensity: 1, color: [1, 1, 0], coneAngle: Float(90).radians, position: [-2, 1, -1], castsShadows: false)
-////        addSpotLight(scene: engine.scene, intensity: 1, color: [0, 1, 1], coneAngle: Float(90).radians, position: [-1, 1, -2], castsShadows: false)
-////        addDirectionalLight(scene: engine.scene, intensity: 1, color: [0, 0, 1], direction: simd_float3(0, -1, 0).normalized, castsShadows: true)
-////        addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 0, 0], direction: simd_float3(0, -1, -0.1).normalized, castsShadows: true)
-////        addDirectionalLight(scene: engine.scene, intensity: 4, color: [1, 0, 1], direction: simd_float3(0.2, -1, -0.1).normalized, castsShadows: true)
-////        for i in 0...4 {
-////            addOmniLight(scene: engine.scene, intensity: 4, color: [1, 0, 0], position: [0, 8, -1], castsShadows: false)
-////            addOmniLight(scene: engine.scene, intensity: 3, color: [0, 0, 1], position: [0, 8, 0], castsShadows: false)
-////            addOmniLight(scene: engine.scene, intensity: 2, color: [0, 1, 0], position: [0, 8, 1], castsShadows: false)
-////        }
-//        addAmbientLight(scene: engine.scene,
-//                        intensity: 0.2,
-//                        color: simd_float3(1, 1, 1),
-//                        position: [0, 0, 0])
-//    }
-
     private func listenForKeyboardEvents() {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] in
             self?.keyDown(with: $0)
@@ -270,16 +195,6 @@ class ViewController: NSViewController {
                 fields.add(child: cubeNode)
             }
         }
-//        guard let meshNode = (board.children[0].data as? PNIMeshNode) else {
-//            fatalError()
-//        }
-//        for i in meshNode.mesh.pieceDescriptions.count.naturalExclusive {
-//            meshNode.mesh.pieceDescriptions[i].material = material
-//        }
-//        scaleNode.add(child: board)
-//        addDirectionalLight(scene: engine.scene, intensity: 30, color: [1, 1, 1], direction: simd_float3(0, -1, 0).normalized, castsShadows: true)
-//        addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(0, -1, 0).normalized, castsShadows: true)
-//        addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(0, -1, 0).normalized, castsShadows: true)
         let all = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 0, 0],
                                                                 rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
                                                                 scale: [0.5, 0.5, 0.5])) as PNSceneNode)
@@ -287,7 +202,5 @@ class ViewController: NSViewController {
         engine.scene.rootNode.add(child: all)
         addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(0, 1, -0.1).normalized, castsShadows: false)
         addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(0, -1, 0.1).normalized, castsShadows: false)
-//        addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(-0.1, 1, 0).normalized, castsShadows: false)
-//        addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(0.1, 1, 0).normalized, castsShadows: false)
     }
 }
