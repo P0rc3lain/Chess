@@ -153,6 +153,11 @@ class ViewController: NSViewController {
                                    roughness: mahoganyTexture,
                                    normals: mahoganyTexture,
                                    metallic: mahoganyTexture)
+        if let meshNode = (board.children[0].data as? PNIMeshNode) {
+            for d in meshNode.mesh.pieceDescriptions.count.naturalExclusive {
+                meshNode.mesh.pieceDescriptions[d].material = sapeleMaterial
+            }
+        }
         if let meshNode = (cubeSapele.children[0].data as? PNIMeshNode) {
             for d in meshNode.mesh.pieceDescriptions.count.naturalExclusive {
                 meshNode.mesh.pieceDescriptions[d].material = sapeleMaterial
