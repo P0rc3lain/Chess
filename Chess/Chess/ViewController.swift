@@ -33,7 +33,11 @@ class ViewController: NSViewController {
         }
     }
     private func cameraAnimation() -> PNAnimatedCoordinateSpace {
-        let translation = PNIAnimatedValue<simd_float3>(keyFrames: [[0, -3, -10], [0, -3, -10], [0, -3, -10], [0, -3, -10], [0, -3, -10]],
+        let translation = PNIAnimatedValue<simd_float3>(keyFrames: [[0, -3, -10],
+                                                                    [0, -3, -10],
+                                                                    [0, -3, -10],
+                                                                    [0, -3, -10],
+                                                                    [0, -3, -10]],
                                                         times: [0, 2, 4, 6, 8],
                                                         maximumTime: 10)
         let orientation = PNIAnimatedValue<simd_quatf>(keyFrames: [simd_quatf(angle: Float(90).radians, axis: [0, 3.5, 0]),
@@ -195,7 +199,15 @@ class ViewController: NSViewController {
         let fields = loadBoardFields(loader: loader, mahogany: mahoganyMaterial, sapele: sapeleMaterial)
         all.add(children: whites, black, board, fields)
         engine.scene.rootNode.add(child: all)
-        addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(0, 1, -0.1).normalized, castsShadows: false)
-        addDirectionalLight(scene: engine.scene, intensity: 3, color: [1, 1, 1], direction: simd_float3(0, -1, 0.1).normalized, castsShadows: false)
+        addDirectionalLight(scene: engine.scene,
+                            intensity: 3,
+                            color: [1, 1, 1],
+                            direction: simd_float3(0, 1, -0.1).normalized,
+                            castsShadows: false)
+        addDirectionalLight(scene: engine.scene,
+                            intensity: 3,
+                            color: [1, 1, 1],
+                            direction: simd_float3(0, -1, 0.1).normalized,
+                            castsShadows: false)
     }
 }
