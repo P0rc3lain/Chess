@@ -264,7 +264,7 @@ class ViewController: NSViewController {
         let fields = PNNode(data: PNISceneNode(transform: .compose(translation: [-3.5, 2.5, 0], rotation: .init(), scale: [1, 1, 1])) as PNSceneNode)
         for i in 0 ..< 8 {
             for j in 0 ..< 8 {
-                let cubeNode = PNNode(data: PNISceneNode(transform: .compose(translation: [Float(i), -2, Float(j)], rotation: .init(), scale: [0.5, 0.5, 0.5])) as PNSceneNode)
+                let cubeNode = PNNode(data: PNISceneNode(transform: .compose(translation: [Float(i), -1.6, Float(j)], rotation: .init(), scale: [0.5, 0.1, 0.5])) as PNSceneNode)
                 let isWhite = ((i + j) % 2) == 0
                 cubeNode.add(child: isWhite ? cubeSapele : cubeMahogany)
                 fields.add(child: cubeNode)
