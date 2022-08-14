@@ -125,6 +125,19 @@ class ViewController: NSViewController {
         }
         return nodes
     }
+    private func loadMaterial(loader: MTKTextureLoader, textureName name: String) -> PNMaterial {
+        guard let texture = try? loader.newTexture(name: name,
+                                                   scaleFactor: 1,
+                                                   bundle: Bundle.main,
+                                                   options: nil) else {
+            fatalError("Could not load material")
+        }
+        return PNIMaterial(name: name,
+                           albedo: texture,
+                           roughness: texture,
+                           normals: texture,
+                           metallic: texture)
+    }
     private func createScene() {
         guard let device = engineView.device else {
             fatalError("Could not initialize the scene")
@@ -133,37 +146,12 @@ class ViewController: NSViewController {
                                     assetLoader: PNIAssetLoader(),
                                     translator: PNISceneTranslator(device: device))
         let textureLoader = MTKTextureLoader(device: engineView.device!)
-        let sapeleTexture = try! textureLoader.newTexture(name: "sapele",
-                                                    scaleFactor: 1,
-                                                    bundle: Bundle.main,
-                                                    options: nil)
-        let mahoganyTexture = try! textureLoader.newTexture(name: "mahogany",
-                                                    scaleFactor: 1,
-                                                    bundle: Bundle.main,
-                                                    options: nil)
-        let sapeleMaterial = PNIMaterial(name: "sapele",
-                                   albedo: sapeleTexture,
-                                   roughness: sapeleTexture,
-                                   normals: sapeleTexture,
-                                   metallic: sapeleTexture)
-        let mahoganyMaterial = PNIMaterial(name: "mahogany",
-                                   albedo: mahoganyTexture,
-                                   roughness: mahoganyTexture,
-                                   normals: mahoganyTexture,
-                                   metallic: mahoganyTexture)
+        let sapeleMaterial = loadMaterial(loader: textureLoader, textureName: "sapele")
+        let mahoganyMaterial = loadMaterial(loader: textureLoader, textureName: "mahogany")
 
-        let board = loadObject(loader: loader, name: "Board")
-        
-        guard let cubeMahogany = loader.resource(name: "Cube",
-                                         extension: "obj",
-                                         bundle: Bundle.main)?.rootNode else {
-            fatalError("Could not initialize the scene")
-        }
-        guard let cubeSapele = loader.resource(name: "Cube",
-                                         extension: "obj",
-                                         bundle: Bundle.main)?.rootNode else {
-            fatalError("Could not initialize the scene")
-        }
+        let board = load(loader: loader, name: "Board", material: sapeleMaterial)
+        let cubeMahogany = load(loader: loader, name: "Cube", material: mahoganyMaterial)
+        let cubeSapele = load(loader: loader, name: "Cube", material: sapeleMaterial)
 //        addAmbientLight(scene: engine.scene,
 //                        intensity: 0.2,
 //                        color: simd_float3(1, 1, 1),
@@ -171,23 +159,6 @@ class ViewController: NSViewController {
         cameraNode = addCamera(scene: engine.scene, position: [0, 2, -1])
         
         
-        
-        
-        if let meshNode = (board.children[0].data as? PNIMeshNode) {
-            for d in meshNode.mesh.pieceDescriptions.count.naturalExclusive {
-                meshNode.mesh.pieceDescriptions[d].material = sapeleMaterial
-            }
-        }
-        if let meshNode = (cubeSapele.children[0].data as? PNIMeshNode) {
-            for d in meshNode.mesh.pieceDescriptions.count.naturalExclusive {
-                meshNode.mesh.pieceDescriptions[d].material = sapeleMaterial
-            }
-        }
-        if let meshNode = (cubeMahogany.children[0].data as? PNIMeshNode) {
-            for d in meshNode.mesh.pieceDescriptions.count.naturalExclusive {
-                meshNode.mesh.pieceDescriptions[d].material = mahoganyMaterial
-            }
-        }
         
         
         let boardTransform = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 1.9, 3.5], rotation: .init(), scale: [0.17, 0.2, 0.17])) as PNSceneNode)
