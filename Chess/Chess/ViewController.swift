@@ -33,13 +33,14 @@ class ViewController: NSViewController {
         }
     }
     private func cameraAnimation() -> PNAnimatedCoordinateSpace {
-        let translation = PNIAnimatedValue<simd_float3>(keyFrames: [[0, -2, -10], [2, -3, -10], [3, -4, -10], [2, -3, -10], [0, -2, -10]],
+        let translation = PNIAnimatedValue<simd_float3>(keyFrames: [[0, -3, -10], [0, -3, -10], [0, -3, -10], [0, -3, -10], [0, -3, -10]],
                                                         times: [0, 2, 4, 6, 8],
                                                         maximumTime: 10)
-        let orientation = PNIAnimatedValue<simd_quatf>(keyFrames: [simd_quatf(angle: Float(90).radians, axis: [0, 1, 0]),
-                                                                   simd_quatf(angle: Float(-90).radians, axis: [0, 1, 0]),
-                                                                   simd_quatf(angle: Float(90).radians, axis: [0, 1, 0])],
-                                                       times: [0, 3, 6], maximumTime: 10)
+        let orientation = PNIAnimatedValue<simd_quatf>(keyFrames: [simd_quatf(angle: Float(90).radians, axis: [0, 3.5, 0]),
+                                                                   simd_quatf(angle: Float(-90).radians, axis: [0, 3.5, 0]),
+                                                                   simd_quatf(angle: Float(-180).radians, axis: [0, 3.5, 0]),
+                                                                   simd_quatf(angle: Float(-270).radians, axis: [0, 3.5, 0])],
+                                                       times: [0, 3, 6, 8], maximumTime: 10)
         return PNAnimatedCoordinateSpace(translation: PNAnyAnimatedValue(translation),
                                          rotation: PNAnyAnimatedValue(orientation),
                                          scale: PNAnyAnimatedValue(PNIAnimatedValue.defaultScale))
