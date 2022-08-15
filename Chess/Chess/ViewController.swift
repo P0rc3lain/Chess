@@ -97,7 +97,7 @@ class ViewController: NSViewController {
             guard let meshNode = n.data as? PNIMeshNode else {
                 return
             }
-            for index in meshNode.mesh.pieceDescriptions.count.naturalExclusive {
+            for index in meshNode.mesh.pieceDescriptions.count.exclusiveON {
                 meshNode.mesh.pieceDescriptions[index].material = material
             }
         }
@@ -135,7 +135,8 @@ class ViewController: NSViewController {
                                                                    scale: [1, 1, 1])) as PNSceneNode)
         for i in 0 ..< 8 {
             for j in 0 ..< 8 {
-                let cubeNode = PNNode(data: PNISceneNode(transform: .compose(translation: [Float(i), -1.6, Float(j)], scale: [0.5, 0.1, 0.5])) as PNSceneNode)
+                let cubeNode = PNNode(data: PNISceneNode(transform: .compose(translation: [Float(i), -1.6, Float(j)],
+                                                                             scale: [0.5, 0.1, 0.5])) as PNSceneNode)
                 let isWhite = ((i + j) % 2) == 0
                 cubeNode.add(child: isWhite ? cubeSapele : cubeMahogany)
                 fields.add(child: cubeNode)
@@ -170,7 +171,7 @@ class ViewController: NSViewController {
         let loader = PNISceneLoader(device: device,
                                     assetLoader: PNIAssetLoader(),
                                     translator: PNISceneTranslator(device: device))
-        let textureLoader = MTKTextureLoader(device: engineView.device!)
+        let textureLoader = MTKTextureLoader(device: device)
         let sapeleMaterial = loadMaterial(loader: textureLoader, textureName: "sapele")
         let mahoganyMaterial = loadMaterial(loader: textureLoader, textureName: "mahogany")
         addAmbientLight(scene: engine.scene,
@@ -188,10 +189,23 @@ class ViewController: NSViewController {
         let black = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 0, 7],
                                                                   rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
                                                                   scale: .one)) as PNSceneNode)
-        for row in loadPieces(loader: loader, material: mahoganyMaterial) {
+        var mahoganyPieces = loadPieces(loader: loader, material: mahoganyMaterial)
+        let translation = PNIAnimatedValue<simd_float3>(keyFrames: [[0, 0, 0],
+                                                                    [0, 2, 0],
+                                                                    [3, 2, 2],
+                                                                    [3, 0, 2]],
+                                                        times: [0, 2, 4, 6],
+                                                        maximumTime: 8)
+        let space = PNAnimatedCoordinateSpace(translation: PNAnyAnimatedValue(translation),
+                                              rotation: PNAnyAnimatedValue(PNIAnimatedValue.defaultOrientation),
+                                              scale: PNAnyAnimatedValue(PNIAnimatedValue.defaultScale))
+        let node = PNNode<PNSceneNode>(data: PNIAnimatedNode(animator: PNIAnimator.default, animation: space))
+        node.add(child: mahoganyPieces[0][0])
+        mahoganyPieces[0][0] = node
+        
+        for row in mahoganyPieces {
             black.add(children: row)
         }
-        black.add(children: loadPieces(loader: loader, material: mahoganyMaterial)[0])
         
         let all = PNNode(data: PNISceneNode(transform: .compose(translation: [0, 0, 0],
                                                                 rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
