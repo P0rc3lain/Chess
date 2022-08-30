@@ -3,4 +3,102 @@
    uuid = "7CBC4184-2C6D-4A66-8E8E-B9A0F3B4A0EB"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "504C3AD6-4B03-4070-A65A-7B92DEEDEF6D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chess/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "mouseDown(with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ECA128BB-F42B-42F3-BFE0-1E62C4A5D0C4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chess/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "mouseDown(with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3ECEA33C-0588-44E4-9898-3EB3C6B273A7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Library/Engine/UI/PNIScreenInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "pick(camera:scene:point:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3ECEA33C-0588-44E4-9898-3EB3C6B273A7 - 4d1d6b9b7e8f0d37"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Engine.PNNode&lt;Engine.PNSceneNode&gt;) -&gt; Swift.Bool in Engine.PNIScreenInteractor.pick(camera: Engine.PNCameraNode, scene: Engine.PNScene, point: Swift.SIMD2&lt;Swift.Float&gt;) -&gt; Swift.Array&lt;Engine.PNNode&lt;Engine.PNSceneNode&gt;&gt;"
+                  moduleName = "Engine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mateuszstompor/.porcelain/Chess/Library/Engine/UI/PNIScreenInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "3ECEA33C-0588-44E4-9898-3EB3C6B273A7 - 4d1d6b9b7e8f0d37"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Engine.PNNode&lt;Engine.PNSceneNode&gt;) -&gt; Swift.Bool in Engine.PNIScreenInteractor.pick(camera: Engine.PNCameraNode, scene: Engine.PNScene, point: Swift.SIMD2&lt;Swift.Float&gt;) -&gt; Swift.Array&lt;Engine.PNNode&lt;Engine.PNSceneNode&gt;&gt;"
+                  moduleName = "Engine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mateuszstompor/.porcelain/Chess/Library/Engine/UI/PNIScreenInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "128">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "243B1049-1469-48D9-BDBF-09219D7B6A09"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Library/Engine/UI/PNIScreenInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "pick(camera:scene:point:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
