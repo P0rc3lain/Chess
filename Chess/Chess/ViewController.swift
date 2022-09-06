@@ -14,7 +14,8 @@ import MetalBinding
 class ViewController: NSViewController {
     private var engine: PNEngine!
     private var engineView: PNView!
-    private var cameraNode: PNIAnimatedCameraNode?
+    private var cameraNode: PNCameraNode?
+    private var selectedPiece: PNScenePiece?
     override func viewDidLoad() {
         super.viewDidLoad()
         engineView = view as? PNView
@@ -26,37 +27,17 @@ class ViewController: NSViewController {
         switch event.charactersIgnoringModifiers {
         case "f":
             view.window?.toggleFullScreen(self)
-        case "p":
-            cameraNode?.animator.chronometer.toggle()
         default:
             break
         }
     }
-    private func cameraAnimation() -> PNAnimatedCoordinateSpace {
-        let translation = PNIAnimatedValue<simd_float3>(keyFrames: [[0, 3, -10],
-                                                                    [0, 3, -10],
-                                                                    [0, 3, -10],
-                                                                    [0, 3, -10],
-                                                                    [0, 3, -10]],
-                                                        times: [0, 2, 4, 6, 8],
-                                                        maximumTime: 10)
-        let orientation = PNIAnimatedValue<simd_quatf>(keyFrames: [simd_quatf(angle: Float(90).radians, axis: [0, 3.5, 0]),
-                                                                   simd_quatf(angle: Float(-90).radians, axis: [0, 3.5, 0]),
-                                                                   simd_quatf(angle: Float(-180).radians, axis: [0, 3.5, 0]),
-                                                                   simd_quatf(angle: Float(-270).radians, axis: [0, 3.5, 0])],
-                                                       times: [0, 3, 6, 8], maximumTime: 10)
-        return PNAnimatedCoordinateSpace(translation: PNAnyAnimatedValue(translation),
-                                         rotation: PNAnyAnimatedValue(orientation),
-                                         scale: PNAnyAnimatedValue(PNIAnimatedValue.defaultScale))
-    }
-    private func addCamera(scene: PNScene, position: simd_float3) -> PNIAnimatedCameraNode {
-        let camera = PNCamera(nearPlane: 0.01,
-                              farPlane: 20,
-                              fovRadians: Float(80).radians,
-                              aspectRatio: Float(2880/1800))
-        let node = PNIAnimatedCameraNode(camera: camera,
-                                         animator: PNIAnimator.default,
-                                         animation: cameraAnimation())
+    private func addCamera(scene: PNScene, position: simd_float3) -> PNCameraNode {
+        let camera = PNOrthographicCamera(bound: PNBound(min: [-5, -5, 0.01], max: [5, 5, 20]))
+        let rotation = simd_float4x4(simd_quatf(angle: Float(45).radians, axis: [0, 1, 0])) *
+                       simd_float4x4(simd_quatf(angle: Float(45).radians, axis: [-1, 0, 0]))
+        let translation = simd_float4x4.translation(vector: [0, 0, 5])
+        let node = PNICameraNode(camera: camera,
+                                 transform: rotation * translation)
         let treeNode = PNScenePiece.make(data: node, parent: scene.rootNode)
         scene.rootNode.children.append(treeNode)
         return node
@@ -237,31 +218,23 @@ class ViewController: NSViewController {
             black.add(children: row)
         }
         
-        let all = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [0, 0, 0],
-                                                                           rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
+        let all = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [0, 0, -2],
                                                                            scale: [0.5, 0.5, 0.5])))
         let fields = loadBoardFields(loader: loader, mahogany: mahoganyMaterial, sapele: sapeleMaterial)
-//        all.add(children: board)
         all.add(children: whites, black, board, fields)
-//        addOmniLight(scene: engine.scene,
-//                     intensity: 10,
-//                     influenceRadius: 20,
-//                     color: [1, 1, 1],
-//                     position: [0, 2, 0],
-//                     castsShadows: false)
         engine.scene.rootNode.add(child: all)
-//        engine.scene.environmentMap = device.makeTextureSolidCube(color: [1, 1, 1, 1])!
+        engine.scene.environmentMap = device.makeTextureSolidCube(color: [1, 1, 1, 1])
         
         addDirectionalLight(scene: engine.scene,
-                            intensity: 10,
+                            intensity: 5,
+                            color: [1, 1, 1],
+                            direction: simd_float3(1, -1, 0).normalized,
+                            castsShadows: true)
+        addDirectionalLight(scene: engine.scene,
+                            intensity: 5,
                             color: [1, 1, 1],
                             direction: simd_float3(0, 1, 0).normalized,
                             castsShadows: false)
-//        addDirectionalLight(scene: engine.scene,
-//                            intensity: 10,
-//                            color: [1, 1, 1],
-//                            direction: simd_float3(0, -1, 0).normalized,
-//                            castsShadows: false)
         updateTrackingAreas()
     }
 //    override func mouseMoved(with event: NSEvent) {
@@ -317,9 +290,11 @@ class ViewController: NSViewController {
 //                _ = $0.removeSubtree()
                 if $0.children.isEmpty {
                     if let _ = $0.data as? PNMeshNode {
-                        var cur = $0.data.transform.value
-                        cur.translation.y += 1
-                        $0.data.transform.send(cur)
+                        if $0 !== selectedPiece {
+                            selectedPiece = $0
+                        } else {
+                            print("same")
+                        }
                     }
                     if let _ = $0.data as? PNRiggedMesh {
                         _ = $0.removeSubtree()

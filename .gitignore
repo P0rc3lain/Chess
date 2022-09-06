@@ -1,0 +1,8 @@
+# MacOS files
+.DS_Store
+
+# User data
+xcuserdata
+
+# Swap files
+*.swp
