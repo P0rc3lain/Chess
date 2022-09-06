@@ -15,8 +15,8 @@
 		56312CA828A950C50038DD47 /* Board.obj in Resources */ = {isa = PBXBuildFile; fileRef = 56312CA728A950C50038DD47 /* Board.obj */; };
 		56312CAA28A950DF0038DD47 /* Textures.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56312CA928A950DF0038DD47 /* Textures.xcassets */; };
 		5634348C28A94BF300C2DA95 /* Bishop.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5634348B28A94BF300C2DA95 /* Bishop.obj */; };
-		5634349128A94CB300C2DA95 /* Engine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5634348228A94AEE00C2DA95 /* Engine.framework */; };
-		5634349228A94CB300C2DA95 /* Engine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5634348228A94AEE00C2DA95 /* Engine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		564852FF28C7E3F200BA4CC0 /* Engine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 564852FC28C7E3E200BA4CC0 /* Engine.framework */; };
+		5648530028C7E3F200BA4CC0 /* Engine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 564852FC28C7E3E200BA4CC0 /* Engine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5685903628A9695000785F1A /* Cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5685903428A9695000785F1A /* Cube.obj */; };
 		56BB94AC28A94A750034D4AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AB28A94A750034D4AB /* AppDelegate.swift */; };
 		56BB94AE28A94A750034D4AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AD28A94A750034D4AB /* ViewController.swift */; };
@@ -25,23 +25,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5634348128A94AEE00C2DA95 /* PBXContainerItemProxy */ = {
+		564852FB28C7E3E200BA4CC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5634347C28A94AEE00C2DA95 /* Engine.xcodeproj */;
+			containerPortal = 564852F628C7E3E200BA4CC0 /* Engine.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 5601396C255457D100FC1C45;
 			remoteInfo = Engine;
 		};
-		5634348328A94AEE00C2DA95 /* PBXContainerItemProxy */ = {
+		564852FD28C7E3E200BA4CC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5634347C28A94AEE00C2DA95 /* Engine.xcodeproj */;
+			containerPortal = 564852F628C7E3E200BA4CC0 /* Engine.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 56924AD4271A07FD00FF3E06;
 			remoteInfo = EngineTests;
 		};
-		5634349328A94CC800C2DA95 /* PBXContainerItemProxy */ = {
+		5648530128C7E3F800BA4CC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5634347C28A94AEE00C2DA95 /* Engine.xcodeproj */;
+			containerPortal = 564852F628C7E3E200BA4CC0 /* Engine.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 5601396B255457D100FC1C45;
 			remoteInfo = Engine;
@@ -55,7 +55,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5634349228A94CB300C2DA95 /* Engine.framework in Embed Frameworks */,
+				5648530028C7E3F200BA4CC0 /* Engine.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,8 +70,8 @@
 		56312CA528A950600038DD47 /* Rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rook.obj; sourceTree = "<group>"; };
 		56312CA728A950C50038DD47 /* Board.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Board.obj; sourceTree = "<group>"; };
 		56312CA928A950DF0038DD47 /* Textures.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Textures.xcassets; sourceTree = "<group>"; };
-		5634347C28A94AEE00C2DA95 /* Engine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Engine.xcodeproj; path = ../Library/Engine.xcodeproj; sourceTree = "<group>"; };
 		5634348B28A94BF300C2DA95 /* Bishop.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Bishop.obj; sourceTree = "<group>"; };
+		564852F628C7E3E200BA4CC0 /* Engine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Engine.xcodeproj; path = Library/Engine.xcodeproj; sourceTree = "<group>"; };
 		5685903428A9695000785F1A /* Cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cube.obj; sourceTree = "<group>"; };
 		56BB94A828A94A750034D4AB /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56BB94AB28A94A750034D4AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,22 +86,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5634349128A94CB300C2DA95 /* Engine.framework in Frameworks */,
+				564852FF28C7E3F200BA4CC0 /* Engine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5634347D28A94AEE00C2DA95 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5634348228A94AEE00C2DA95 /* Engine.framework */,
-				5634348428A94AEE00C2DA95 /* EngineTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		5634348928A94BE900C2DA95 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,11 +116,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		564852F728C7E3E200BA4CC0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				564852FC28C7E3E200BA4CC0 /* Engine.framework */,
+				564852FE28C7E3E200BA4CC0 /* EngineTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		56BB949F28A94A750034D4AB = {
 			isa = PBXGroup;
 			children = (
+				564852F628C7E3E200BA4CC0 /* Engine.xcodeproj */,
 				5634348928A94BE900C2DA95 /* Assets */,
-				5634347C28A94AEE00C2DA95 /* Engine.xcodeproj */,
 				56BB94AA28A94A750034D4AB /* Chess */,
 				56BB94A928A94A750034D4AB /* Products */,
 				5634348D28A94C7700C2DA95 /* Frameworks */,
@@ -171,7 +171,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				5634349428A94CC800C2DA95 /* PBXTargetDependency */,
+				5648530228C7E3F800BA4CC0 /* PBXTargetDependency */,
 			);
 			name = Chess;
 			productName = Chess;
@@ -206,8 +206,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 5634347D28A94AEE00C2DA95 /* Products */;
-					ProjectRef = 5634347C28A94AEE00C2DA95 /* Engine.xcodeproj */;
+					ProductGroup = 564852F728C7E3E200BA4CC0 /* Products */;
+					ProjectRef = 564852F628C7E3E200BA4CC0 /* Engine.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -218,18 +218,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		5634348228A94AEE00C2DA95 /* Engine.framework */ = {
+		564852FC28C7E3E200BA4CC0 /* Engine.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Engine.framework;
-			remoteRef = 5634348128A94AEE00C2DA95 /* PBXContainerItemProxy */;
+			remoteRef = 564852FB28C7E3E200BA4CC0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5634348428A94AEE00C2DA95 /* EngineTests.xctest */ = {
+		564852FE28C7E3E200BA4CC0 /* EngineTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = EngineTests.xctest;
-			remoteRef = 5634348328A94AEE00C2DA95 /* PBXContainerItemProxy */;
+			remoteRef = 564852FD28C7E3E200BA4CC0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -268,10 +268,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5634349428A94CC800C2DA95 /* PBXTargetDependency */ = {
+		5648530228C7E3F800BA4CC0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Engine;
-			targetProxy = 5634349328A94CC800C2DA95 /* PBXContainerItemProxy */;
+			targetProxy = 5648530128C7E3F800BA4CC0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
