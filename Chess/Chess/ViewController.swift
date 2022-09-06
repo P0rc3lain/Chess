@@ -179,6 +179,21 @@ class ViewController: NSViewController {
         boardTransform.add(child: board)
         return boardTransform
     }
+    private func addOmniLight(scene: PNScene,
+                              intensity: Float,
+                              influenceRadius: Float,
+                              color: simd_float3,
+                              position: simd_float3,
+                              castsShadows: Bool) {
+        let light = PNIOmniLight(color: color,
+                                 intensity: intensity,
+                                 influenceRadius: influenceRadius,
+                                 castsShadows: castsShadows)
+        let treeNode = PNScenePiece.make(data: PNIOmniLightNode(light: light,
+                                                                transform: .translation(vector: position)),
+                                         parent: scene.rootNode)
+        scene.rootNode.children.append(treeNode)
+    }
     private func createScene() {
         guard let device = engineView.device else {
             fatalError("Could not initialize the scene")
@@ -226,52 +241,98 @@ class ViewController: NSViewController {
                                                                            rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
                                                                            scale: [0.5, 0.5, 0.5])))
         let fields = loadBoardFields(loader: loader, mahogany: mahoganyMaterial, sapele: sapeleMaterial)
+//        all.add(children: board)
         all.add(children: whites, black, board, fields)
+//        addOmniLight(scene: engine.scene,
+//                     intensity: 10,
+//                     influenceRadius: 20,
+//                     color: [1, 1, 1],
+//                     position: [0, 2, 0],
+//                     castsShadows: false)
         engine.scene.rootNode.add(child: all)
+//        engine.scene.environmentMap = device.makeTextureSolidCube(color: [1, 1, 1, 1])!
+        
         addDirectionalLight(scene: engine.scene,
-                            intensity: 3,
+                            intensity: 10,
                             color: [1, 1, 1],
-                            direction: simd_float3(0, 1, -0.1).normalized,
+                            direction: simd_float3(0, 1, 0).normalized,
                             castsShadows: false)
-        addDirectionalLight(scene: engine.scene,
-                            intensity: 3,
-                            color: [1, 1, 1],
-                            direction: simd_float3(0, -1, 0.1).normalized,
-                            castsShadows: false)
+//        addDirectionalLight(scene: engine.scene,
+//                            intensity: 10,
+//                            color: [1, 1, 1],
+//                            direction: simd_float3(0, -1, 0).normalized,
+//                            castsShadows: false)
+        updateTrackingAreas()
     }
-    override func mouseDown(with event: NSEvent) {
+//    override func mouseMoved(with event: NSEvent) {
+//        <#code#>
+//    }
+    var trackingArea : NSTrackingArea?
+
+    func updateTrackingAreas() {
+//        if trackingArea != nil {
+//            self.removeTrackingArea(trackingArea!)
+//        }
+        let options : NSTrackingArea.Options =
+        [.mouseEnteredAndExited, .mouseMoved, .activeAlways, .inVisibleRect]
+        trackingArea = NSTrackingArea(rect: self.view.bounds, options: options,
+                                      owner: self, userInfo: nil)
+        self.view.addTrackingArea(trackingArea!)
+    }
+    override func mouseMoved(with event: NSEvent) {
         guard let frame = view.window?.frame, let cam = cameraNode else {
             return
         }
         let location = event.locationInWindow
         let point = PNPoint2D(Float(location.x/frame.width * 2 - 1),
                               Float(location.y/frame.height * 2 - 1))
-        print(point)
-        
+//        let inverseProjection = cameraNode!.camera.projectionMatrixInverse
+//        let direction = inverseProjection * simd_float4(point.x, point.y, 1, 1)
+//        let rayEye = PNRay(origin: .zero, direction: direction.xyz.normalized)
+//        let rayWorld = cameraNode!.worldTransform.value * rayEye
+//        print(rayWorld)
+//        PNINodeInteractor().forEach(node: engine.scene.rootNode) { (node, level: Int?) in
+//            let lvl = level ?? 0
+//            if let bb = node.data.worldBoundingBox.value {
+//                let itDoes = PNIBoundInteractor().intersect(PNIBoundingBoxInteractor.default.bound(bb), ray: rayWorld)
+//                let offset = String(repeating: "\t", count: lvl)
+//                print(offset + "\(PNIBoundingBoxInteractor.default.bound(bb)) " + "\(node.data.intrinsicBoundingBox != nil ? "🧦" : "")" + (itDoes ? "🍟" : ""))
+//                return lvl + 1
+//            } else {
+//                return lvl + 1
+//            }
+//        }
+
+
+//        print(point)
+//
         let nodes = engineView.interactor.pick(camera: cameraNode!,
                                               scene: engine.scene,
                                               point: point)
-        print(nodes)
+//        print(nodes)
         nodes.forEach({
             if let camera = $0.data as? PNCameraNode {
             // nothing
             } else {
-                _ = $0.removeSubtree()
-    //            if $0.children.isEmpty {
-    //                if let _ = $0.data as? PNMeshNode {
-    //                    _ = $0.removeSubtree()
-    //                }
-    //                if let _ = $0.data as? PNRiggedMesh {
-    //                    _ = $0.removeSubtree()
-    //                }
-    //                if let _ = $0.data as? PNAnimatedRiggedMesh {
-    //                    _ = $0.removeSubtree()
-    //                }
-    //                if let _ = $0.data as? PNAnimatedMesh {
-    //                    _ = $0.removeSubtree()
-    //                }
-    //            }
+//                _ = $0.removeSubtree()
+                if $0.children.isEmpty {
+                    if let _ = $0.data as? PNMeshNode {
+                        var cur = $0.data.transform.value
+                        cur.translation.y += 1
+                        $0.data.transform.send(cur)
+                    }
+                    if let _ = $0.data as? PNRiggedMesh {
+                        _ = $0.removeSubtree()
+                    }
+                    if let _ = $0.data as? PNAnimatedRiggedMesh {
+                        _ = $0.removeSubtree()
+                    }
+                    //                    if let _ = $0.data as? PNAnimatedMesh {
+                    //                        _ = $0.removeSubtree()
+                    //                    }
+                }
             }
+            
         })
     }
 }
