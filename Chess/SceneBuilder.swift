@@ -22,7 +22,7 @@ class SceneBuilder {
         let mahoganyMaterial = loader.loadMaterial(textureName: "mahogany")
         let scene = PNScene.default
         addAmbientLight(scene: scene,
-                        intensity: 0.2,
+                        intensity: 0.5,
                         color: simd_float3(1, 1, 1),
                         position: [0, 0, 0])
         scene.rootNode.add(child: cameraNode())
@@ -62,14 +62,9 @@ class SceneBuilder {
         scene.environmentMap = device.makeTextureSolidCube(color: [1, 1, 1, 1])
         
         addDirectionalLight(scene: scene,
-                            intensity: 5,
+                            intensity: 1.5,
                             color: [1, 1, 1],
-                            direction: simd_float3(1, -1, 0).normalized,
-                            castsShadows: true)
-        addDirectionalLight(scene: scene,
-                            intensity: 5,
-                            color: [1, 1, 1],
-                            direction: simd_float3(0, 1, 0).normalized,
+                            direction: simd_float3(0, -1, 0).normalized,
                             castsShadows: false)
         return scene
     }
