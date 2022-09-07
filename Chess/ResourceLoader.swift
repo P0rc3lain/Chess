@@ -12,23 +12,27 @@ class ResourceLoader {
     private let textureLoader: MTKTextureLoader
     private let interactor: PNNodeInteractor
     private let sceneLoader: PNSceneLoader
+    private let device: MTLDevice
     init(device: MTLDevice) {
         self.interactor = PNINodeInteractor()
         self.textureLoader = MTKTextureLoader(device: device)
         self.sceneLoader = PNISceneLoader.default(device: device)
+        self.device = device
     }
     func loadMaterial(textureName name: String) -> PNMaterial {
         guard let texture = try? textureLoader.newTexture(name: name,
                                                           scaleFactor: 1,
                                                           bundle: Bundle.main,
-                                                          options: nil) else {
+                                                          options: [MTKTextureLoader.Option.SRGB: false]),
+              let blackTexture = device.makeTextureSolid2D(color: [0, 0, 0, 1]),
+              let normalsTexture = device.makeTextureSolid2D(color: .defaultNormalsColor) else {
             fatalError("Could not load material")
         }
         return PNIMaterial(name: name,
                            albedo: texture,
-                           roughness: texture,
-                           normals: texture,
-                           metallic: texture)
+                           roughness: blackTexture,
+                           normals: normalsTexture,
+                           metallic: blackTexture)
     }
     func loadObject(name: String, material: PNMaterial) -> PNScenePiece {
         let object = loadObject(name: name)
