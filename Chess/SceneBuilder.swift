@@ -36,24 +36,10 @@ class SceneBuilder {
         let black = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [0, 0, 7],
                                                                              rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
                                                                              scale: .one)))
-        var mahoganyPieces = loadPieces(material: mahoganyMaterial)
-        let translation = PNIAnimatedValue<simd_float3>(keyFrames: [[0, 0, 0],
-                                                                    [0, 2, 0],
-                                                                    [3, 2, 2],
-                                                                    [3, 0, 2]],
-                                                        times: [0, 2, 4, 6],
-                                                        maximumTime: 8)
-        let space = PNAnimatedCoordinateSpace(translation: PNAnyAnimatedValue(translation),
-                                              rotation: PNAnyAnimatedValue(PNIAnimatedValue.defaultOrientation),
-                                              scale: PNAnyAnimatedValue(PNIAnimatedValue.defaultScale))
-        let node = PNScenePiece.make(data: PNIAnimatedNode(animator: PNIAnimator.default, animation: space))
-        node.add(child: mahoganyPieces[0][0])
-        mahoganyPieces[0][0] = node
-
+        let mahoganyPieces = loadPieces(material: mahoganyMaterial)
         for row in mahoganyPieces {
             black.add(children: row)
         }
-        
         let all = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [0, 0, -2],
                                                                            scale: [0.5, 0.5, 0.5])))
         let fields = loadBoardFields(mahogany: mahoganyMaterial, sapele: sapeleMaterial)
