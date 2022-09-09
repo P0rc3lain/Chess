@@ -33,9 +33,9 @@ class SceneBuilder {
         for row in loadPieces(material: sapeleMaterial) {
             whites.add(children: row)
         }
-        let black = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [0, 0, 7],
-                                                                             rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
-                                                                             scale: .one)))
+        let black = PNScenePiece.make(data: PNISceneNode(transform: .composeTRS(translation: [0, 0, 7],
+                                                                                rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
+                                                                                scale: .one)))
         let mahoganyPieces = loadPieces(material: mahoganyMaterial)
         for row in mahoganyPieces {
             black.add(children: row)
@@ -56,8 +56,8 @@ class SceneBuilder {
     }
     private func loadBoard(material: PNMaterial) -> PNNode<PNSceneNode> {
         let board = loader.loadObject(name: "Board", material: material)
-        let boardTransform = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [0, 1.9, 3.5],
-                                                                                      scale: [0.17, 0.2, 0.17])))
+        let boardTransform = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [0.02, 1.9, 3.45],
+                                                                                      scale: [0.168, 0.2, 0.168])))
         boardTransform.add(child: board)
         return boardTransform
     }
@@ -77,14 +77,35 @@ class SceneBuilder {
         scene.rootNode.children.append(treeNode)
     }
     private func loadPieces(material: PNMaterial) -> [[PNScenePiece]] {
-        let queen = loader.loadObject(name: "Queen", material: material)
-        let king = loader.loadObject(name: "King", material: material)
+        let isWhite = material.name == "sapele"
+        let prefix = isWhite ? "White" : "Black"
+        let names = [
+            [ prefix + "Rook" + "0",
+              prefix + "Knight" + "0",
+              prefix + "Bishop" + "0",
+              prefix + "King" + "0",
+              prefix + "Queen" + "0",
+              prefix + "Bishop" + "1",
+              prefix + "Knight" + "1",
+              prefix + "Rook" + "1"
+            ],
+            [
+                prefix + "Pawn" + "0",
+                prefix + "Pawn" + "1",
+                prefix + "Pawn" + "2",
+                prefix + "Pawn" + "3",
+                prefix + "Pawn" + "4",
+                prefix + "Pawn" + "5",
+                prefix + "Pawn" + "6",
+                prefix + "Pawn" + "7"
+            ]
+        ]
         var nodes = [
             [loader.loadObject(name: "Rook", material: material),
              loader.loadObject(name: "Knight", material: material),
              loader.loadObject(name: "Bishop", material: material),
-             king,
-             queen,
+             loader.loadObject(name: "King", material: material),
+             loader.loadObject(name: "Queen", material: material),
              loader.loadObject(name: "Bishop", material: material),
              loader.loadObject(name: "Knight", material: material),
              loader.loadObject(name: "Rook", material: material)],
@@ -100,7 +121,7 @@ class SceneBuilder {
         for j in 0 ..< 2 {
             for i in 0 ..< 8 {
                 let transform = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [-3.5 + Float(i), 2, Float(j)],
-                                                                                         scale: [0.2, 0.2, 0.2])))
+                                                                                         scale: [0.2, 0.2, 0.2]), name: names[j][i]))
                 transform.add(child: nodes[j][i])
                 nodes[j][i] = transform
             }
@@ -126,12 +147,13 @@ class SceneBuilder {
     }
     
     private func cameraNode() -> PNScenePiece {
-        let camera = PNOrthographicCamera(bound: PNBound(min: [-5, -5, 0.01], max: [5, 5, 20]))
+        let camera = PNOrthographicCamera(bound: PNBound(min: [-5, -5, 0.01], max: [5, 5, 100]))
         let rotation = simd_float4x4(simd_quatf(angle: Float(45).radians, axis: [0, 1, 0])) *
                        simd_float4x4(simd_quatf(angle: Float(45).radians, axis: [-1, 0, 0]))
         let translation = simd_float4x4.translation(vector: [0, 0, 5])
-        let node = PNICameraNode(camera: camera,
-                                 transform: rotation * translation)
+        let node = PNIAnimatedCameraNode(camera: camera,
+                                         animator: PNIAnimator(chronometer: PNIChronometer(timeProducer: { Date() }), interpolator: PNIInterpolator(), sampler: PNISinglePlaySampler(), windingOrder: .rts),
+                                         animation: .static(from: rotation * translation))
         return PNScenePiece.make(data: node)
     }
     private func addAmbientLight(scene: PNScene,
