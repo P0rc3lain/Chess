@@ -33,9 +33,10 @@ class SceneBuilder {
         for row in loadPieces(material: sapeleMaterial) {
             whites.add(children: row)
         }
-        let black = PNScenePiece.make(data: PNISceneNode(transform: .composeTRS(translation: [0, 0, 7],
-                                                                                rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
-                                                                                scale: .one)))
+        let blackPiecesTransform = PNTransform.composeTRS(translation: [0, 0, 7],
+                                                          rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
+                                                          scale: .one)
+        let black = PNScenePiece.make(data: PNISceneNode(transform: blackPiecesTransform))
         let mahoganyPieces = loadPieces(material: mahoganyMaterial)
         for row in mahoganyPieces {
             black.add(children: row)
@@ -46,12 +47,10 @@ class SceneBuilder {
         all.add(children: whites, black, board, fields)
         scene.rootNode.add(child: all)
         scene.environmentMap = device.makeTextureSolidCube(color: [1, 1, 1, 1])
-        
-        addDirectionalLight(scene: scene,
-                            intensity: 1.5,
-                            color: [1, 1, 1],
-                            direction: simd_float3(0, -1, 0).normalized,
-                            castsShadows: false)
+        scene.directionalLights.append(PNIDirectionalLight(color: [1, 1, 1],
+                                                           intensity: 1.5,
+                                                           direction: simd_float3(0, -1, 0).normalized,
+                                                           castsShadows: false))
         return scene
     }
     private func loadBoard(material: PNMaterial) -> PNNode<PNSceneNode> {
@@ -121,7 +120,8 @@ class SceneBuilder {
         for j in 0 ..< 2 {
             for i in 0 ..< 8 {
                 let transform = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [-3.5 + Float(i), 2, Float(j)],
-                                                                                         scale: [0.2, 0.2, 0.2]), name: names[j][i]))
+                                                                                         scale: [0.2, 0.2, 0.2]),
+                                                                     name: names[j][i]))
                 transform.add(child: nodes[j][i])
                 nodes[j][i] = transform
             }
@@ -132,10 +132,14 @@ class SceneBuilder {
         
         let fields = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [-3.5, 2.5, 0],
                                                                               scale: [1, 1, 1])))
+        let idA = ["a", "b", "c", "d", "e", "f", "g", "h"]
+        let idB = ["1", "2", "3", "4", "5", "6", "7", "8"]
         for i in 0 ..< 8 {
             for j in 0 ..< 8 {
+                let id = idA[i] + idB[j]
                 let cubeNode = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [Float(i), -1.6, Float(j)],
-                                                                                        scale: [0.5, 0.1, 0.5])))
+                                                                                        scale: [0.5, 0.1, 0.5]),
+                                                                    name: id))
                 let isWhite = ((i + j) % 2) == 0
                 let cubeMahogany = loader.loadObject(name: "Cube", material: mahogany)
                 let cubeSapele = loader.loadObject(name: "Cube", material: sapele)
@@ -155,9 +159,10 @@ class SceneBuilder {
                                    interpolator: PNIInterpolator(),
                                    sampler: PNISinglePlaySampler(),
                                    windingOrder: .rts)
+        let transform = PNAnimatedTransform.static(from:  translation * simd_float4x4(rotation))
         let node = PNIAnimatedCameraNode(camera: camera,
                                          animator: animator,
-                                         animation: .static(from:  translation * simd_float4x4(rotation)))
+                                         animation: transform)
         return PNScenePiece.make(data: node)
     }
     private func addAmbientLight(scene: PNScene,
@@ -168,13 +173,5 @@ class SceneBuilder {
         let node = PNIAmbientLightNode(light: light, transform: .translation(vector: position))
         let treeNode = PNScenePiece.make(data: node, parent: scene.rootNode)
         scene.rootNode.children.append(treeNode)
-    }
-    private func addDirectionalLight(scene: PNScene,
-                                     intensity: Float,
-                                     color: simd_float3,
-                                     direction: simd_float3,
-                                     castsShadows: Bool) {
-        let light = PNIDirectionalLight(color: color, intensity: intensity, direction: direction, castsShadows: castsShadows)
-        scene.directionalLights.append(light)
     }
 }
