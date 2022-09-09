@@ -56,7 +56,7 @@ class SceneBuilder {
     }
     private func loadBoard(material: PNMaterial) -> PNNode<PNSceneNode> {
         let board = loader.loadObject(name: "Board", material: material)
-        let boardTransform = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [0.02, 1.9, 3.45],
+        let boardTransform = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [0.02, 1.9, 3.46],
                                                                                       scale: [0.168, 0.2, 0.168])))
         boardTransform.add(child: board)
         return boardTransform
