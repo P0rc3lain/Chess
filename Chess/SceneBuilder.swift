@@ -136,7 +136,7 @@ class SceneBuilder {
         let idB = ["1", "2", "3", "4", "5", "6", "7", "8"]
         for i in 0 ..< 8 {
             for j in 0 ..< 8 {
-                let id = idA[i] + idB[j]
+                let id = idA[7 - i] + idB[j]
                 let cubeNode = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [Float(i), -1.6, Float(j)],
                                                                                         scale: [0.5, 0.1, 0.5]),
                                                                     name: id))
