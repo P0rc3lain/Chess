@@ -14,8 +14,8 @@ class CameraController {
         let transform = camera.animator.transform(coordinateSpace: camera.animation).rotation
         let newOrientation = simd_quatf(angle: Float(angleDegress).radians, axis: [0, 1, 0])
         let animation = PNKeyframeAnimation<simd_quatf>(keyFrames: [transform, newOrientation * transform],
-                                                        times: [0, 1],
-                                                        maximumTime: 1)
+                                                        times: [0, 2],
+                                                        maximumTime: 4)
         let acs = PNAnimatedCoordinateSpace(translation: translation,
                                             rotation: animation,
                                             scale: PNAnimatedFloat3.defaultScale)
