@@ -25,6 +25,7 @@
 		5648531328C90B7B00BA4CC0 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5648531228C90B7B00BA4CC0 /* Board.swift */; };
 		5648531528C90B9100BA4CC0 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5648531428C90B9100BA4CC0 /* Piece.swift */; };
 		5648531728C90D7F00BA4CC0 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5648531628C90D7F00BA4CC0 /* Move.swift */; };
+		567A568528CB68BF008DDE40 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567A568428CB68BF008DDE40 /* CameraController.swift */; };
 		5685903628A9695000785F1A /* Cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5685903428A9695000785F1A /* Cube.obj */; };
 		56BB94AC28A94A750034D4AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AB28A94A750034D4AB /* AppDelegate.swift */; };
 		56BB94AE28A94A750034D4AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AD28A94A750034D4AB /* ViewController.swift */; };
@@ -88,6 +89,7 @@
 		5648531228C90B7B00BA4CC0 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		5648531428C90B9100BA4CC0 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		5648531628C90D7F00BA4CC0 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
+		567A568428CB68BF008DDE40 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		5685903428A9695000785F1A /* Cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cube.obj; sourceTree = "<group>"; };
 		56BB94A828A94A750034D4AB /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56BB94AB28A94A750034D4AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				5648530C28C90A6D00BA4CC0 /* SceneManipulator.swift */,
 				5648530328C7E65300BA4CC0 /* SceneBuilder.swift */,
 				56BB94AD28A94A750034D4AB /* ViewController.swift */,
+				567A568428CB68BF008DDE40 /* CameraController.swift */,
 				5648530E28C90B2600BA4CC0 /* PieceType.swift */,
 				5648531028C90B5C00BA4CC0 /* PieceColor.swift */,
 				56BB94AF28A94A770034D4AB /* Assets.xcassets */,
@@ -290,6 +293,7 @@
 				5648530D28C90A6D00BA4CC0 /* SceneManipulator.swift in Sources */,
 				56BB94AC28A94A750034D4AB /* AppDelegate.swift in Sources */,
 				5648530B28C7F64800BA4CC0 /* ResourceLoader.swift in Sources */,
+				567A568528CB68BF008DDE40 /* CameraController.swift in Sources */,
 				5648531528C90B9100BA4CC0 /* Piece.swift in Sources */,
 				5648530F28C90B2600BA4CC0 /* PieceType.swift in Sources */,
 				5648531328C90B7B00BA4CC0 /* Board.swift in Sources */,
