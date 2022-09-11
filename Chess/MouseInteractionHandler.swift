@@ -30,11 +30,10 @@ class MouseInteractionHandler {
                    viewframe frame: NSRect) -> PNScenePiece? {
         let allFound = click(event: event, camera: camera, scene: scene, viewframe: frame)
         return allFound.first(where: {
-            guard let meshNode = $0.data as? PNMeshNode else {
+            guard $0.data as? PNMeshNode != nil else {
                 return false
             }
             return $0.parent?.parent?.data.name.count ?? 0 > 2
-            
         })
     }
     func pickField(event: NSEvent,
@@ -43,7 +42,7 @@ class MouseInteractionHandler {
                    viewframe frame: NSRect) -> PNScenePiece? {
         let allFound = click(event: event, camera: camera, scene: scene, viewframe: frame)
         return allFound.first(where: {
-            guard let meshNode = $0.data as? PNMeshNode else {
+            guard $0.data as? PNMeshNode != nil else {
                 return false
             }
             return $0.parent?.parent?.data.name.count ?? 0 == 2

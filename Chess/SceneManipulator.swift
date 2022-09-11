@@ -6,6 +6,7 @@
 //
 
 import Engine
+import simd
 
 class SceneManipulator {
     let interactor = PNINodeInteractor()
@@ -16,13 +17,25 @@ class SceneManipulator {
     }
     func findPiece(scene: PNScene, piece: Piece) -> PNScenePiece? {
         interactor.forEach(node: scene.rootNode) { node in
-            let nodeName = node.data.name
+            guard let data = node.data as? PNAnimatedNode else {
+                return
+            }
+            let nodeName = data.name
             guard nodeName != "" else {
                 return
             }
-            if node.data.name == String(describing: piece) {
-                node.data.transform.value.translation += [0, 2, 0]
+            if data.name == String(describing: piece) {
+                let current = node.data.transform.value.translation
+                let animation = PNKeyframeAnimation(keyFrames: [simd_float3(current.x, current.y, current.z),
+                                                                simd_float3(current.x, current.y + 2, current.z),
+                                                                simd_float3(current.x + 1, current.y + 2, current.z + 1),
+                                                                simd_float3(current.x + 1, current.y, current.z + 1)], times: [0, 1, 2, 3], maximumTime: 4)
+                data.animation = PNAnimatedCoordinateSpace(translation: animation,
+                                                           rotation: PNAnimatedQuatf.defaultOrientation,
+                                                           scale: PNAnimatedFloat3.defaultScale)
+                data.animator.chronometer.reset()
             }
+            
         }
         return nil
     }

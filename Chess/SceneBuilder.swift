@@ -30,17 +30,14 @@ class SceneBuilder {
         let board = loadBoard(material: sapeleMaterial)
         let whites = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: .zero,
                                                                               scale: [1, 1, 1])))
-        for row in loadPieces(material: sapeleMaterial) {
-            whites.add(children: row)
-        }
+//        for row in loadPieces(material: sapeleMaterial) {
+            whites.add(child: loadPieces(material: sapeleMaterial))
+//        }
         let blackPiecesTransform = PNTransform.composeTRS(translation: [0, 0, 7],
                                                           rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
                                                           scale: .one)
         let black = PNScenePiece.make(data: PNISceneNode(transform: blackPiecesTransform))
-        let mahoganyPieces = loadPieces(material: mahoganyMaterial)
-        for row in mahoganyPieces {
-            black.add(children: row)
-        }
+        black.add(child: loadPieces(material: mahoganyMaterial))
         let all = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [0, 0, -2],
                                                                            scale: [0.5, 0.5, 0.5])))
         let fields = loadBoardFields(mahogany: mahoganyMaterial, sapele: sapeleMaterial)
@@ -75,7 +72,7 @@ class SceneBuilder {
                                          parent: scene.rootNode)
         scene.rootNode.children.append(treeNode)
     }
-    private func loadPieces(material: PNMaterial) -> [[PNScenePiece]] {
+    private func loadPieces(material: PNMaterial) -> PNScenePiece {
         let isWhite = material.name == "sapele"
         let prefix = isWhite ? "White" : "Black"
         let names = [
@@ -99,7 +96,7 @@ class SceneBuilder {
                 prefix + "Pawn" + "7"
             ]
         ]
-        var nodes = [
+        let nodes = [
             [loader.loadObject(name: "Rook", material: material),
              loader.loadObject(name: "Knight", material: material),
              loader.loadObject(name: "Bishop", material: material),
@@ -117,16 +114,26 @@ class SceneBuilder {
              loader.loadObject(name: "Pawn", material: material),
              loader.loadObject(name: "Pawn", material: material)]
         ]
+        let n = PNScenePiece.make(data: PNISceneNode(transform: .identity))
         for j in 0 ..< 2 {
             for i in 0 ..< 8 {
-                let transform = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [-3.5 + Float(i), 2, Float(j)],
-                                                                                         scale: [0.2, 0.2, 0.2]),
-                                                                     name: names[j][i]))
-                transform.add(child: nodes[j][i])
-                nodes[j][i] = transform
+                let vector = simd_float3(Float(i), 0, Float(j))
+                let animator = PNIAnimator(chronometer: PNIChronometer(timeProducer: {
+                    Date()
+                }), interpolator: PNIInterpolator(), sampler: PNISinglePlaySampler())
+                let node = PNIAnimatedNode(animator: animator, animation: .static(from: .translation(vector: vector)), name: names[j][i])
+//                let node = PNISceneNode(transform: .translation(vector: vector),
+//                                        name: names[j][i])
+                let p = PNScenePiece.make(data: node)
+                let groupNode = PNISceneNode(transform: .compose(translation: [-3.5, 2, 0],
+                                                                 scale: [0.2, 0.2, 0.2]))
+                let groupTransform = PNScenePiece.make(data: groupNode)
+                p.add(child: groupTransform)
+                groupTransform.add(child: nodes[j][i])
+                n.add(child: p)
             }
         }
-        return nodes
+        return n
     }
     private func loadBoardFields(mahogany: PNMaterial, sapele: PNMaterial) -> PNNode<PNSceneNode> {
         

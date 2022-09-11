@@ -27,9 +27,7 @@ class ViewController: NSViewController {
         switch event.charactersIgnoringModifiers {
         case "f":
             view.window?.toggleFullScreen(self)
-        case "a":
-            fallthrough
-        case "d":
+        case "d", "a":
             let minus = event.charactersIgnoringModifiers == "a"
             let nodeInteractor = PNINodeInteractor()
             nodeInteractor.forEach(node: engine.scene.rootNode, { node in
@@ -59,15 +57,15 @@ class ViewController: NSViewController {
         }
         let cameraNode = cameraEnclosingNode.data as! PNAnimatedCameraNode
         let handler = MouseInteractionHandler(interactor: engineView.interactor)
-        let field = handler.pickField(event: event, camera: cameraNode, scene: engine.scene, viewframe: frame)
-        print("Field name is: \(field?.parent?.parent?.data.name)")
-        let piece = handler.pickPiece(event: event, camera: cameraNode, scene: engine.scene, viewframe: frame)
-        print("Piece name is: \(piece?.parent?.parent?.data.name)")
-//        let manipulator = SceneManipulator()
-//        manipulator.performMoves(scene: engine.scene, moves: [
-//            Move(who: Piece(color: .white, type: .pawn(0)),
-//                 from: (1, 0),
-//                 to: (2, 0))
-//        ])
+//        let field = handler.pickField(event: event, camera: cameraNode, scene: engine.scene, viewframe: frame)
+//        print("Field name is: \(field?.parent?.parent?.data.name)")
+//        let piece = handler.pickPiece(event: event, camera: cameraNode, scene: engine.scene, viewframe: frame)
+//        print("Piece name is: \(piece?.parent?.parent?.data.name)")
+        let manipulator = SceneManipulator()
+        manipulator.performMoves(scene: engine.scene, moves: [
+            Move(who: Piece(color: .white, type: .pawn(0)),
+                 from: (1, 0),
+                 to: (2, 0))
+        ])
     }
 }
