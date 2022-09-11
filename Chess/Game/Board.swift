@@ -5,7 +5,7 @@
 //  Created by Mateusz Stompór on 07/09/2022.
 //
 
-class Board {
+struct Board {
     var fields: [[Piece?]]
     init() {
         self.fields = Array(repeating: Array(repeating: nil, count: 8), count: 8)
@@ -21,7 +21,7 @@ class Board {
         return nil
     }
     static var initial: Board {
-        let board = Board()
+        var board = Board()
         board.fields[0] = [
             Piece(color: .white, type: .rook(1)),
             Piece(color: .white, type: .pawn(7)),
