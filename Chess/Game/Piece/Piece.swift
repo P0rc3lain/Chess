@@ -30,7 +30,7 @@ struct Piece: CustomStringConvertible, Equatable {
             return nil
         }
         let color = PieceColor(rawValue: String(literal[match.range(at: 1)]))
-        let index = match.numberOfRanges > 2 ? Int(String(literal[match.range(at: 3)])) : nil
+        let index = match.range(at: 3).location != NSNotFound ? Int(String(literal[match.range(at: 3)])) : nil
         let pieceType = PieceType(type: String(literal[match.range(at: 2)]),
                                   index: index)
         guard let color = color,
