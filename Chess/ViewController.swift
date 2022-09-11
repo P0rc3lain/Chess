@@ -53,25 +53,29 @@ class ViewController: NSViewController {
             return
         }
         let handler = MouseInteractionHandler(interactor: engineView.interactor)
+        var moves = [Move]()
+        let d = PNINodeTrace.default.tree(node: engine.scene.rootNode) { node in
+            node.data.name.isEmpty ? "NoName" : node.data.name
+        }
+//        print(d)
         if game.currentExpectation == .piecePick {
             let piece = handler.pickPiece(event: event,
                                           camera: camera,
                                           scene: engine.scene,
                                           viewframe: frame)
+            let pieceS = Piece(literal: piece?.data.name ?? "")
+            print(pieceS)
+            moves = game.selectPiece(piece: pieceS)
         } else {
-            let piece = handler.pickField(event: event,
+            let field = handler.pickField(event: event,
                                           camera: camera,
                                           scene: engine.scene,
                                           viewframe: frame)
+            let fieldS = Field(literal: field?.data.name ?? "")
+            print(fieldS)
+            moves = game.selectField(field: fieldS)
         }
         let manipulator = SceneManipulator()
-        manipulator.performMoves(scene: engine.scene, moves: [
-            Move(who: Piece(color: .white, type: .pawn(1)),
-                 from: (1, 1),
-                 to: nil),
-            Move(who: Piece(color: .white, type: .pawn(0)),
-                 from: (0, 1),
-                 to: (1, 1))
-        ])
+        manipulator.performMoves(scene: engine.scene, moves: moves)
     }
 }

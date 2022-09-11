@@ -29,11 +29,13 @@ class MouseInteractionHandler {
                    scene: PNScene,
                    viewframe frame: NSRect) -> PNScenePiece? {
         let allFound = click(event: event, camera: camera, scene: scene, viewframe: frame)
-        return allFound.first(where: {
+        return allFound.compactMap({
             guard $0.data as? PNMeshNode != nil else {
-                return false
+                return nil
             }
-            return $0.parent?.parent?.data.name.count ?? 0 > 2
+            return $0.parent?.parent?.parent
+        }).first(where: {
+            $0.data.name.count > 2
         })
     }
     func pickField(event: NSEvent,
@@ -41,11 +43,13 @@ class MouseInteractionHandler {
                    scene: PNScene,
                    viewframe frame: NSRect) -> PNScenePiece? {
         let allFound = click(event: event, camera: camera, scene: scene, viewframe: frame)
-        return allFound.first(where: {
+        return allFound.compactMap({
             guard $0.data as? PNMeshNode != nil else {
-                return false
+                return nil
             }
-            return $0.parent?.parent?.data.name.count ?? 0 == 2
+            return $0.parent?.parent
+        }).first(where: {
+            $0.data.name.count == 2
         })
     }
 }

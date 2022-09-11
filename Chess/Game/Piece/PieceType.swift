@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum PieceType: CustomStringConvertible {
+enum PieceType: CustomStringConvertible, Equatable {
     case rook(Int)
     case knight(Int)
     case bishop(Int)

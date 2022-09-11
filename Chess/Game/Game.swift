@@ -12,5 +12,22 @@ enum UserExpectation {
 
 class Game {
     var board = Board.initial
+    private var selectedPiece: Piece?
     var currentExpectation = UserExpectation.piecePick
+    func selectPiece(piece: Piece?) -> [Move] {
+        selectedPiece = piece
+        currentExpectation = .fieldPick
+        return []
+    }
+    func selectField(field: Field?) -> [Move] {
+        if selectedPiece == nil {
+            return []
+        }
+        currentExpectation = .piecePick
+        let moves = [Move(who: selectedPiece!,
+                          from: board.field(of: selectedPiece!)!.tuple,
+                          to: field!.tuple)]
+        selectedPiece = nil
+        return moves
+    }
 }

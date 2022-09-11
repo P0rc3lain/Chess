@@ -9,7 +9,10 @@ import Foundation
 
 import Foundation
 
-struct Piece: CustomStringConvertible {
+struct Piece: CustomStringConvertible, Equatable {
+    static func == (lhs: Piece, rhs: Piece) -> Bool {
+        lhs.color == rhs.color && lhs.type == rhs.type
+    }
     let color: PieceColor
     let type: PieceType
     var description: String {

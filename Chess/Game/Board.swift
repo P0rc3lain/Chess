@@ -10,6 +10,16 @@ class Board {
     init() {
         self.fields = Array(repeating: Array(repeating: nil, count: 8), count: 8)
     }
+    func field(of piece: Piece) -> Field? {
+        for rowIndex in 0 ..< fields.count {
+            for columnIndex in 0 ..< fields[rowIndex].count {
+                if fields[rowIndex][columnIndex] == piece {
+                    return Field(rowIndex, columnIndex)
+                }
+            }
+        }
+        return nil
+    }
     static var initial: Board {
         let board = Board()
         board.fields[0] = [
