@@ -26,13 +26,10 @@ class SceneBuilder {
                         color: simd_float3(1, 1, 1),
                         position: [0, 0, 0])
         scene.rootNode.add(child: cameraNode())
-        
         let board = loadBoard(material: sapeleMaterial)
         let whites = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: .zero,
                                                                               scale: [1, 1, 1])))
-//        for row in loadPieces(material: sapeleMaterial) {
-            whites.add(child: loadPieces(material: sapeleMaterial))
-//        }
+        whites.add(child: loadPieces(material: sapeleMaterial))
         let blackPiecesTransform = PNTransform.composeTRS(translation: [0, 0, 7],
                                                           rotation: .init(angle: Float(180).radians, axis: [0, 1, 0]),
                                                           scale: .one)
@@ -122,8 +119,6 @@ class SceneBuilder {
                     Date()
                 }), interpolator: PNIInterpolator(), sampler: PNISinglePlaySampler())
                 let node = PNIAnimatedNode(animator: animator, animation: .static(from: .translation(vector: vector)), name: names[j][i])
-//                let node = PNISceneNode(transform: .translation(vector: vector),
-//                                        name: names[j][i])
                 let p = PNScenePiece.make(data: node)
                 let groupNode = PNISceneNode(transform: .compose(translation: [-3.5, 2, 0],
                                                                  scale: [0.2, 0.2, 0.2]))
@@ -136,7 +131,6 @@ class SceneBuilder {
         return n
     }
     private func loadBoardFields(mahogany: PNMaterial, sapele: PNMaterial) -> PNNode<PNSceneNode> {
-        
         let fields = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [-3.5, 2.5, 0],
                                                                               scale: [1, 1, 1])))
         let idA = ["a", "b", "c", "d", "e", "f", "g", "h"]
@@ -156,7 +150,6 @@ class SceneBuilder {
         }
         return fields
     }
-    
     private func cameraNode() -> PNScenePiece {
         let camera = PNOrthographicCamera(bound: PNBound(min: [-5, -5, 0.01], max: [5, 5, 100]))
         let rotation = simd_quatf(angle: Float(45).radians, axis: [0, 1, 0]) *
