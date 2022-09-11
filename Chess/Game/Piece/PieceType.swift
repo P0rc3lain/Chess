@@ -37,6 +37,22 @@ enum PieceType: CustomStringConvertible, Equatable {
             return nil
         }
     }
+    var mainType: String {
+        switch (self) {
+        case .rook:
+            return "Rook"
+        case .knight:
+            return "Knight"
+        case .bishop:
+            return "Bishop"
+        case .queen:
+            return "Queen"
+        case .king:
+            return "King"
+        case .pawn:
+            return "Pawn"
+        }
+    }
     var description: String {
         switch (self) {
         case .rook(let v):

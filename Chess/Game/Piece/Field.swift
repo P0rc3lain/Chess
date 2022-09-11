@@ -29,6 +29,6 @@ struct Field {
             return nil
         }
         self.row = Int(row) - 97
-        self.column = column + 1
+        self.column = column - 1
     }
 }

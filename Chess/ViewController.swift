@@ -22,7 +22,7 @@ class ViewController: NSViewController {
         engineView = view as? PNView
         engine = engineView.engine
         listenForKeyboardEvents()
-        engine.scene = SceneBuilder(device: engineView.device!).build()
+        engine.scene = SceneBuilder(device: engineView.device!).build(board: game.board)
     }
     override func keyDown(with event: NSEvent) {
         switch event.charactersIgnoringModifiers {
@@ -54,10 +54,6 @@ class ViewController: NSViewController {
         }
         let handler = MouseInteractionHandler(interactor: engineView.interactor)
         var moves = [Move]()
-        let d = PNINodeTrace.default.tree(node: engine.scene.rootNode) { node in
-            node.data.name.isEmpty ? "NoName" : node.data.name
-        }
-//        print(d)
         if game.currentExpectation == .piecePick {
             let piece = handler.pickPiece(event: event,
                                           camera: camera,
@@ -71,10 +67,12 @@ class ViewController: NSViewController {
                                           camera: camera,
                                           scene: engine.scene,
                                           viewframe: frame)
+            
             let fieldS = Field(literal: field?.data.name ?? "")
             print(fieldS)
             moves = game.selectField(field: fieldS)
         }
+        print(moves)
         let manipulator = SceneManipulator()
         manipulator.performMoves(scene: engine.scene, moves: moves)
     }

@@ -33,7 +33,7 @@ class MouseInteractionHandler {
             guard $0.data as? PNMeshNode != nil else {
                 return nil
             }
-            return $0.parent?.parent?.parent
+            return $0.parent?.parent?.parent?.parent
         }).first(where: {
             $0.data.name.count > 2
         })
