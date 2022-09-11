@@ -10,8 +10,12 @@ import Cocoa
 
 class MouseInteractionHandler {
     private let interactor: PNScreenInteractor
+    private let bbInteractor: PNBoundingBoxInteractor
+    private let bInteractor: PNBoundInteractor
     init(interactor: PNScreenInteractor) {
         self.interactor = interactor
+        self.bbInteractor = PNIBoundingBoxInteractor.default
+        self.bInteractor = PNIBoundInteractor()
     }
     func click(event: NSEvent,
                camera: PNCameraNode,
@@ -34,6 +38,16 @@ class MouseInteractionHandler {
                 return nil
             }
             return $0.parent?.parent?.parent?.parent
+        }).sorted(by: { first, second in
+            guard let firstBB = first.data.worldBoundingBox.value,
+                  let secondBB = second.data.worldBoundingBox.value,
+                  let cameraBB = camera.worldBoundingBox.value else {
+                return false
+            }
+            let cameraCenter = bInteractor.center(bbInteractor.bound(cameraBB))
+            let centerFirst = bInteractor.center(bbInteractor.bound(firstBB))
+            let centerSecond = bInteractor.center(bbInteractor.bound(secondBB))
+            return (cameraCenter - centerFirst).norm > (cameraCenter - centerSecond).norm
         }).first(where: {
             $0.data.name.count > 2
         })
