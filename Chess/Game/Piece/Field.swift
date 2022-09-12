@@ -10,12 +10,12 @@ import Foundation
 struct Field {
     let row: Int
     let column: Int
+    var tuple: (Int, Int) {
+        (row, column)
+    }
     init(_ row: Int, _ column: Int) {
         self.row = row
         self.column = column
-    }
-    var tuple: (Int, Int) {
-        (row, column)
     }
     init?(literal: String) {
         let pattern = "^([a-h])([1-8])$"
