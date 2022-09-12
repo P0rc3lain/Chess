@@ -35,7 +35,7 @@
 		56BB94B028A94A770034D4AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56BB94AF28A94A770034D4AB /* Assets.xcassets */; };
 		56BB94B328A94A770034D4AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56BB94B128A94A770034D4AB /* Main.storyboard */; };
 		56C3174328CFE95900C04F3C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C3174128CFE95900C04F3C /* XCTest.framework */; };
-		56DA449E28CFE7AC009FE23C /* FieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DA449D28CFE7AC009FE23C /* FieldTests.swift */; };
+		56DA449E28CFE7AC009FE23C /* Field+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DA449D28CFE7AC009FE23C /* Field+Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,7 +114,7 @@
 		56BB94B428A94A770034D4AB /* Chess.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chess.entitlements; sourceTree = "<group>"; };
 		56C3174128CFE95900C04F3C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		56DA449B28CFE7AC009FE23C /* ChessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		56DA449D28CFE7AC009FE23C /* FieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldTests.swift; sourceTree = "<group>"; };
+		56DA449D28CFE7AC009FE23C /* Field+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Field+Tests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,7 +258,7 @@
 		56DA449C28CFE7AC009FE23C /* ChessTests */ = {
 			isa = PBXGroup;
 			children = (
-				56DA449D28CFE7AC009FE23C /* FieldTests.swift */,
+				56DA449D28CFE7AC009FE23C /* Field+Tests.swift */,
 			);
 			path = ChessTests;
 			sourceTree = "<group>";
@@ -418,7 +418,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56DA449E28CFE7AC009FE23C /* FieldTests.swift in Sources */,
+				56DA449E28CFE7AC009FE23C /* Field+Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
