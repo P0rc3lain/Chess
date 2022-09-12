@@ -18,9 +18,10 @@ struct Field {
         self.column = column
     }
     init?(literal: String) {
-        let pattern = "^([a-h])([1-8])$"
-        let regex = try! NSRegularExpression(pattern: pattern)
-        let matches = regex.matches(in: literal, range: NSRange(location: 0, length: literal.count))
+        guard let regex = try? NSRegularExpression(pattern: "^([a-h])([1-8])$") else {
+            return nil
+        }
+        let matches = regex.matches(in: literal)
         guard let match = matches.first else {
             return nil
         }
