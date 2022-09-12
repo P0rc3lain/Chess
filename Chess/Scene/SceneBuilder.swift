@@ -47,21 +47,6 @@ class SceneBuilder {
         boardTransform.add(child: board)
         return boardTransform
     }
-    private func addOmniLight(scene: PNScene,
-                              intensity: Float,
-                              influenceRadius: Float,
-                              color: simd_float3,
-                              position: simd_float3,
-                              castsShadows: Bool) {
-        let light = PNIOmniLight(color: color,
-                                 intensity: intensity,
-                                 influenceRadius: influenceRadius,
-                                 castsShadows: castsShadows)
-        let treeNode = PNScenePiece.make(data: PNIOmniLightNode(light: light,
-                                                                transform: .translation(vector: position)),
-                                         parent: scene.rootNode)
-        scene.rootNode.children.append(treeNode)
-    }
     private func loadPieces(board: Board, blackMaterial: PNMaterial, whiteMaterial: PNMaterial) -> PNScenePiece {
         let group = PNScenePiece.make(data: PNISceneNode(transform: .identity))
         for rowIndex in 0 ..< board.fields.count {
@@ -96,17 +81,16 @@ class SceneBuilder {
         let fields = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [-3.5, 2.5, 0],
                                                                               scale: [1, 1, 1])))
         let idA = ["a", "b", "c", "d", "e", "f", "g", "h"]
-        let idB = ["1", "2", "3", "4", "5", "6", "7", "8"]
         for i in 0 ..< 8 {
             for j in 0 ..< 8 {
-                let id = idA[i] + idB[j]
-                let cubeNode = PNScenePiece.make(data: PNISceneNode(transform: .compose(translation: [Float(i), -1.6, Float(j)],
-                                                                                        scale: [0.5, 0.1, 0.5]),
+                let transform: simd_float4x4 = .compose(translation: [Float(i), -1.6, Float(j)],
+                                                        scale: [0.5, 0.1, 0.5])
+                let id = idA[i] + String(j + 1)
+                let cubeNode = PNScenePiece.make(data: PNISceneNode(transform: transform,
                                                                     name: id))
                 let isWhite = ((i + j) % 2) == 0
-                let cubeMahogany = loader.loadObject(name: "Cube", material: mahogany)
-                let cubeSapele = loader.loadObject(name: "Cube", material: sapele)
-                cubeNode.add(child: isWhite ? cubeSapele : cubeMahogany)
+                let cube = loader.loadObject(name: "Cube", material: isWhite ? sapele : mahogany)
+                cubeNode.add(child: cube)
                 fields.add(child: cubeNode)
             }
         }
