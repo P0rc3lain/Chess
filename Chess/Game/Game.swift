@@ -12,7 +12,7 @@ enum UserExpectation {
 
 class Game {
     var board = Board.initial
-    private var selectedPiece: Piece?
+    private(set) var selectedPiece: Piece?
     private var turn = PieceColor.white
     var currentExpectation = UserExpectation.piecePick
     func selectPiece(piece: Piece?) -> [Move] {

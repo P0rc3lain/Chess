@@ -54,6 +54,7 @@ class ViewController: NSViewController {
         }
         let handler = MouseInteractionHandler(interactor: engineView.interactor)
         var moves = [Move]()
+        let selected = game.selectedPiece
         if game.currentExpectation == .piecePick {
             let piece = handler.pickPiece(event: event,
                                           camera: camera,
@@ -74,6 +75,15 @@ class ViewController: NSViewController {
         }
         print(moves)
         let manipulator = SceneManipulator()
+        let selectedAfter = game.selectedPiece
+        if selectedAfter != selected {
+            if let selected = selected {
+                manipulator.deselect(scene: engine.scene, piece: selected)
+            }
+            if let selectedAfter = selectedAfter {
+                manipulator.select(scene: engine.scene, piece: selectedAfter)
+            }
+        }
         manipulator.performMoves(scene: engine.scene, moves: moves)
     }
 }
