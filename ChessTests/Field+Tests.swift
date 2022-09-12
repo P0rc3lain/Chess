@@ -9,6 +9,9 @@ import XCTest
 @testable import Chess
 
 final class FieldTests: XCTestCase {
+    func testStringify() throws {
+        XCTAssertEqual(String(describing: Field(0, 0)), "a1")
+    }
     func testMinimalRange() throws {
         let field = Field(literal: "a1")
         XCTAssertEqual(field?.row, 0)
