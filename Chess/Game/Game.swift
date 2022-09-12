@@ -80,13 +80,13 @@ class Game {
                     return false
                 }
                 if from.column == 1 {
-                    if to.row - from.row == 2 {
-                        return board.fields[to.row - 1][to.column] == nil &&
+                    if to.column - from.column == 2 {
+                        return board.fields[to.row][to.column - 1] == nil &&
                                board.fields[to.row][to.column] == nil
                     } else {
                         return board.fields[to.row][to.column] == nil
                     }
-                } else if to.row - from.row == 1 {
+                } else if to.column - from.column == 1 {
                     return board.fields[to.row][to.column] == nil
                 }
             } else {
@@ -94,13 +94,13 @@ class Game {
                     return false
                 }
                 if from.column == 7 - 1 {
-                    if abs(to.row - from.row) == 2 {
-                        return board.fields[to.row + 1][to.column] == nil &&
+                    if abs(to.column - from.column) == 2 {
+                        return board.fields[to.row][to.column + 1] == nil &&
                                board.fields[to.row][to.column] == nil
                     } else {
                         return board.fields[to.row][to.column] == nil
                     }
-                } else if abs(to.row - from.row) == 1 {
+                } else if abs(to.column - from.column) == 1 {
                     return board.fields[to.row][to.column] == nil
                 }
             }
