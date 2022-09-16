@@ -7,7 +7,7 @@
 
 class MovesGenerator {
     private let interactor = BoardInteractor()
-    func pawnActionsToPerform(piece: Piece, board: Board) -> [Action] {
+    func pawnActionsToPerform(piece: Piece, board: Boardg) -> [Action] {
         guard let pieceField = interactor.field(of: piece, board: board) else {
             fatalError("Invalid state")
         }
@@ -25,6 +25,23 @@ class MovesGenerator {
             } else {
                 break
             }
+        }
+        let crossMoves = [1, -1].filter({
+            pieceField.row + $0 >= 0 && pieceField.row + $0 < 8 &&
+            pieceField.column + forward >= 0 && pieceField.column + forward < 8
+        }).map({
+            Field(pieceField.row + $0, pieceField.column + forward)
+        }).filter({
+            board.fields[$0.row][$0.column]?.color == piece.color.toggled()
+        })
+        for crossMove in crossMoves {
+            guard let pieceToRemove = board.fields[crossMove.row][crossMove.column] else {
+                fatalError("Could not find piece to remove")
+            }
+            actions.append(Action(mainMove: (pieceField, crossMove),
+                                  sideEffects: [],
+                                  piecesToAdd: [],
+                                  piecesToRemove: [pieceToRemove]))
         }
         return actions
     }

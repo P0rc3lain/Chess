@@ -9,6 +9,9 @@ enum PieceColor: String {
     case black = "Black"
     case white = "White"
     mutating func toggle() {
-        self = self == .white ? .black : .white
+        self = toggled()
+    }
+    func toggled() -> PieceColor {
+        self == .white ? .black : .white
     }
 }

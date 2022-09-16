@@ -6,50 +6,65 @@
 //
 
 class Game {
-    var board = Board.initial
-    private(set) var selectedPiece: Piece?
-    private var turn = PieceColor.white
-    var currentExpectation = UserExpectation.piecePick
-    func selectPiece(piece: Piece?) -> [Move] {
+    private let interactor = BoardInteractor()
+    private let generator = MovesGenerator()
+    func select(piece: Piece?, state: GameState) -> (moves: [Move], newState: GameState) {
         guard let piece = piece else {
-            return []
+            return ([], state)
         }
-        guard piece.color == turn else {
-            return []
+        guard piece.color == state.turn else {
+            return ([], state)
         }
-        selectedPiece = piece
-        currentExpectation = .fieldPick
-        return []
+        let newState = GameState(previous: state,
+                                 board: state.board,
+                                 selectedPiece: piece,
+                                 turn: state.turn,
+                                 expectation: .fieldPick)
+        return ([], newState)
     }
-    func selectField(field: Field?) -> [Move] {
-        guard let selectedPiece = selectedPiece else {
-            return []
+    func select(field: Field?, state: GameState) -> (moves: [Move], newState: GameState) {
+        guard let selectedPiece = state.selectedPiece else {
+            return ([], state)
         }
         guard let field = field else {
-            self.selectedPiece = nil
-            currentExpectation = .piecePick
-            return []
+            let newState = GameState(previous: state,
+                                     board: state.board,
+                                     selectedPiece: nil,
+                                     turn: state.turn,
+                                     expectation: .piecePick)
+            return ([], newState)
         }
-        guard let fromField = BoardInteractor().field(of: selectedPiece, board: board) else {
+        guard let fromField = interactor.field(of: selectedPiece, board: state.board) else {
             fatalError("From field not set")
         }
-        if MovesGenerator().canMoveTo(piece: selectedPiece, field: field, board: board) {
-            let actions = MovesGenerator().pawnActionsToPerform(piece: selectedPiece, board: board)
+        if generator.canMoveTo(piece: selectedPiece, field: field, board: state.board) {
+            let actions = generator.pawnActionsToPerform(piece: selectedPiece, board: state.board)
             guard let action = actions.first(where: { $0.mainMove.to == field }) else {
                 fatalError("Error")
             }
-            let newBoard = BoardInteractor().perform(board: board, actions: [action])
-            board = newBoard
-            turn.toggle()
-            currentExpectation = .piecePick
-            self.selectedPiece = nil
-            let moves = [Move(who: selectedPiece,
-                              from: fromField,
-                              to: field)]
-            return moves
+            let newBoard = interactor.perform(board: state.board, actions: [action])
+            let newState = GameState(previous: state,
+                                     board: newBoard,
+                                     selectedPiece: nil,
+                                     turn: state.turn.toggled(),
+                                     expectation: .piecePick)
+            var moves = [Move]()
+            for piece in action.piecesToRemove {
+                guard let position = interactor.field(of: piece, board: state.board) else {
+                    fatalError("Not found")
+                }
+                moves.append(Move(who: piece, from: position, to: nil))
+            }
+            moves += [Move(who: selectedPiece,
+                           from: fromField,
+                           to: field)]
+            return (moves, newState)
         }
-        self.selectedPiece = nil
-        currentExpectation = .piecePick
-        return []
+        let newState = GameState(previous: state,
+                                 board: state.board,
+                                 selectedPiece: nil,
+                                 turn: state.turn,
+                                 expectation: .piecePick)
+        return ([], newState)
     }
 }

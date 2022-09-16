@@ -10,6 +10,7 @@
 		561B67F328D2604600D6E2F7 /* BoardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67F228D2604600D6E2F7 /* BoardInteractor.swift */; };
 		561B67F828D4C12F00D6E2F7 /* UserExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67F728D4C12F00D6E2F7 /* UserExpectation.swift */; };
 		561B67FC28D4C14700D6E2F7 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67FB28D4C14700D6E2F7 /* Action.swift */; };
+		561B67FE28D4C28C00D6E2F7 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67FD28D4C28C00D6E2F7 /* GameState.swift */; };
 		56312C9E28A94FBF0038DD47 /* King.obj in Resources */ = {isa = PBXBuildFile; fileRef = 56312C9C28A94FBF0038DD47 /* King.obj */; };
 		56312CA028A950090038DD47 /* Knight.obj in Resources */ = {isa = PBXBuildFile; fileRef = 56312C9F28A950090038DD47 /* Knight.obj */; };
 		56312CA228A950220038DD47 /* Pawn.obj in Resources */ = {isa = PBXBuildFile; fileRef = 56312CA128A950220038DD47 /* Pawn.obj */; };
@@ -92,6 +93,7 @@
 		561B67F228D2604600D6E2F7 /* BoardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardInteractor.swift; sourceTree = "<group>"; };
 		561B67F728D4C12F00D6E2F7 /* UserExpectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserExpectation.swift; sourceTree = "<group>"; };
 		561B67FB28D4C14700D6E2F7 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		561B67FD28D4C28C00D6E2F7 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		56312C9C28A94FBF0038DD47 /* King.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = King.obj; sourceTree = "<group>"; };
 		56312C9F28A950090038DD47 /* Knight.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Knight.obj; sourceTree = "<group>"; };
 		56312CA128A950220038DD47 /* Pawn.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pawn.obj; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				569699C628CE47E300469E6B /* Piece */,
 				569699BF28CE42E800469E6B /* Game.swift */,
 				561B67F728D4C12F00D6E2F7 /* UserExpectation.swift */,
+				561B67FD28D4C28C00D6E2F7 /* GameState.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				561B67F328D2604600D6E2F7 /* BoardInteractor.swift in Sources */,
 				569699C028CE42E800469E6B /* Game.swift in Sources */,
 				5648530D28C90A6D00BA4CC0 /* SceneManipulator.swift in Sources */,
+				561B67FE28D4C28C00D6E2F7 /* GameState.swift in Sources */,
 				56BB94AC28A94A750034D4AB /* AppDelegate.swift in Sources */,
 				5648530B28C7F64800BA4CC0 /* ResourceLoader.swift in Sources */,
 				567A568528CB68BF008DDE40 /* CameraController.swift in Sources */,

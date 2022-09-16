@@ -15,14 +15,16 @@ class ViewController: NSViewController {
     private var engine: PNEngine!
     private var engineView: PNView!
     private let game = Game()
-    private var cameraNode: PNCameraNode?
-    private var selectedPiece: PNScenePiece?
+    private var state = GameState.initial
     override func viewDidLoad() {
         super.viewDidLoad()
         engineView = view as? PNView
         engine = engineView.engine
         listenForKeyboardEvents()
-        engine.scene = SceneBuilder(device: engineView.device!).build(board: game.board)
+        guard let device = engineView.device else {
+            fatalError("Device not set")
+        }
+        engine.scene = SceneBuilder(device: device).build(board: state.board)
     }
     override func keyDown(with event: NSEvent) {
         switch event.charactersIgnoringModifiers {
@@ -48,34 +50,39 @@ class ViewController: NSViewController {
         }
     }
     override func mouseDown(with event: NSEvent) {
-        let camera = engine.scene.rootNode.findNode(where: { node in (node.data as? PNAnimatedCameraNode) != nil })
-        guard let camera = camera?.data as? PNAnimatedCameraNode, let frame = view.window?.frame else {
+        let camera = engine.scene.rootNode.all().compactMap({
+            $0.data as? PNAnimatedCameraNode
+        }).first
+        guard let camera = camera, let frame = view.window?.frame else {
             return
         }
         let handler = MouseInteractionHandler(interactor: engineView.interactor)
         var moves = [Move]()
-        let selected = game.selectedPiece
-        if game.currentExpectation == .piecePick {
+        let selected = state.selectedPiece
+        if state.expectation == .piecePick {
             let piece = handler.pickPiece(event: event,
                                           camera: camera,
                                           scene: engine.scene,
                                           viewframe: frame)
             let pieceS = Piece(literal: piece?.data.name ?? "")
             print(pieceS)
-            moves = game.selectPiece(piece: pieceS)
+            let result = game.select(piece: pieceS, state: state)
+            moves = result.moves
+            state = result.newState
         } else {
             let field = handler.pickField(event: event,
                                           camera: camera,
                                           scene: engine.scene,
                                           viewframe: frame)
-            
             let fieldS = Field(literal: field?.data.name ?? "")
             print(fieldS)
-            moves = game.selectField(field: fieldS)
+            let result = game.select(field: fieldS, state: state)
+            moves = result.moves
+            state = result.newState
         }
         print(moves)
         let manipulator = SceneManipulator()
-        let selectedAfter = game.selectedPiece
+        let selectedAfter = state.selectedPiece
         if selectedAfter != selected {
             if let selected = selected {
                 manipulator.deselect(scene: engine.scene, piece: selected)
