@@ -7,7 +7,7 @@
 
 class MovesGenerator {
     private let interactor = BoardInteractor()
-    func pawnActionsToPerform(piece: Piece, board: Boardg) -> [Action] {
+    func pawnActionsToPerform(piece: Piece, board: Board) -> [Action] {
         guard let pieceField = interactor.field(of: piece, board: board) else {
             fatalError("Invalid state")
         }
