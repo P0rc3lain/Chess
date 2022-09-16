@@ -46,7 +46,7 @@ class SceneManipulator {
             guard let piece = findPiece(scene: scene, piece: move.who) else {
                 fatalError("Could not find piece")
             }
-            self.move(piece: piece, from: move.from, to: move.to)
+            self.move(piece: piece, from: move.from?.tuple, to: move.to?.tuple)
         }
     }
     private func move(piece: PNAnimatedNode, from: (Int, Int)?, to: (Int, Int)?) {

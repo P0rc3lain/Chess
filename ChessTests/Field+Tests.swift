@@ -1,5 +1,5 @@
 //
-//  ChessTests.swift
+//  Field+Tests.swift
 //  ChessTests
 //
 //  Created by Mateusz Stompór on 13/09/2022.

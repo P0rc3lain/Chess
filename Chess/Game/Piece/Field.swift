@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Field: CustomStringConvertible {
+struct Field: CustomStringConvertible, Equatable {
     let row: Int
     let column: Int
     var tuple: (Int, Int) {
