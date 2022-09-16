@@ -37,11 +37,10 @@ class Game {
         guard let fromField = interactor.field(of: selectedPiece, board: state.board) else {
             fatalError("From field not set")
         }
-        if generator.canMoveTo(piece: selectedPiece, field: field, board: state.board) {
-            let actions = generator.pawnActionsToPerform(piece: selectedPiece, board: state.board)
-            guard let action = actions.first(where: { $0.mainMove.to == field }) else {
-                fatalError("Error")
-            }
+        if let action = generator.actions(piece: selectedPiece,
+                                          desiredField: field,
+                                          board: state.board,
+                                          previousBoard: state.previous?.board).first {
             let newBoard = interactor.perform(board: state.board, actions: [action])
             let newState = GameState(previous: state,
                                      board: newBoard,

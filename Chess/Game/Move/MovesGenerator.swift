@@ -7,7 +7,9 @@
 
 class MovesGenerator {
     private let interactor = BoardInteractor()
-    func pawnActionsToPerform(piece: Piece, board: Board) -> [Action] {
+    func pawnActionsToPerform(piece: Piece,
+                              board: Board,
+                              previousBoard: Board?) -> [Action] {
         guard let pieceField = interactor.field(of: piece, board: board) else {
             fatalError("Invalid state")
         }
@@ -45,20 +47,26 @@ class MovesGenerator {
         }
         return actions
     }
-    func canMoveTo(piece: Piece, field: Field, board: Board) -> Bool {
+    func actions(piece: Piece,
+                 desiredField field: Field,
+                 board: Board,
+                 previousBoard: Board?) -> [Action] {
         guard let currentPosition = interactor.field(of: piece, board: board) else {
             fatalError("Piece not found")
         }
         var actions = [Action]()
         switch piece.type {
         case .pawn:
-            actions = pawnActionsToPerform(piece: piece, board: board)
+            actions = pawnActionsToPerform(piece: piece,
+                                           board: board,
+                                           previousBoard: previousBoard)
         default:
             fatalError("Not implemented")
         }
-        let action = actions.first(where: {
+        return actions.filter({
             $0.mainMove.to == field && $0.mainMove.from == currentPosition
+        }).compactMap({
+            $0
         })
-        return action != nil
     }
 }
