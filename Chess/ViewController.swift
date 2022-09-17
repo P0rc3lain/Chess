@@ -66,7 +66,6 @@ class ViewController: NSViewController {
                                           scene: engine.scene,
                                           viewframe: frame)
             let pieceS = Piece(literal: piece?.data.name ?? "")
-            print(pieceS)
             let result = game.select(piece: pieceS, state: state)
             moves = result.moves
             state = result.newState
@@ -76,12 +75,10 @@ class ViewController: NSViewController {
                                           scene: engine.scene,
                                           viewframe: frame)
             let fieldS = Field(literal: field?.data.name ?? "")
-            print(fieldS)
             let result = game.select(field: fieldS, state: state)
             moves = result.moves
             state = result.newState
         }
-        print(moves)
         let manipulator = SceneManipulator()
         let selectedAfter = state.selectedPiece
         if selectedAfter != selected {
