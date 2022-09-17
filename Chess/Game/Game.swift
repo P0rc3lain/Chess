@@ -37,20 +37,9 @@ class Game {
         guard let fromField = interactor.field(of: selectedPiece, board: state.board) else {
             fatalError("From field not set")
         }
-        var previousState: GameState? = state.previous
-        while true {
-            if previousState == nil {
-                break
-            }
-            if state.turn != previousState?.turn {
-                break
-            }
-            previousState = previousState?.previous
-        }
         if let action = generator.actions(piece: selectedPiece,
                                           desiredField: field,
-                                          board: state.board,
-                                          previousBoard: previousState?.board).first {
+                                          state: state).first {
             let newBoard = interactor.perform(board: state.board, actions: [action])
             let newState = GameState(previous: state,
                                      board: newBoard,

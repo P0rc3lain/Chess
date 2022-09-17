@@ -65,19 +65,32 @@ class MovesGenerator {
         }
         return actions
     }
+    func findBoardBeforeOpponentMove(current state: GameState) -> GameState? {
+        var previousState = state.previous
+        while true {
+            if previousState == nil {
+                break
+            }
+            if state.turn != previousState?.turn {
+                break
+            }
+            previousState = previousState?.previous
+        }
+        return previousState
+    }
     func actions(piece: Piece,
                  desiredField field: Field,
-                 board: Board,
-                 previousBoard: Board?) -> [Action] {
-        guard let currentPosition = interactor.field(of: piece, board: board) else {
+                 state: GameState) -> [Action] {
+        guard let currentPosition = interactor.field(of: piece, board: state.board) else {
             fatalError("Piece not found")
         }
+        let previous = findBoardBeforeOpponentMove(current: state)
         var actions = [Action]()
         switch piece.type {
         case .pawn:
             actions = pawnActionsToPerform(piece: piece,
-                                           board: board,
-                                           previousBoard: previousBoard)
+                                           board: state.board,
+                                           previousBoard: previous?.board)
         default:
             fatalError("Not implemented")
         }

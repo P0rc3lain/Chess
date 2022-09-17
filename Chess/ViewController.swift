@@ -24,7 +24,8 @@ class ViewController: NSViewController {
         guard let device = engineView.device else {
             fatalError("Device not set")
         }
-        engine.scene = SceneBuilder(device: device).build(board: state.board)
+        let builder = SceneBuilder(device: device)
+        engine.scene = builder.build(board: state.board)
     }
     override func keyDown(with event: NSEvent) {
         switch event.charactersIgnoringModifiers {
