@@ -220,6 +220,21 @@ class MovesGenerator {
                           piecesToRemove: pieceToRemove != nil ? [pieceToRemove!] : [])
         })
     }
+    func queenActionsToPerform(piece: Piece, board: Board) -> [Action] {
+        bishopActionsToPerform(piece: piece, board: board) +
+        rookActionsToPerform(piece: piece, board: board)
+    }
+    func kingActionsToPerform(piece: Piece, board: Board) -> [Action] {
+        guard let pieceField = interactor.field(of: piece, board: board) else {
+            fatalError("Invalid state")
+        }
+        return queenActionsToPerform(piece: piece, board: board).filter {
+            $0.mainMove.to.row <= pieceField.row + 1 &&
+            $0.mainMove.to.row >= pieceField.row - 1 &&
+            $0.mainMove.to.column <= pieceField.column + 1 &&
+            $0.mainMove.to.column >= pieceField.column - 1
+        }
+    }
     func findBoardBeforeOpponentMove(current state: GameState) -> GameState? {
         var previousState = state.previous
         while true {
@@ -246,6 +261,10 @@ class MovesGenerator {
             actions = rookActionsToPerform(piece: piece, board: state.board)
         case .bishop:
             actions = bishopActionsToPerform(piece: piece, board: state.board)
+        case .queen:
+            actions = queenActionsToPerform(piece: piece, board: state.board)
+        case .king:
+            actions = kingActionsToPerform(piece: piece, board: state.board)
         case .pawn:
             actions = pawnActionsToPerform(piece: piece,
                                            board: state.board,
