@@ -224,6 +224,37 @@ class MovesGenerator {
         bishopActionsToPerform(piece: piece, board: board) +
         rookActionsToPerform(piece: piece, board: board)
     }
+    func knightActionsToPerform(piece: Piece, board: Board) -> [Action] {
+        guard let pieceField = interactor.field(of: piece, board: board) else {
+            fatalError("Invalid state")
+        }
+        var moves = [
+            (pieceField.row + 2, pieceField.column + 1),
+            (pieceField.row + 2, pieceField.column - 1),
+            (pieceField.row - 2, pieceField.column + 1),
+            (pieceField.row - 2, pieceField.column - 1),
+            (pieceField.row - 1, pieceField.column - 2),
+            (pieceField.row - 1, pieceField.column + 2),
+            (pieceField.row + 1, pieceField.column - 2),
+            (pieceField.row + 1, pieceField.column + 2)
+        ]
+        var actions = [Action]()
+        for move in moves {
+            if move.0 < 0 || move.0 > 7 || move.1 < 0 || move.1 > 7 {
+                continue
+            }
+            let field = Field(move.0, move.1)
+            let pieceToRemove = board.fields[move.0][move.1]
+            let canRemove = pieceToRemove?.color != piece.color
+            actions.append(Action(mainMove: (pieceField, field),
+                                  sideEffects: [],
+                                  piecesToAdd: [],
+                                  piecesToRemove: pieceToRemove != nil && canRemove ? [pieceToRemove!] : []))
+            
+            
+        }
+        return actions
+    }
     func kingActionsToPerform(piece: Piece, board: Board) -> [Action] {
         guard let pieceField = interactor.field(of: piece, board: board) else {
             fatalError("Invalid state")
@@ -265,12 +296,12 @@ class MovesGenerator {
             actions = queenActionsToPerform(piece: piece, board: state.board)
         case .king:
             actions = kingActionsToPerform(piece: piece, board: state.board)
+        case .knight:
+            actions = knightActionsToPerform(piece: piece, board: state.board)
         case .pawn:
             actions = pawnActionsToPerform(piece: piece,
                                            board: state.board,
                                            previousBoard: previous?.board)
-        default:
-            fatalError("Not implemented")
         }
         return actions.filter({
             $0.mainMove.to == field && $0.mainMove.from == currentPosition
