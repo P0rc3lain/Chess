@@ -36,11 +36,29 @@ class MovesGenerator {
         }).filter({
             board.fields[$0.row][$0.column]?.color == piece.color.toggled()
         })
-        for crossMove in crossMoves {
-            guard let pieceToRemove = board.fields[crossMove.row][crossMove.column] else {
+        let enPassant = [1, -1].filter({
+            pieceField.row + $0 >= 0 && pieceField.row + $0 < 8 &&
+            pieceField.column + 2 * forward >= 0 && pieceField.column + 2 * forward < 8
+        }).map({
+            Field(pieceField.row + $0, pieceField.column + forward)
+        }).filter({
+            previousBoard?.fields[$0.row][$0.column + forward]?.color == piece.color.toggled() &&
+            board.fields[$0.row][$0.column] == nil
+        })
+        for move in crossMoves {
+            guard let pieceToRemove = board.fields[move.row][move.column] else {
                 fatalError("Could not find piece to remove")
             }
-            actions.append(Action(mainMove: (pieceField, crossMove),
+            actions.append(Action(mainMove: (pieceField, move),
+                                  sideEffects: [],
+                                  piecesToAdd: [],
+                                  piecesToRemove: [pieceToRemove]))
+        }
+        for move in enPassant {
+            guard let pieceToRemove = board.fields[move.row][move.column - forward] else {
+                fatalError("Could not find piece to remove")
+            }
+            actions.append(Action(mainMove: (pieceField, move),
                                   sideEffects: [],
                                   piecesToAdd: [],
                                   piecesToRemove: [pieceToRemove]))
@@ -65,8 +83,6 @@ class MovesGenerator {
         }
         return actions.filter({
             $0.mainMove.to == field && $0.mainMove.from == currentPosition
-        }).compactMap({
-            $0
         })
     }
 }

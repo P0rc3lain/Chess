@@ -17,7 +17,7 @@ struct Field: CustomStringConvertible, Equatable {
         guard let number = UnicodeScalar(97 + row) else {
             fatalError("Invalid state")
         }
-        return String(Character(number)) + String(column + 1)
+        return String(Character(number)) + String(column + 1) + "(\(row), \(column)"
     }
     init(_ row: Int, _ column: Int) {
         assert(row >= 0 && row < 8 && column >= 0 && column < 8)
