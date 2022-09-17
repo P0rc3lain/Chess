@@ -228,7 +228,7 @@ class MovesGenerator {
         guard let pieceField = interactor.field(of: piece, board: board) else {
             fatalError("Invalid state")
         }
-        var moves = [
+        let moves = [
             (pieceField.row + 2, pieceField.column + 1),
             (pieceField.row + 2, pieceField.column - 1),
             (pieceField.row - 2, pieceField.column + 1),
@@ -245,6 +245,9 @@ class MovesGenerator {
             }
             let field = Field(move.0, move.1)
             let pieceToRemove = board.fields[move.0][move.1]
+            if pieceToRemove?.color == piece.color {
+                continue
+            }
             let canRemove = pieceToRemove?.color != piece.color
             actions.append(Action(mainMove: (pieceField, field),
                                   sideEffects: [],
