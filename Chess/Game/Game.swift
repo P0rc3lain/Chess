@@ -24,7 +24,6 @@ class Game {
     }
     func select(field: Field?, state: GameState) -> (moves: [Move], newState: GameState) {
         guard let selectedPiece = state.selectedPiece else {
-            print(generator.checkingMoves(color: state.turn, state: state))
             return ([], state)
         }
         guard let field = field else {
@@ -33,7 +32,6 @@ class Game {
                                      selectedPiece: nil,
                                      turn: state.turn,
                                      expectation: .piecePick)
-            print(generator.checkingMoves(color: state.turn, state: state))
             return ([], newState)
         }
         guard let fromField = interactor.field(of: selectedPiece, board: state.board) else {
@@ -58,6 +56,7 @@ class Game {
             moves += [Move(who: selectedPiece,
                            from: fromField,
                            to: field)]
+            print(generator.checkingMoves(color: state.turn, state: newState))
             return (moves, newState)
         }
         let newState = GameState(previous: state,
