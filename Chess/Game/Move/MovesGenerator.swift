@@ -283,31 +283,46 @@ class MovesGenerator {
         }
         return previousState
     }
+    func checkingMoves(color: PieceColor, state: GameState) -> [Action] {
+        let king = Piece(color: color.toggled(), type: .king)
+        guard let kingField = interactor.field(of: king, board: state.board) else {
+            fatalError("King not found")
+        }
+        let pieces = interactor.placements(board: state.board, color: color)
+        return pieces.map { (field, piece) in
+            actions(piece: piece, desiredField: kingField, state: state)
+        }.reduce([], +)
+    }
+    func isChecking(color: PieceColor, state: GameState) -> Bool {
+        !checkingMoves(color: color, state: state).isEmpty
+    }
+    func allActions(piece: Piece,
+                    state: GameState) -> [Action] {
+        let previous = findBoardBeforeOpponentMove(current: state)
+        switch piece.type {
+        case .rook:
+            return rookActionsToPerform(piece: piece, board: state.board)
+        case .bishop:
+            return bishopActionsToPerform(piece: piece, board: state.board)
+        case .queen:
+            return queenActionsToPerform(piece: piece, board: state.board)
+        case .king:
+            return kingActionsToPerform(piece: piece, board: state.board)
+        case .knight:
+            return knightActionsToPerform(piece: piece, board: state.board)
+        case .pawn:
+            return pawnActionsToPerform(piece: piece,
+                                        board: state.board,
+                                        previousBoard: previous?.board)
+        }
+    }
     func actions(piece: Piece,
                  desiredField field: Field,
                  state: GameState) -> [Action] {
         guard let currentPosition = interactor.field(of: piece, board: state.board) else {
             fatalError("Piece not found")
         }
-        let previous = findBoardBeforeOpponentMove(current: state)
-        var actions = [Action]()
-        switch piece.type {
-        case .rook:
-            actions = rookActionsToPerform(piece: piece, board: state.board)
-        case .bishop:
-            actions = bishopActionsToPerform(piece: piece, board: state.board)
-        case .queen:
-            actions = queenActionsToPerform(piece: piece, board: state.board)
-        case .king:
-            actions = kingActionsToPerform(piece: piece, board: state.board)
-        case .knight:
-            actions = knightActionsToPerform(piece: piece, board: state.board)
-        case .pawn:
-            actions = pawnActionsToPerform(piece: piece,
-                                           board: state.board,
-                                           previousBoard: previous?.board)
-        }
-        return actions.filter({
+        return allActions(piece: piece, state: state).filter({
             $0.mainMove.to == field && $0.mainMove.from == currentPosition
         })
     }

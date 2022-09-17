@@ -16,6 +16,20 @@ class BoardInteractor {
         }
         return nil
     }
+    func placements(board: Board) -> [(Field, Piece)] {
+        var result = [(Field, Piece)]()
+        for i in 0 ..< 8 {
+            for j in 0 ..< 8 {
+                if let piece = board.fields[i][j] {
+                    result.append((Field(i, j), piece))
+                }
+            }
+        }
+        return result
+    }
+    func placements(board: Board, color: PieceColor) -> [(Field, Piece)] {
+        placements(board: board).filter({ $0.1.color == color })
+    }
     func perform(board: Board, actions: [Action]) -> Board {
         var fields = board.fields
         for action in actions {
