@@ -14,12 +14,15 @@ import MetalBinding
 class ViewController: NSViewController {
     private var engine: PNEngine!
     private var engineView: PNView!
+    private var interactionHandler: MouseInteractionHandler!
     private let game = Game()
+    private let manipulator = SceneManipulator()
     private var state = GameState.initial
     override func viewDidLoad() {
         super.viewDidLoad()
         engineView = view as? PNView
         engine = engineView.engine
+        interactionHandler = MouseInteractionHandler(interactor: engineView.interactor)
         listenForKeyboardEvents()
         guard let device = engineView.device else {
             fatalError("Device not set")
@@ -57,29 +60,27 @@ class ViewController: NSViewController {
         guard let camera = camera, let frame = view.window?.frame else {
             return
         }
-        let handler = MouseInteractionHandler(interactor: engineView.interactor)
         var moves = [Move]()
         let selected = state.selectedPiece
         if state.expectation == .piecePick {
-            let piece = handler.pickPiece(event: event,
-                                          camera: camera,
-                                          scene: engine.scene,
-                                          viewframe: frame)
+            let piece = interactionHandler.pickPiece(event: event,
+                                                     camera: camera,
+                                                     scene: engine.scene,
+                                                     viewframe: frame)
             let pieceS = Piece(literal: piece?.data.name ?? "")
             let result = game.select(piece: pieceS, state: state)
             moves = result.moves
             state = result.newState
         } else {
-            let field = handler.pickField(event: event,
-                                          camera: camera,
-                                          scene: engine.scene,
-                                          viewframe: frame)
+            let field = interactionHandler.pickField(event: event,
+                                                     camera: camera,
+                                                     scene: engine.scene,
+                                                     viewframe: frame)
             let fieldS = Field(literal: field?.data.name ?? "")
             let result = game.select(field: fieldS, state: state)
             moves = result.moves
             state = result.newState
         }
-        let manipulator = SceneManipulator()
         let selectedAfter = state.selectedPiece
         if selectedAfter != selected {
             if let selected = selected {
