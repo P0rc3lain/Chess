@@ -55,13 +55,14 @@ class MovesGenerator {
                                   piecesToRemove: [pieceToRemove]))
         }
         for move in enPassant {
-            guard let pieceToRemove = board.fields[move.row][move.column - forward] else {
-                fatalError("Could not find piece to remove")
+            let pieceToRemove = board.fields[move.row][move.column - forward]
+            if pieceToRemove == nil {
+                continue
             }
             actions.append(Action(mainMove: (pieceField, move),
                                   sideEffects: [],
                                   piecesToAdd: [],
-                                  piecesToRemove: [pieceToRemove]))
+                                  piecesToRemove: [pieceToRemove!]))
         }
         return actions
     }
