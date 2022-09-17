@@ -16,6 +16,8 @@ class ViewController: NSViewController {
     private var engineView: PNView!
     private var interactionHandler: MouseInteractionHandler!
     private let game = Game()
+    private let nodeInteractor = PNINodeInteractor()
+    private let cameraController = CameraController()
     private let manipulator = SceneManipulator()
     private var state = GameState.initial
     override func viewDidLoad() {
@@ -36,12 +38,11 @@ class ViewController: NSViewController {
             view.window?.toggleFullScreen(self)
         case "d", "a":
             let minus = event.charactersIgnoringModifiers == "a"
-            let nodeInteractor = PNINodeInteractor()
             nodeInteractor.forEach(node: engine.scene.rootNode, { node in
                 guard let node = node.data as? PNAnimatedCameraNode else {
                     return
                 }
-                CameraController().rotate(camera: node, angleDegress: minus ? -45 : 45)
+                cameraController.rotate(camera: node, angleDegress: minus ? -45 : 45)
             })
         default:
             break
