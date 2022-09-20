@@ -10,6 +10,7 @@ import XCTest
 
 final class MovesGeneratorTests: XCTestCase {
     let generator = MovesGenerator()
+    let interactor = BoardInteractor()
     func testInitialStatePawn() throws {
         let piece = Piece(color: .white, type: .pawn(0))
         let actions = generator.pawnActionsToPerform(piece: piece,
@@ -26,6 +27,23 @@ final class MovesGeneratorTests: XCTestCase {
         XCTAssertTrue(actions[1].piecesToAdd.isEmpty)
         XCTAssertTrue(actions[1].piecesToRemove.isEmpty)
         XCTAssertTrue(actions[1].sideEffects.isEmpty)
+    }
+    func testNotMoved() throws {
+        let state = GameState.initial
+        XCTAssertFalse(generator.wasEverMoved(piece: Piece(color: .white, type: .king), state: state))
+    }
+    func testMoved() throws {
+        let state = GameState.initial
+        let newBoard = interactor.perform(board: state.board, actions: [Action(mainMove: (Field(0, 1), Field(0, 3)),
+                                                                               sideEffects: [],
+                                                                               piecesToAdd: [],
+                                                                               piecesToRemove: [])])
+        let newState = GameState(previous: state,
+                                 board: newBoard,
+                                 selectedPiece: nil,
+                                 turn: state.turn.toggled(),
+                                 expectation: .piecePick)
+        XCTAssertTrue(generator.wasEverMoved(piece: Piece(color: .white, type: .pawn(7)), state: newState))
     }
     func testEnPassant() throws {
         var fields = Array(repeating: Array<Piece?>(repeating: nil, count: 8), count: 8)

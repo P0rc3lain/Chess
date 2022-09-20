@@ -283,6 +283,22 @@ class MovesGenerator {
         }
         return previousState
     }
+    func wasEverMoved(piece: Piece, state: GameState) -> Bool {
+        guard let currentPosition = interactor.field(of: piece, board: state.board) else {
+            fatalError("Piece not found")
+        }
+        var currentState: GameState? = state
+        while currentState != nil {
+            guard let previousPosition = interactor.field(of: piece, board: currentState!.board) else {
+                return true
+            }
+            if currentPosition != previousPosition {
+                return true
+            }
+            currentState = currentState?.previous
+        }
+        return false
+    }
     func checkingMoves(color: PieceColor, state: GameState) -> [Action] {
         let king = Piece(color: color.toggled(), type: .king)
         guard let kingField = interactor.field(of: king, board: state.board) else {
