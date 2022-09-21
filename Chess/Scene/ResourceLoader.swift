@@ -1,5 +1,5 @@
 //
-//  Loader.swift
+//  ResourceLoader.swift
 //  Chess
 //
 //  Created by Mateusz Stompór on 06/09/2022.

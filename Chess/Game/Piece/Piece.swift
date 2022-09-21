@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 struct Piece: CustomStringConvertible, Equatable {
     static func == (lhs: Piece, rhs: Piece) -> Bool {
         lhs.color == rhs.color && lhs.type == rhs.type
