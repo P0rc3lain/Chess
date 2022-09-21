@@ -149,6 +149,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		56122C1728DB36A800D31958 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				56BB94B128A94A770034D4AB /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		56122C1928DB36B300D31958 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				56BB94AD28A94A750034D4AB /* GameViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		56122C1A28DB36BC00D31958 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				56BB94B428A94A770034D4AB /* Chess.entitlements */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		56122C1B28DB36C900D31958 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				56BB94AB28A94A750034D4AB /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		561B67F528D2604900D6E2F7 /* Board */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,14 +308,14 @@
 		56BB94AA28A94A750034D4AB /* Chess */ = {
 			isa = PBXGroup;
 			children = (
+				56122C1B28DB36C900D31958 /* App */,
+				56122C1928DB36B300D31958 /* ViewControllers */,
+				56122C1728DB36A800D31958 /* Storyboards */,
 				569699C528CE47D800469E6B /* Scene */,
 				569699C428CE47CB00469E6B /* Interaction */,
 				569699C328CE47A900469E6B /* Manipulation */,
 				569699C228CE479700469E6B /* Game */,
-				56BB94AB28A94A750034D4AB /* AppDelegate.swift */,
-				56BB94AD28A94A750034D4AB /* GameViewController.swift */,
-				56BB94B128A94A770034D4AB /* Main.storyboard */,
-				56BB94B428A94A770034D4AB /* Chess.entitlements */,
+				56122C1A28DB36BC00D31958 /* SupportingFiles */,
 			);
 			path = Chess;
 			sourceTree = "<group>";
@@ -607,7 +639,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Chess/Chess.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Chess/SupportingFiles/Chess.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: mateusz.stompor@gmail.com (VP34YX4CHH)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -636,7 +668,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Chess/Chess.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Chess/SupportingFiles/Chess.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
