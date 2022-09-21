@@ -58,9 +58,10 @@ class GameViewController: NSViewController {
         let camera = engine.scene.rootNode.all().compactMap({
             $0.data as? PNAnimatedCameraNode
         }).first
-        guard let camera = camera, let frame = view.window?.frame else {
+        guard let camera = camera else {
             return
         }
+        let frame = view.frame
         var moves = [Move]()
         let selected = state.selectedPiece
         if state.expectation == .piecePick {
