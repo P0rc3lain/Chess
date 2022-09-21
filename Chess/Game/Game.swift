@@ -5,9 +5,16 @@
 //  Created by Mateusz Stompór on 11/09/2022.
 //
 
+protocol GameDelegate: AnyObject {
+    func check(attacker: PieceColor)
+    func stalemate(attacker: PieceColor)
+    func checkmate(attacker: PieceColor)
+}
+
 class Game {
     private let interactor = BoardInteractor()
     private let generator = MovesGenerator()
+    weak var delegate: GameDelegate?
     func select(piece: Piece?, state: GameState) -> (moves: [Move], newState: GameState) {
         guard let piece = piece else {
             return ([], state)
@@ -57,15 +64,17 @@ class Game {
                 return ([], newState)
             }
             let isChecking = generator.isChecking(color: state.turn, state: newState)
-            if isChecking {
-                print("Check against \(state.turn.toggled())")
-            }
             if generator.allValidActions(color: state.turn.toggled(), state: newState).isEmpty {
                 if isChecking {
+                    delegate?.checkmate(attacker: state.turn)
                     print("Checkmate of \(state.turn.toggled())")
                 } else {
+                    delegate?.stalemate(attacker: state.turn)
                     print("Stalemate of \(state.turn.toggled())")
                 }
+            } else if isChecking {
+                delegate?.check(attacker: state.turn)
+                print("Check against \(state.turn.toggled())")
             }
             var moves = [Move]()
             for piece in action.piecesToRemove {
