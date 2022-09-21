@@ -35,7 +35,7 @@
 		569699C028CE42E800469E6B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569699BF28CE42E800469E6B /* Game.swift */; };
 		569699CA28CE4DD300469E6B /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569699C928CE4DD300469E6B /* Field.swift */; };
 		56BB94AC28A94A750034D4AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AB28A94A750034D4AB /* AppDelegate.swift */; };
-		56BB94AE28A94A750034D4AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AD28A94A750034D4AB /* ViewController.swift */; };
+		56BB94AE28A94A750034D4AB /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AD28A94A750034D4AB /* GameViewController.swift */; };
 		56BB94B028A94A770034D4AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56BB94AF28A94A770034D4AB /* Assets.xcassets */; };
 		56BB94B328A94A770034D4AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56BB94B128A94A770034D4AB /* Main.storyboard */; };
 		56C3174328CFE95900C04F3C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C3174128CFE95900C04F3C /* XCTest.framework */; };
@@ -118,7 +118,7 @@
 		569699C928CE4DD300469E6B /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		56BB94A828A94A750034D4AB /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56BB94AB28A94A750034D4AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		56BB94AD28A94A750034D4AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		56BB94AD28A94A750034D4AB /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		56BB94AF28A94A770034D4AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56BB94B228A94A770034D4AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		56BB94B428A94A770034D4AB /* Chess.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chess.entitlements; sourceTree = "<group>"; };
@@ -281,7 +281,7 @@
 				569699C328CE47A900469E6B /* Manipulation */,
 				569699C228CE479700469E6B /* Game */,
 				56BB94AB28A94A750034D4AB /* AppDelegate.swift */,
-				56BB94AD28A94A750034D4AB /* ViewController.swift */,
+				56BB94AD28A94A750034D4AB /* GameViewController.swift */,
 				56BB94B128A94A770034D4AB /* Main.storyboard */,
 				56BB94B428A94A770034D4AB /* Chess.entitlements */,
 			);
@@ -434,7 +434,7 @@
 				5648531728C90D7F00BA4CC0 /* Move.swift in Sources */,
 				561B67FC28D4C14700D6E2F7 /* Action.swift in Sources */,
 				5648531128C90B5C00BA4CC0 /* PieceColor.swift in Sources */,
-				56BB94AE28A94A750034D4AB /* ViewController.swift in Sources */,
+				56BB94AE28A94A750034D4AB /* GameViewController.swift in Sources */,
 				561B67F328D2604600D6E2F7 /* BoardInteractor.swift in Sources */,
 				569699C028CE42E800469E6B /* Game.swift in Sources */,
 				5648530D28C90A6D00BA4CC0 /* SceneManipulator.swift in Sources */,

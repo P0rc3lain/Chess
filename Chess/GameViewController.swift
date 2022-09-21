@@ -11,7 +11,7 @@ import ModelIO
 import MetalKit
 import MetalBinding
 
-class ViewController: NSViewController {
+class GameViewController: NSViewController {
     private var engine: PNEngine!
     private var engineView: PNView!
     private var interactionHandler: MouseInteractionHandler!
