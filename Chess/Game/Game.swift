@@ -56,8 +56,16 @@ class Game {
                                          expectation: .piecePick)
                 return ([], newState)
             }
-            if generator.isChecking(color: state.turn, state: newState) {
+            let isChecking = generator.isChecking(color: state.turn, state: newState)
+            if isChecking {
                 print("Check against \(state.turn.toggled())")
+            }
+            if generator.allValidActions(color: state.turn.toggled(), state: newState).isEmpty {
+                if isChecking {
+                    print("Checkmate of \(state.turn.toggled())")
+                } else {
+                    print("Stalemate of \(state.turn.toggled())")
+                }
             }
             var moves = [Move]()
             for piece in action.piecesToRemove {

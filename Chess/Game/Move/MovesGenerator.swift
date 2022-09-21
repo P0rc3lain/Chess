@@ -312,7 +312,22 @@ class MovesGenerator {
     func isChecking(color: PieceColor, state: GameState) -> Bool {
         !checkingMoves(color: color, state: state).isEmpty
     }
-    func allActions(piece: Piece,
+    func allValidActions(color: PieceColor,
+                         state: GameState) -> [Action] {
+        let allPieces = interactor.placements(board: state.board, color: color)
+        return allPieces.map({ $0.1 }).map {
+            allActions(piece: $0, state: state).filter { a in
+                let after = interactor.perform(board: state.board, actions: [a])
+                let newState = GameState(previous: state,
+                                         board: after,
+                                         selectedPiece: nil,
+                                         turn: state.turn.toggled(),
+                                         expectation: .piecePick)
+                return !isChecking(color: state.turn.toggled(), state: newState)
+            }
+        }.reduce([], +)
+    }
+    private func allActions(piece: Piece,
                     state: GameState) -> [Action] {
         let previous = findBoardBeforeOpponentMove(current: state)
         switch piece.type {
