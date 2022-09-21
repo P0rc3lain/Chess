@@ -32,7 +32,7 @@ class SceneManipulator {
         }
         let current = node.transform.value.translation
         var translation = PNAnimatedFloat3.defaultTranslation
-        translation = PNKeyframeAnimation(keyFrames: [simd_float3(current.x, 0.3, current.z),
+        translation = PNKeyframeAnimation(keyFrames: [simd_float3(current.x, current.y, current.z),
                                                       simd_float3(current.x, 0, current.z)],
                                           times: [0, 0.5],
                                           maximumTime: 0.5)
