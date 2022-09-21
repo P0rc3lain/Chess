@@ -46,6 +46,19 @@ class Game {
                                      selectedPiece: nil,
                                      turn: state.turn.toggled(),
                                      expectation: .piecePick)
+            if generator.isChecking(color: state.turn.toggled(), state: newState) {
+                // Cannot expose itself to check
+                print("Would result in exposing itself to check")
+                let newState = GameState(previous: state,
+                                         board: state.board,
+                                         selectedPiece: nil,
+                                         turn: state.turn,
+                                         expectation: .piecePick)
+                return ([], newState)
+            }
+            if generator.isChecking(color: state.turn, state: newState) {
+                print("Check against \(state.turn.toggled())")
+            }
             var moves = [Move]()
             for piece in action.piecesToRemove {
                 guard let position = interactor.field(of: piece, board: state.board) else {
@@ -56,7 +69,6 @@ class Game {
             moves += [Move(who: selectedPiece,
                            from: fromField,
                            to: field)]
-            print(generator.checkingMoves(color: state.turn, state: newState))
             return (moves, newState)
         }
         let newState = GameState(previous: state,
