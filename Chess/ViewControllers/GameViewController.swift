@@ -12,30 +12,6 @@ import MetalKit
 import MetalBinding
 
 class GameViewController: NSViewController, GameDelegate {
-    func check(attacker: PieceColor) {
-        info.stringValue = "Check"
-        NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = 1
-            info.animator().alphaValue = 1
-        }, completionHandler: { })
-    }
-    
-    func stalemate(attacker: PieceColor) {
-        info.stringValue = "Stalemate"
-        NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = 1
-            info.animator().alphaValue = 1
-        }, completionHandler: { })
-    }
-    
-    func checkmate(attacker: PieceColor) {
-        info.stringValue = "Checkmate"
-        NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = 1
-            info.animator().alphaValue = 1
-        }, completionHandler: { })
-    }
-    
     @IBOutlet weak var info: NSTextField!
     private var engine: PNEngine!
     private var engineView: PNView!
@@ -120,5 +96,26 @@ class GameViewController: NSViewController, GameDelegate {
             }
         }
         manipulator.performMoves(scene: engine.scene, moves: moves)
+    }
+    func check(attacker: PieceColor) {
+        info.stringValue = "Check"
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.duration = 1
+            info.animator().alphaValue = 1
+        }, completionHandler: { })
+    }
+    func stalemate(attacker: PieceColor) {
+        info.stringValue = "Stalemate"
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.duration = 1
+            info.animator().alphaValue = 1
+        }, completionHandler: { })
+    }
+    func checkmate(attacker: PieceColor) {
+        info.stringValue = "Checkmate"
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.duration = 1
+            info.animator().alphaValue = 1
+        }, completionHandler: { })
     }
 }
