@@ -7,65 +7,7 @@
 
 class MovesGenerator {
     private let interactor = BoardInteractor()
-    func pawnActionsToPerform(piece: Piece,
-                              board: Board,
-                              previousBoard: Board?) -> [Action] {
-        guard let pieceField = interactor.field(of: piece, board: board) else {
-            fatalError("Invalid state")
-        }
-        let forward = piece.color == .white ? 1 : -1
-        let start = piece.color == .white ? 1 : 6
-        let maxDisplacement = pieceField.column == start ? 2 : 1
-        var actions = [Action]()
-        for i in 1 ... maxDisplacement {
-            let step = forward * i
-            if board.fields[pieceField.row][pieceField.column + step] == nil {
-                actions.append(Action(mainMove: (pieceField, Field(pieceField.row, pieceField.column + step)),
-                                      sideEffects: [],
-                                      piecesToAdd: [],
-                                      piecesToRemove: []))
-            } else {
-                break
-            }
-        }
-        let crossMoves = [1, -1].filter({
-            pieceField.row + $0 >= 0 && pieceField.row + $0 < 8 &&
-            pieceField.column + forward >= 0 && pieceField.column + forward < 8
-        }).map({
-            Field(pieceField.row + $0, pieceField.column + forward)
-        }).filter({
-            board.fields[$0.row][$0.column]?.color == piece.color.toggled()
-        })
-        let enPassant = [1, -1].filter({
-            pieceField.row + $0 >= 0 && pieceField.row + $0 < 8 &&
-            pieceField.column + 2 * forward >= 0 && pieceField.column + 2 * forward < 8
-        }).map({
-            Field(pieceField.row + $0, pieceField.column + forward)
-        }).filter({
-            previousBoard?.fields[$0.row][$0.column + forward]?.color == piece.color.toggled() &&
-            board.fields[$0.row][$0.column] == nil
-        })
-        for move in crossMoves {
-            guard let pieceToRemove = board.fields[move.row][move.column] else {
-                fatalError("Could not find piece to remove")
-            }
-            actions.append(Action(mainMove: (pieceField, move),
-                                  sideEffects: [],
-                                  piecesToAdd: [],
-                                  piecesToRemove: [pieceToRemove]))
-        }
-        for move in enPassant {
-            let pieceToRemove = board.fields[move.row][move.column - forward]
-            if pieceToRemove == nil {
-                continue
-            }
-            actions.append(Action(mainMove: (pieceField, move),
-                                  sideEffects: [],
-                                  piecesToAdd: [],
-                                  piecesToRemove: [pieceToRemove!]))
-        }
-        return actions
-    }
+    private let browser = HistoryBrowser()
     func bishopActionsToPerform(piece: Piece, board: Board) -> [Action] {
         guard let pieceField = interactor.field(of: piece, board: board) else {
             fatalError("Invalid state")
@@ -269,7 +211,7 @@ class MovesGenerator {
             $0.mainMove.to.column <= pieceField.column + 1 &&
             $0.mainMove.to.column >= pieceField.column - 1
         }
-        if !wasEverMoved(piece: piece, state: state) {
+        if !browser.wasEverMoved(piece: piece, state: state) {
             let rookA = Piece(color: piece.color, type: .rook(0))
             let rookB = Piece(color: piece.color, type: .rook(1))
 //            if let rookAField = interactor.field(of: rookA, board: state.board),
@@ -305,35 +247,6 @@ class MovesGenerator {
         }
         return standard
     }
-    func findBoardBeforeOpponentMove(current state: GameState) -> GameState? {
-        var previousState = state.previous
-        while true {
-            if previousState == nil {
-                break
-            }
-            if state.turn != previousState?.turn {
-                break
-            }
-            previousState = previousState?.previous
-        }
-        return previousState
-    }
-    func wasEverMoved(piece: Piece, state: GameState) -> Bool {
-        guard let currentPosition = interactor.field(of: piece, board: state.board) else {
-            fatalError("Piece not found")
-        }
-        var currentState: GameState? = state
-        while currentState != nil {
-            guard let previousPosition = interactor.field(of: piece, board: currentState!.board) else {
-                return true
-            }
-            if currentPosition != previousPosition {
-                return true
-            }
-            currentState = currentState?.previous
-        }
-        return false
-    }
     func checkingMoves(color: PieceColor, state: GameState) -> [Action] {
         let king = Piece(color: color.toggled(), type: .king)
         guard let kingField = interactor.field(of: king, board: state.board) else {
@@ -363,8 +276,7 @@ class MovesGenerator {
         }.reduce([], +)
     }
     private func allActions(piece: Piece,
-                    state: GameState) -> [Action] {
-        let previous = findBoardBeforeOpponentMove(current: state)
+                            state: GameState) -> [Action] {
         switch piece.type {
         case .rook:
             return rookActionsToPerform(piece: piece, board: state.board)
@@ -377,9 +289,7 @@ class MovesGenerator {
         case .knight:
             return knightActionsToPerform(piece: piece, board: state.board)
         case .pawn:
-            return pawnActionsToPerform(piece: piece,
-                                        board: state.board,
-                                        previousBoard: previous?.board)
+            return PawnMoveGenerator().potentialActions(piece: piece, state: state)
         }
     }
     func actions(piece: Piece,
