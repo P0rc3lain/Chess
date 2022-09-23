@@ -259,16 +259,51 @@ class MovesGenerator {
         }
         return actions
     }
-    func kingActionsToPerform(piece: Piece, board: Board) -> [Action] {
-        guard let pieceField = interactor.field(of: piece, board: board) else {
+    func kingActionsToPerform(piece: Piece, state: GameState) -> [Action] {
+        guard let pieceField = interactor.field(of: piece, board: state.board) else {
             fatalError("Invalid state")
         }
-        return queenActionsToPerform(piece: piece, board: board).filter {
+        var standard = queenActionsToPerform(piece: piece, board: state.board).filter {
             $0.mainMove.to.row <= pieceField.row + 1 &&
             $0.mainMove.to.row >= pieceField.row - 1 &&
             $0.mainMove.to.column <= pieceField.column + 1 &&
             $0.mainMove.to.column >= pieceField.column - 1
         }
+        if !wasEverMoved(piece: piece, state: state) {
+            let rookA = Piece(color: piece.color, type: .rook(0))
+            let rookB = Piece(color: piece.color, type: .rook(1))
+            if let rookAField = interactor.field(of: rookA, board: state.board),
+               !wasEverMoved(piece: rookA, state: state) {
+                if (rookAField.row + 1 ..< pieceField.row).allSatisfy({ index in
+                    return state.board.fields[index][rookAField.column] == nil
+                }) {
+                    standard += [
+                        Action(mainMove: (pieceField, Field(rookAField.row + 1, rookAField.column)),
+                               sideEffects: [Move(who: rookA,
+                                                  from: rookAField,
+                                                  to: Field(rookAField.row + 2, rookAField.column))],
+                               piecesToAdd: [],
+                               piecesToRemove: [])
+                    ]
+                }
+            }
+            if let rookBField = interactor.field(of: rookB, board: state.board),
+               !wasEverMoved(piece: rookB, state: state) {
+                if (pieceField.row + 1 ..< rookBField.row).allSatisfy({ index in
+                    return state.board.fields[index][rookBField.column] == nil
+                }) {
+                    standard += [
+                        Action(mainMove: (pieceField, Field(rookBField.row - 2, rookBField.column)),
+                               sideEffects: [Move(who: rookB,
+                                                  from: rookBField,
+                                                  to: Field(rookBField.row - 3, rookBField.column))],
+                               piecesToAdd: [],
+                               piecesToRemove: [])
+                    ]
+                }
+            }
+        }
+        return standard
     }
     func findBoardBeforeOpponentMove(current state: GameState) -> GameState? {
         var previousState = state.previous
@@ -338,7 +373,7 @@ class MovesGenerator {
         case .queen:
             return queenActionsToPerform(piece: piece, board: state.board)
         case .king:
-            return kingActionsToPerform(piece: piece, board: state.board)
+            return kingActionsToPerform(piece: piece, state: state)
         case .knight:
             return knightActionsToPerform(piece: piece, board: state.board)
         case .pawn:

@@ -46,8 +46,11 @@ class BoardInteractor {
             for request in action.piecesToAdd {
                 fields[request.field.row][request.field.column] = request.piece
             }
-            for _ in action.sideEffects {
-                fatalError("Not implemented")
+            for move in action.sideEffects {
+                let to = move.to!
+                let from = move.from!
+                fields[to.row][to.column] = fields[from.row][from.column]
+                fields[from.row][from.column] = nil
             }
         }
         return Board(fields: fields)
