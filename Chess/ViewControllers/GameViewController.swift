@@ -98,24 +98,27 @@ class GameViewController: NSViewController, GameDelegate {
         manipulator.performMoves(scene: engine.scene, moves: moves)
     }
     func check(attacker: PieceColor) {
-        info.stringValue = "Check"
-        NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = 1
-            info.animator().alphaValue = 1
-        }, completionHandler: { })
+        updateText("Check")
     }
     func stalemate(attacker: PieceColor) {
-        info.stringValue = "Stalemate"
-        NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = 1
-            info.animator().alphaValue = 1
-        }, completionHandler: { })
+        updateText("Stalemate")
     }
     func checkmate(attacker: PieceColor) {
-        info.stringValue = "Checkmate"
-        NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = 1
-            info.animator().alphaValue = 1
-        }, completionHandler: { })
+        updateText("Checkmate")
+    }
+    func updateText(_ value: String) {
+        if value.isEmpty && info.alphaValue > 0 {
+            info.stringValue = ""
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 2
+                info.animator().alphaValue = 0
+            }, completionHandler: { })
+        } else if !value.isEmpty && info.alphaValue == 0 {
+            info.stringValue = value
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 2
+                info.animator().alphaValue = 1
+            }, completionHandler: { })
+        }
     }
 }
