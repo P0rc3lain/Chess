@@ -30,6 +30,9 @@ class BoardInteractor {
     func placements(board: Board, color: PieceColor) -> [(Field, Piece)] {
         placements(board: board).filter({ $0.1.color == color })
     }
+    func placements(board: Board, color: PieceColor, type: CoreType) -> [(Field, Piece)] {
+        placements(board: board).filter({ $0.1.color == color && $0.1.type.coreType == type })
+    }
     func perform(board: Board, actions: [Action]) -> Board {
         var fields = board.fields
         for action in actions {

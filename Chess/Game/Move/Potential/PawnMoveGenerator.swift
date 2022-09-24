@@ -30,7 +30,7 @@ class PawnMoveGenerator {
                                       previousBoard: previous?.board) +
         forwardMoves(piece: piece, field: pieceField, board: state.board) +
         crossMoves(piece: piece, field: pieceField, board: state.board)
-        return rewrittenPromotionMoves(piece: piece, actions: gathered)
+        return rewrittenPromotionMoves(piece: piece, actions: gathered, state: state)
     }
     private func enPassantMoves(piece: Piece,
                                 field pieceField: Field,
@@ -78,20 +78,29 @@ class PawnMoveGenerator {
         }
         return actions
     }
-    private func rewrittenPromotionMoves(piece: Piece, actions: [Action]) -> [Action] {
+    private func rewrittenPromotionMoves(piece: Piece, actions: [Action], state: GameState) -> [Action] {
         actions.map { action in
             if action.mainMove.to.column == end(color: piece.color) {
                 // rewrite
                 let field = action.mainMove.to
-                let newPiece = Piece(color: piece.color, type: .bishop(2))
-                return Action(mainMove: action.mainMove,
-                              sideEffects: [],
-                              piecesToAdd: [(newPiece, field)],
-                              piecesToRemove: [piece] + action.piecesToRemove)
+                let allTypes: [CoreType] = [.bishop, .rook, .queen, .knight]
+                var allActions = [Action]()
+                for possibleType in allTypes {
+                    let id = browser.nextId(type: possibleType,
+                                            color: piece.color,
+                                            state: state)
+                    let type = PieceType(coreType: possibleType, id: id)
+                    let newPiece = Piece(color: piece.color, type: type)
+                    allActions.append(Action(mainMove: action.mainMove,
+                                             sideEffects: [],
+                                             piecesToAdd: [(newPiece, field)],
+                                             piecesToRemove: [piece] + action.piecesToRemove))
+                }
+                return allActions
             } else {
-                return action
+                return [action]
             }
-        }
+        }.reduce([], +)
     }
     private func crossMoves(piece: Piece, field pieceField: Field, board: Board) -> [Action] {
         var actions = [Action]()

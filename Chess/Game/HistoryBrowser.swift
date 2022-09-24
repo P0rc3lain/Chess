@@ -36,4 +36,30 @@ class HistoryBrowser {
         }
         return previousState
     }
+    func historySequence(state: GameState) -> [GameState] {
+        var allStates = [GameState]()
+        var current: GameState? = state
+        while current != nil {
+            allStates.append(current!)
+            current = current?.previous
+        }
+        return allStates
+    }
+    func allIdsUsed(type: CoreType, color: PieceColor, state: GameState) -> Set<Int> {
+        let ids = historySequence(state: state).map({ state in
+            let placements = interactor.placements(board: state.board, color: color, type: type)
+            let ids = placements.map({ (field, piece) in
+                piece.type.id
+            })
+            return Set<Int>(ids)
+        })
+        return ids.reduce(Set<Int>(), { $0.union($1) })
+    }
+    func nextId(type: CoreType, color: PieceColor, state: GameState) -> Int {
+        let all = allIdsUsed(type: type, color: color, state: state)
+        guard let maximalValue = all.max() else {
+            return 0
+        }
+        return maximalValue + 1
+    }
 }
