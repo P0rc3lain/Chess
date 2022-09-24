@@ -6,9 +6,10 @@
 //
 
 class QueenMoveGenerator {
-    private let interactor = BoardInteractor()
+    private let bishopGenerator = BishopMoveGenerator()
+    private let rookGenerator = RookMoveGenerator()
     func potentialActions(piece: Piece, board: Board) -> [Action] {
-        BishopMoveGenerator().potentialActions(piece: piece, board: board) +
-        RookMoveGenerator().potentialActions(piece: piece, board: board)
+        bishopGenerator.potentialActions(piece: piece, board: board) +
+        rookGenerator.potentialActions(piece: piece, board: board)
     }
 }
