@@ -38,7 +38,7 @@ class MovesGenerator {
     }
     private func allActions(piece: Piece,
                             state: GameState) -> [Action] {
-        switch piece.type {
+        switch piece.type.coreType {
         case .rook:
             return RookMoveGenerator().potentialActions(piece: piece, board: state.board)
         case .bishop:

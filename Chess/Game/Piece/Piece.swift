@@ -8,9 +8,6 @@
 import Foundation
 
 struct Piece: CustomStringConvertible, Equatable {
-    static func == (lhs: Piece, rhs: Piece) -> Bool {
-        lhs.color == rhs.color && lhs.type == rhs.type
-    }
     let color: PieceColor
     let type: PieceType
     var description: String {
@@ -29,13 +26,17 @@ struct Piece: CustomStringConvertible, Equatable {
         }
         let color = PieceColor(rawValue: String(literal[match.range(at: 1)]))
         let index = match.range(at: 3).location != NSNotFound ? Int(String(literal[match.range(at: 3)])) : nil
-        let pieceType = PieceType(type: String(literal[match.range(at: 2)]),
-                                  index: index)
-        guard let color = color,
-              let pieceType = pieceType else {
+        guard let coreType = CoreType(rawValue: String(literal[match.range(at: 2)])) else {
+            return nil
+        }
+        let pieceType = PieceType(coreType: coreType, id: index ?? 0)
+        guard let color = color else {
             return nil
         }
         self.color = color
         self.type = pieceType
+    }
+    static func == (lhs: Piece, rhs: Piece) -> Bool {
+        lhs.color == rhs.color && lhs.type == rhs.type
     }
 }

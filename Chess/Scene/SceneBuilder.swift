@@ -55,7 +55,7 @@ class SceneBuilder {
                     continue
                 }
                 let material = piece.color == .black ? blackMaterial : whiteMaterial
-                let object = loader.loadObject(name: piece.type.mainType.capitalized, material: material)
+                let object = loader.loadObject(name: piece.type.coreType.rawValue.capitalized, material: material)
                 let angle = Float(piece.color == .black ? 180 : 0).radians
                 let orientation = simd_quatf(angle: angle, axis: [0, 1, 0]).rotationMatrix
                 let rotationNode = PNScenePiece.make(data: PNISceneNode(transform: orientation))

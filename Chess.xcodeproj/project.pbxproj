@@ -41,6 +41,7 @@
 		56BA8DE628DF08CB0012A5CE /* BishopMoveGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8DE528DF08CB0012A5CE /* BishopMoveGenerator.swift */; };
 		56BA8DE828DF09BF0012A5CE /* KingMoveGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8DE728DF09BF0012A5CE /* KingMoveGenerator.swift */; };
 		56BA8DEA28DF09F80012A5CE /* QueenMoveGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8DE928DF09F80012A5CE /* QueenMoveGenerator.swift */; };
+		56BA8DED28DF0B080012A5CE /* CoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8DEC28DF0B080012A5CE /* CoreType.swift */; };
 		56BB94AC28A94A750034D4AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AB28A94A750034D4AB /* AppDelegate.swift */; };
 		56BB94AE28A94A750034D4AB /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AD28A94A750034D4AB /* GameViewController.swift */; };
 		56BB94B028A94A770034D4AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56BB94AF28A94A770034D4AB /* Assets.xcassets */; };
@@ -130,6 +131,7 @@
 		56BA8DE528DF08CB0012A5CE /* BishopMoveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BishopMoveGenerator.swift; sourceTree = "<group>"; };
 		56BA8DE728DF09BF0012A5CE /* KingMoveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingMoveGenerator.swift; sourceTree = "<group>"; };
 		56BA8DE928DF09F80012A5CE /* QueenMoveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueenMoveGenerator.swift; sourceTree = "<group>"; };
+		56BA8DEC28DF0B080012A5CE /* CoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreType.swift; sourceTree = "<group>"; };
 		56BB94A828A94A750034D4AB /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56BB94AB28A94A750034D4AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56BB94AD28A94A750034D4AB /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -292,7 +294,7 @@
 		569699C628CE47E300469E6B /* Piece */ = {
 			isa = PBXGroup;
 			children = (
-				5648530E28C90B2600BA4CC0 /* PieceType.swift */,
+				56BA8DEB28DF0AFF0012A5CE /* Type */,
 				5648531028C90B5C00BA4CC0 /* PieceColor.swift */,
 				5648531428C90B9100BA4CC0 /* Piece.swift */,
 				569699C928CE4DD300469E6B /* Field.swift */,
@@ -311,6 +313,15 @@
 				56BA8DE928DF09F80012A5CE /* QueenMoveGenerator.swift */,
 			);
 			path = Potential;
+			sourceTree = "<group>";
+		};
+		56BA8DEB28DF0AFF0012A5CE /* Type */ = {
+			isa = PBXGroup;
+			children = (
+				5648530E28C90B2600BA4CC0 /* PieceType.swift */,
+				56BA8DEC28DF0B080012A5CE /* CoreType.swift */,
+			);
+			path = Type;
 			sourceTree = "<group>";
 		};
 		56BB949F28A94A750034D4AB = {
@@ -500,6 +511,7 @@
 				561B67F328D2604600D6E2F7 /* BoardInteractor.swift in Sources */,
 				569699C028CE42E800469E6B /* Game.swift in Sources */,
 				5648530D28C90A6D00BA4CC0 /* SceneManipulator.swift in Sources */,
+				56BA8DED28DF0B080012A5CE /* CoreType.swift in Sources */,
 				56BA8DE128DF07270012A5CE /* KnightMoveGenerator.swift in Sources */,
 				561B67FE28D4C28C00D6E2F7 /* GameState.swift in Sources */,
 				56BB94AC28A94A750034D4AB /* AppDelegate.swift in Sources */,
