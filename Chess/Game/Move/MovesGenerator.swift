@@ -8,89 +8,10 @@
 class MovesGenerator {
     private let interactor = BoardInteractor()
     private let browser = HistoryBrowser()
-    func bishopActionsToPerform(piece: Piece, board: Board) -> [Action] {
-        guard let pieceField = interactor.field(of: piece, board: board) else {
-            fatalError("Invalid state")
-        }
-        var allowedFields = [Field]()
-        // Up-Left
-        for i in 1 ... 7 {
-            if pieceField.row + i > 7 || pieceField.column + i > 7 {
-                break
-            }
-            let field = Field(pieceField.row + i, pieceField.column + i)
-            let pieceAhead = board.fields[field.row][field.column]
-            if pieceAhead != nil {
-                if pieceAhead?.color != piece.color {
-                    allowedFields.append(field)
-                }
-                break
-            } else {
-                allowedFields.append(field)
-            }
-        }
-        // Down
-        for i in 1 ... 7 {
-            if pieceField.row - i < 0 || pieceField.column + i > 7 {
-                break
-            }
-            let field = Field(pieceField.row - i, pieceField.column + i)
-            let pieceAhead = board.fields[field.row][field.column]
-            if pieceAhead != nil {
-                if pieceAhead?.color != piece.color {
-                    allowedFields.append(field)
-                }
-                break
-            } else {
-                allowedFields.append(field)
-            }
-        }
-        // Left
-        for i in 1 ... 7 {
-            if pieceField.row + i > 7 || pieceField.column - i < 0 {
-                break
-            }
-            let field = Field(pieceField.row + i, pieceField.column - i)
-            let pieceAhead = board.fields[field.row][field.column]
-            if pieceAhead != nil {
-                if pieceAhead?.color != piece.color {
-                    allowedFields.append(field)
-                }
-                break
-            } else {
-                allowedFields.append(field)
-            }
-        }
-        // Right
-        for i in 1 ... 7 {
-            if pieceField.row - i < 0 || pieceField.column - i < 0 {
-                break
-            }
-            let field = Field(pieceField.row - i, pieceField.column - i)
-            let pieceAhead = board.fields[field.row][field.column]
-            if pieceAhead != nil {
-                if pieceAhead?.color != piece.color {
-                    allowedFields.append(field)
-                }
-                break
-            } else {
-                allowedFields.append(field)
-            }
-        }
-        return allowedFields.map({
-            let pieceToRemove = board.fields[$0.row][$0.column]
-            return Action(mainMove: (pieceField, $0),
-                          sideEffects: [],
-                          piecesToAdd: [],
-                          piecesToRemove: pieceToRemove != nil ? [pieceToRemove!] : [])
-        })
-    }
-    
     func queenActionsToPerform(piece: Piece, board: Board) -> [Action] {
-        bishopActionsToPerform(piece: piece, board: board) +
+        BishopMoveGenerator().potentialActions(piece: piece, board: board) +
         RookMoveGenerator().potentialActions(piece: piece, board: board)
     }
-    
     func kingActionsToPerform(piece: Piece, state: GameState) -> [Action] {
         guard let pieceField = interactor.field(of: piece, board: state.board) else {
             fatalError("Invalid state")
@@ -171,7 +92,7 @@ class MovesGenerator {
         case .rook:
             return RookMoveGenerator().potentialActions(piece: piece, board: state.board)
         case .bishop:
-            return bishopActionsToPerform(piece: piece, board: state.board)
+            return BishopMoveGenerator().potentialActions(piece: piece, board: state.board)
         case .queen:
             return queenActionsToPerform(piece: piece, board: state.board)
         case .king:
