@@ -167,40 +167,7 @@ class MovesGenerator {
         bishopActionsToPerform(piece: piece, board: board) +
         rookActionsToPerform(piece: piece, board: board)
     }
-    func knightActionsToPerform(piece: Piece, board: Board) -> [Action] {
-        guard let pieceField = interactor.field(of: piece, board: board) else {
-            fatalError("Invalid state")
-        }
-        let moves = [
-            (pieceField.row + 2, pieceField.column + 1),
-            (pieceField.row + 2, pieceField.column - 1),
-            (pieceField.row - 2, pieceField.column + 1),
-            (pieceField.row - 2, pieceField.column - 1),
-            (pieceField.row - 1, pieceField.column - 2),
-            (pieceField.row - 1, pieceField.column + 2),
-            (pieceField.row + 1, pieceField.column - 2),
-            (pieceField.row + 1, pieceField.column + 2)
-        ]
-        var actions = [Action]()
-        for move in moves {
-            if move.0 < 0 || move.0 > 7 || move.1 < 0 || move.1 > 7 {
-                continue
-            }
-            let field = Field(move.0, move.1)
-            let pieceToRemove = board.fields[move.0][move.1]
-            if pieceToRemove?.color == piece.color {
-                continue
-            }
-            let canRemove = pieceToRemove?.color != piece.color
-            actions.append(Action(mainMove: (pieceField, field),
-                                  sideEffects: [],
-                                  piecesToAdd: [],
-                                  piecesToRemove: pieceToRemove != nil && canRemove ? [pieceToRemove!] : []))
-            
-            
-        }
-        return actions
-    }
+    
     func kingActionsToPerform(piece: Piece, state: GameState) -> [Action] {
         guard let pieceField = interactor.field(of: piece, board: state.board) else {
             fatalError("Invalid state")
@@ -287,7 +254,7 @@ class MovesGenerator {
         case .king:
             return kingActionsToPerform(piece: piece, state: state)
         case .knight:
-            return knightActionsToPerform(piece: piece, board: state.board)
+            return KnightMoveGenerator().potentialActions(piece: piece, board: state.board)
         case .pawn:
             return PawnMoveGenerator().potentialActions(piece: piece, state: state)
         }

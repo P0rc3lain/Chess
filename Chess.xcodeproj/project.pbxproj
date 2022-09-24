@@ -36,6 +36,7 @@
 		569699CA28CE4DD300469E6B /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569699C928CE4DD300469E6B /* Field.swift */; };
 		56BA8DDA28DE559C0012A5CE /* PawnMoveGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8DD928DE559C0012A5CE /* PawnMoveGenerator.swift */; };
 		56BA8DDC28DE59C40012A5CE /* HistoryBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8DDB28DE59C40012A5CE /* HistoryBrowser.swift */; };
+		56BA8DE128DF07270012A5CE /* KnightMoveGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8DE028DF07270012A5CE /* KnightMoveGenerator.swift */; };
 		56BB94AC28A94A750034D4AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AB28A94A750034D4AB /* AppDelegate.swift */; };
 		56BB94AE28A94A750034D4AB /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AD28A94A750034D4AB /* GameViewController.swift */; };
 		56BB94B028A94A770034D4AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56BB94AF28A94A770034D4AB /* Assets.xcassets */; };
@@ -120,6 +121,7 @@
 		569699C928CE4DD300469E6B /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		56BA8DD928DE559C0012A5CE /* PawnMoveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawnMoveGenerator.swift; sourceTree = "<group>"; };
 		56BA8DDB28DE59C40012A5CE /* HistoryBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryBrowser.swift; sourceTree = "<group>"; };
+		56BA8DE028DF07270012A5CE /* KnightMoveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightMoveGenerator.swift; sourceTree = "<group>"; };
 		56BB94A828A94A750034D4AB /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56BB94AB28A94A750034D4AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56BB94AD28A94A750034D4AB /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				56BA8DD928DE559C0012A5CE /* PawnMoveGenerator.swift */,
+				56BA8DE028DF07270012A5CE /* KnightMoveGenerator.swift */,
 			);
 			path = Potential;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				561B67F328D2604600D6E2F7 /* BoardInteractor.swift in Sources */,
 				569699C028CE42E800469E6B /* Game.swift in Sources */,
 				5648530D28C90A6D00BA4CC0 /* SceneManipulator.swift in Sources */,
+				56BA8DE128DF07270012A5CE /* KnightMoveGenerator.swift in Sources */,
 				561B67FE28D4C28C00D6E2F7 /* GameState.swift in Sources */,
 				56BB94AC28A94A750034D4AB /* AppDelegate.swift in Sources */,
 				5648530B28C7F64800BA4CC0 /* ResourceLoader.swift in Sources */,
