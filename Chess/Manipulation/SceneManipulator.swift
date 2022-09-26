@@ -46,28 +46,28 @@ class SceneManipulator {
             guard let piece = findPiece(scene: scene, piece: move.who) else {
                 fatalError("Could not find piece")
             }
-            self.move(piece: piece, from: move.from?.tuple, to: move.to?.tuple)
+            self.move(piece: piece, from: move.from, to: move.to)
         }
     }
-    private func move(piece: PNAnimatedNode, from: (Int, Int)?, to: (Int, Int)?) {
+    private func move(piece: PNAnimatedNode, from: Field?, to: Field?) {
         assert(from != nil || to != nil, "Either 'from' or 'to' must be non-nil")
         var translation = PNAnimatedFloat3.defaultTranslation
         let currentTranslation = piece.transform.value.translation
         if let from = from, let to = to {
-            translation = PNKeyframeAnimation(keyFrames: [simd_float3(Float(from.0), currentTranslation.y, Float(from.1)),
-                                                          simd_float3(Float(from.0), 1.5, Float(from.1)),
-                                                          simd_float3(Float(to.0), 1.5, Float(to.1)),
-                                                          simd_float3(to.0, 0, to.1)],
+            translation = PNKeyframeAnimation(keyFrames: [simd_float3(Float(from.row), currentTranslation.y, Float(from.column)),
+                                                          simd_float3(Float(from.row), 1.5, Float(from.column)),
+                                                          simd_float3(Float(to.row), 1.5, Float(to.column)),
+                                                          simd_float3(to.row, 0, to.column)],
                                               times: [0, 0.5, 1, 1.5],
                                               maximumTime: 2)
         } else if let from = from {
-            translation = PNKeyframeAnimation(keyFrames: [simd_float3(Float(from.0), currentTranslation.y, Float(from.1)),
-                                                          simd_float3(from.0, infinity, from.1)],
+            translation = PNKeyframeAnimation(keyFrames: [simd_float3(Float(from.row), currentTranslation.y, Float(from.column)),
+                                                          simd_float3(from.row, infinity, from.column)],
                                               times: [0, 1],
                                               maximumTime: 2)
         } else if let to = to {
-            translation = PNKeyframeAnimation(keyFrames: [simd_float3(to.0, infinity, to.1),
-                                                          simd_float3(to.0, 0, to.1)],
+            translation = PNKeyframeAnimation(keyFrames: [simd_float3(to.row, infinity, to.column),
+                                                          simd_float3(to.row, 0, to.column)],
                                               times: [0, 1],
                                               maximumTime: 2)
         }

@@ -1,5 +1,5 @@
 //
-//  FieldCreator.swift
+//  FieldParser.swift
 //  Chess
 //
 //  Created by Mateusz Stompór on 26/09/2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FieldCreator {
+struct FieldParser {
     func create(literal: String) -> Field? {
         guard let regex = try? NSRegularExpression(pattern: "^([a-h])([1-8])$") else {
             return nil

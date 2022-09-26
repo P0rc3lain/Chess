@@ -82,7 +82,7 @@ class GameViewController: NSViewController, GameDelegate {
                                                      scene: engine.scene,
                                                      viewframe: frame)
             
-            let fieldS = FieldCreator().create(literal: field?.data.name ?? "")
+            let fieldS = FieldParser().create(literal: field?.data.name ?? "")
             let result = game.select(field: fieldS, state: state)
             moves = result.moves
             state = result.newState
