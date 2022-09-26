@@ -11,6 +11,7 @@
 		561B67F828D4C12F00D6E2F7 /* UserExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67F728D4C12F00D6E2F7 /* UserExpectation.swift */; };
 		561B67FC28D4C14700D6E2F7 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67FB28D4C14700D6E2F7 /* Action.swift */; };
 		561B67FE28D4C28C00D6E2F7 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67FD28D4C28C00D6E2F7 /* GameState.swift */; };
+		562D0E7128E1E60E00944DF2 /* FieldParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562D0E7028E1E60E00944DF2 /* FieldParser.swift */; };
 		56312C9E28A94FBF0038DD47 /* King.obj in Resources */ = {isa = PBXBuildFile; fileRef = 56312C9C28A94FBF0038DD47 /* King.obj */; };
 		56312CA028A950090038DD47 /* Knight.obj in Resources */ = {isa = PBXBuildFile; fileRef = 56312C9F28A950090038DD47 /* Knight.obj */; };
 		56312CA228A950220038DD47 /* Pawn.obj in Resources */ = {isa = PBXBuildFile; fileRef = 56312CA128A950220038DD47 /* Pawn.obj */; };
@@ -102,6 +103,7 @@
 		561B67F728D4C12F00D6E2F7 /* UserExpectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserExpectation.swift; sourceTree = "<group>"; };
 		561B67FB28D4C14700D6E2F7 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		561B67FD28D4C28C00D6E2F7 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		562D0E7028E1E60E00944DF2 /* FieldParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldParser.swift; sourceTree = "<group>"; };
 		56312C9C28A94FBF0038DD47 /* King.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = King.obj; sourceTree = "<group>"; };
 		56312C9F28A950090038DD47 /* Knight.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Knight.obj; sourceTree = "<group>"; };
 		56312CA128A950220038DD47 /* Pawn.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pawn.obj; sourceTree = "<group>"; };
@@ -217,6 +219,15 @@
 			path = Move;
 			sourceTree = "<group>";
 		};
+		562D0E6E28E1E60300944DF2 /* Field */ = {
+			isa = PBXGroup;
+			children = (
+				569699C928CE4DD300469E6B /* Field.swift */,
+				562D0E7028E1E60E00944DF2 /* FieldParser.swift */,
+			);
+			path = Field;
+			sourceTree = "<group>";
+		};
 		5634348928A94BE900C2DA95 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +265,7 @@
 		569699C228CE479700469E6B /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				562D0E6E28E1E60300944DF2 /* Field */,
 				561B67FA28D4C13C00D6E2F7 /* Move */,
 				561B67F528D2604900D6E2F7 /* Board */,
 				569699C628CE47E300469E6B /* Piece */,
@@ -297,7 +309,6 @@
 				56BA8DEB28DF0AFF0012A5CE /* Type */,
 				5648531028C90B5C00BA4CC0 /* PieceColor.swift */,
 				5648531428C90B9100BA4CC0 /* Piece.swift */,
-				569699C928CE4DD300469E6B /* Field.swift */,
 			);
 			path = Piece;
 			sourceTree = "<group>";
@@ -520,6 +531,7 @@
 				567A568528CB68BF008DDE40 /* CameraController.swift in Sources */,
 				5648531528C90B9100BA4CC0 /* Piece.swift in Sources */,
 				5648530F28C90B2600BA4CC0 /* PieceType.swift in Sources */,
+				562D0E7128E1E60E00944DF2 /* FieldParser.swift in Sources */,
 				5648531328C90B7B00BA4CC0 /* Board.swift in Sources */,
 				5648530428C7E65300BA4CC0 /* SceneBuilder.swift in Sources */,
 				56BA8DDA28DE559C0012A5CE /* PawnMoveGenerator.swift in Sources */,
