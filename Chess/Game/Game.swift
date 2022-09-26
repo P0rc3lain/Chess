@@ -5,16 +5,9 @@
 //  Created by Mateusz Stompór on 11/09/2022.
 //
 
-protocol GameDelegate: AnyObject {
-    func check(attacker: PieceColor)
-    func stalemate(attacker: PieceColor)
-    func checkmate(attacker: PieceColor)
-}
-
 class Game {
     private let interactor = BoardInteractor()
     private let generator = MovesGenerator()
-    weak var delegate: GameDelegate?
     func select(piece: Piece?, state: GameState) -> (moves: [Move], newState: GameState) {
         guard let piece = piece else {
             return ([], state)
@@ -26,7 +19,8 @@ class Game {
                                  board: state.board,
                                  selectedPiece: piece,
                                  turn: state.turn,
-                                 expectation: .fieldPick)
+                                 expectation: .fieldPick,
+                                 checkState: state.checkState)
         return ([], newState)
     }
     func select(field: Field?, state: GameState) -> (moves: [Move], newState: GameState) {
@@ -38,7 +32,8 @@ class Game {
                                      board: state.board,
                                      selectedPiece: nil,
                                      turn: state.turn,
-                                     expectation: .piecePick)
+                                     expectation: .piecePick,
+                                     checkState: state.checkState)
             return ([], newState)
         }
         guard let fromField = interactor.field(of: selectedPiece, board: state.board) else {
@@ -52,7 +47,8 @@ class Game {
                                      board: newBoard,
                                      selectedPiece: nil,
                                      turn: state.turn.toggled(),
-                                     expectation: .piecePick)
+                                     expectation: .piecePick,
+                                     checkState: .unknown)
             if generator.isChecking(color: state.turn.toggled(), state: newState) {
                 // Cannot expose itself to check
                 print("Would result in exposing itself to check")
@@ -60,21 +56,22 @@ class Game {
                                          board: state.board,
                                          selectedPiece: nil,
                                          turn: state.turn,
-                                         expectation: .piecePick)
+                                         expectation: .piecePick,
+                                         checkState: state.checkState)
                 return ([], newState)
             }
+            var check = CheckState.unknown
             let isChecking = generator.isChecking(color: state.turn, state: newState)
             if generator.allValidActions(color: state.turn.toggled(), state: newState).isEmpty {
                 if isChecking {
-                    delegate?.checkmate(attacker: state.turn)
-                    print("Checkmate of \(state.turn.toggled())")
+                    check = .checkmate
                 } else {
-                    delegate?.stalemate(attacker: state.turn)
-                    print("Stalemate of \(state.turn.toggled())")
+                    check = .stalemate
                 }
             } else if isChecking {
-                delegate?.check(attacker: state.turn)
-                print("Check against \(state.turn.toggled())")
+                check = .check
+            } else {
+                check = .noCheck
             }
             var moves = [Move]()
             for piece in action.piecesToRemove {
@@ -86,13 +83,19 @@ class Game {
             moves += [Move(who: selectedPiece,
                            from: fromField,
                            to: field)]
-            return (moves, newState)
+            return (moves, GameState(previous: newState.previous,
+                                     board: newState.board,
+                                     selectedPiece: newState.selectedPiece,
+                                     turn: newState.turn,
+                                     expectation: newState.expectation,
+                                     checkState: check))
         }
         let newState = GameState(previous: state,
                                  board: state.board,
                                  selectedPiece: nil,
                                  turn: state.turn,
-                                 expectation: .piecePick)
+                                 expectation: .piecePick,
+                                 checkState: state.checkState)
         return ([], newState)
     }
 }

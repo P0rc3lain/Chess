@@ -31,7 +31,8 @@ class MovesGenerator {
                                          board: after,
                                          selectedPiece: nil,
                                          turn: state.turn.toggled(),
-                                         expectation: .piecePick)
+                                         expectation: .piecePick,
+                                         checkState: .unknown)
                 return !isChecking(color: state.turn.toggled(), state: newState)
             }
         }.reduce([], +)

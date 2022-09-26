@@ -11,7 +11,7 @@ import ModelIO
 import MetalKit
 import MetalBinding
 
-class GameViewController: NSViewController, GameDelegate {
+class GameViewController: NSViewController {
     @IBOutlet weak var info: NSTextField!
     private var engine: PNEngine!
     private var engineView: PNView!
@@ -28,7 +28,6 @@ class GameViewController: NSViewController, GameDelegate {
         engine = engineView.engine
         interactionHandler = MouseInteractionHandler(interactor: engineView.interactor)
         listenForKeyboardEvents()
-        game.delegate = self
         guard let device = engineView.device else {
             fatalError("Device not set")
         }
@@ -97,15 +96,16 @@ class GameViewController: NSViewController, GameDelegate {
             }
         }
         manipulator.performMoves(scene: engine.scene, moves: moves)
-    }
-    func check(attacker: PieceColor) {
-        updateText("Check")
-    }
-    func stalemate(attacker: PieceColor) {
-        updateText("Stalemate")
-    }
-    func checkmate(attacker: PieceColor) {
-        updateText("Checkmate")
+        switch state.checkState {
+        case .check:
+            updateText("Check")
+        case .checkmate:
+            updateText("Checkmate")
+        case .stalemate:
+            updateText("Stalemate")
+        default:
+            updateText("")
+        }
     }
     func updateText(_ value: String) {
         if value.isEmpty && info.alphaValue > 0 {
