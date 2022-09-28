@@ -42,14 +42,16 @@ class SceneManipulator {
         node.animator.chronometer.reset()
     }
     func performMoves(scene: PNScene, moves: [Move]) {
+        var delay: PNTimeInterval = 0
         for move in moves {
             guard let piece = findPiece(scene: scene, piece: move.who) else {
                 fatalError("Could not find piece")
             }
-            self.move(piece: piece, from: move.from, to: move.to)
+            self.move(piece: piece, from: move.from, to: move.to, delay: delay)
+            delay += 2
         }
     }
-    private func move(piece: PNAnimatedNode, from: Field?, to: Field?) {
+    private func move(piece: PNAnimatedNode, from: Field?, to: Field?, delay: PNTimeInterval) {
         assert(from != nil || to != nil, "Either 'from' or 'to' must be non-nil")
         var translation = PNAnimatedFloat3.defaultTranslation
         let currentTranslation = piece.transform.value.translation
@@ -58,18 +60,18 @@ class SceneManipulator {
                                                           simd_float3(Float(from.row), 1.5, Float(from.column)),
                                                           simd_float3(Float(to.row), 1.5, Float(to.column)),
                                                           simd_float3(to.row, 0, to.column)],
-                                              times: [0, 0.5, 1, 1.5],
-                                              maximumTime: 2)
+                                              times: [delay + 0, delay + 0.5, delay + 1, delay + 1.5],
+                                              maximumTime: delay + 2)
         } else if let from = from {
             translation = PNKeyframeAnimation(keyFrames: [simd_float3(Float(from.row), currentTranslation.y, Float(from.column)),
                                                           simd_float3(from.row, infinity, from.column)],
-                                              times: [0, 1],
-                                              maximumTime: 2)
+                                              times: [delay + 0, delay + 1],
+                                              maximumTime: delay + 2)
         } else if let to = to {
             translation = PNKeyframeAnimation(keyFrames: [simd_float3(to.row, infinity, to.column),
                                                           simd_float3(to.row, 0, to.column)],
-                                              times: [0, 1],
-                                              maximumTime: 2)
+                                              times: [delay + 0, delay + 1],
+                                              maximumTime: delay + 2)
         }
         piece.animation = PNAnimatedCoordinateSpace(translation: translation,
                                                     rotation: PNAnimatedQuatf.defaultOrientation,
@@ -78,7 +80,7 @@ class SceneManipulator {
     }
     private func findPiece(scene: PNScene, piece: Piece) -> PNAnimatedNode? {
         scene.rootNode.findNode(where: {
-            $0.data.name == String(describing: piece)
+            $0.data.name == PieceParser().dump(piece: piece)
         })?.data as? PNAnimatedNode
     }
 }
