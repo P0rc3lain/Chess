@@ -57,6 +57,9 @@ class GameViewController: NSViewController {
         }
     }
     override func mouseDown(with event: NSEvent) {
+        guard state.checkState != .stalemate && state.checkState != .checkmate else {
+            return
+        }
         let camera = engine.scene.rootNode.all().compactMap({
             $0.data as? PNAnimatedCameraNode
         }).first
