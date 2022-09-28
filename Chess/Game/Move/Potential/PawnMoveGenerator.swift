@@ -8,13 +8,13 @@
 class PawnMoveGenerator {
     private let interactor = BoardInteractor()
     private let browser = HistoryBrowser()
-    func forward(color: PieceColor) -> Int {
+    private func forward(color: PieceColor) -> Int {
         color == .white ? 1 : -1
     }
-    func start(color: PieceColor) -> Int {
+    private func start(color: PieceColor) -> Int {
         color == .white ? 1 : 6
     }
-    func end(color: PieceColor) -> Int {
+    private func end(color: PieceColor) -> Int {
         6 * forward(color: color) + start(color: color)
     }
     func potentialActions(piece: Piece,
