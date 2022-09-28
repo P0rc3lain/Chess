@@ -80,6 +80,7 @@ class Game {
                 }
                 moves.append(Move(who: piece, from: position, to: nil))
             }
+            moves += action.sideEffects
             moves += [Move(who: selectedPiece,
                            from: fromField,
                            to: field)]
