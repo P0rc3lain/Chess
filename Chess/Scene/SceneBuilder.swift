@@ -65,7 +65,7 @@ class SceneBuilder {
                 let animator = PNIAnimator(chronometer: chrono, interpolator: PNIInterpolator(), sampler: PNISinglePlaySampler())
                 let node = PNIAnimatedNode(animator: animator,
                                            animation: .static(from: .translation(vector: vector)),
-                                           name: piece.description)
+                                           name: PieceParser().dump(piece: piece))
                 let p = PNScenePiece.make(data: node)
                 let groupNode = PNISceneNode(transform: .compose(translation: [-3.5, 2, 0],
                                                                  scale: [0.2, 0.2, 0.2]))

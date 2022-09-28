@@ -51,6 +51,7 @@
 		56C3174328CFE95900C04F3C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C3174128CFE95900C04F3C /* XCTest.framework */; };
 		56C3174728CFFDCB00C04F3C /* MovesGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3174628CFFDCB00C04F3C /* MovesGenerator.swift */; };
 		56C3174928CFFF7A00C04F3C /* MovesGenerator+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3174828CFFF7A00C04F3C /* MovesGenerator+Tests.swift */; };
+		56D8FCED28E4EE0400027132 /* PieceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D8FCEC28E4EE0400027132 /* PieceParser.swift */; };
 		56DA449E28CFE7AC009FE23C /* Field+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DA449D28CFE7AC009FE23C /* Field+Tests.swift */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +146,7 @@
 		56C3174128CFE95900C04F3C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		56C3174628CFFDCB00C04F3C /* MovesGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovesGenerator.swift; sourceTree = "<group>"; };
 		56C3174828CFFF7A00C04F3C /* MovesGenerator+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovesGenerator+Tests.swift"; sourceTree = "<group>"; };
+		56D8FCEC28E4EE0400027132 /* PieceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceParser.swift; sourceTree = "<group>"; };
 		56DA449B28CFE7AC009FE23C /* ChessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DA449D28CFE7AC009FE23C /* Field+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Field+Tests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -312,6 +314,7 @@
 				56BA8DEB28DF0AFF0012A5CE /* Type */,
 				5648531028C90B5C00BA4CC0 /* PieceColor.swift */,
 				5648531428C90B9100BA4CC0 /* Piece.swift */,
+				56D8FCEC28E4EE0400027132 /* PieceParser.swift */,
 			);
 			path = Piece;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				567A568528CB68BF008DDE40 /* CameraController.swift in Sources */,
 				5648531528C90B9100BA4CC0 /* Piece.swift in Sources */,
 				5648530F28C90B2600BA4CC0 /* PieceType.swift in Sources */,
+				56D8FCED28E4EE0400027132 /* PieceParser.swift in Sources */,
 				562D0E7128E1E60E00944DF2 /* FieldParser.swift in Sources */,
 				5648531328C90B7B00BA4CC0 /* Board.swift in Sources */,
 				5648530428C7E65300BA4CC0 /* SceneBuilder.swift in Sources */,

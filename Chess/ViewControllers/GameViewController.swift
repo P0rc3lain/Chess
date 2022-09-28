@@ -74,7 +74,7 @@ class GameViewController: NSViewController {
                                                      camera: camera,
                                                      scene: engine.scene,
                                                      viewframe: frame)
-            let pieceS = Piece(literal: piece?.data.name ?? "")
+            let pieceS = PieceParser().create(literal: piece?.data.name ?? "")
             let result = game.select(piece: pieceS, state: state)
             moves = result.moves
             state = result.newState
