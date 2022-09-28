@@ -69,7 +69,7 @@ class GameViewController: NSViewController {
         let frame = view.frame
         var moves = [Move]()
         let selected = state.selectedPiece
-        if state.expectation == .piecePick {
+        if state.expectation == .piece {
             let piece = interactionHandler.pickPiece(event: event,
                                                      camera: camera,
                                                      scene: engine.scene,

@@ -19,7 +19,7 @@ class Game {
                                  board: state.board,
                                  selectedPiece: piece,
                                  turn: state.turn,
-                                 expectation: .fieldPick,
+                                 expectation: .field,
                                  checkState: state.checkState)
         return ([], newState)
     }
@@ -32,7 +32,7 @@ class Game {
                                      board: state.board,
                                      selectedPiece: nil,
                                      turn: state.turn,
-                                     expectation: .piecePick,
+                                     expectation: .piece,
                                      checkState: state.checkState)
             return ([], newState)
         }
@@ -47,7 +47,7 @@ class Game {
                                      board: newBoard,
                                      selectedPiece: nil,
                                      turn: state.turn.toggled(),
-                                     expectation: .piecePick,
+                                     expectation: .piece,
                                      checkState: .unknown)
             if generator.isChecking(color: state.turn.toggled(), state: newState) {
                 // Cannot expose itself to check
@@ -56,7 +56,7 @@ class Game {
                                          board: state.board,
                                          selectedPiece: nil,
                                          turn: state.turn,
-                                         expectation: .piecePick,
+                                         expectation: .piece,
                                          checkState: state.checkState)
                 return ([], newState)
             }
@@ -94,7 +94,7 @@ class Game {
                                  board: state.board,
                                  selectedPiece: nil,
                                  turn: state.turn,
-                                 expectation: .piecePick,
+                                 expectation: .piece,
                                  checkState: state.checkState)
         return ([], newState)
     }

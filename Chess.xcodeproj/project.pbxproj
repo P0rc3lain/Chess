@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		561B67F328D2604600D6E2F7 /* BoardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67F228D2604600D6E2F7 /* BoardInteractor.swift */; };
-		561B67F828D4C12F00D6E2F7 /* UserExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67F728D4C12F00D6E2F7 /* UserExpectation.swift */; };
+		561B67F828D4C12F00D6E2F7 /* PickExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67F728D4C12F00D6E2F7 /* PickExpectation.swift */; };
 		561B67FC28D4C14700D6E2F7 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67FB28D4C14700D6E2F7 /* Action.swift */; };
 		561B67FE28D4C28C00D6E2F7 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67FD28D4C28C00D6E2F7 /* GameState.swift */; };
 		562D0E7128E1E60E00944DF2 /* FieldParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562D0E7028E1E60E00944DF2 /* FieldParser.swift */; };
@@ -101,7 +101,7 @@
 
 /* Begin PBXFileReference section */
 		561B67F228D2604600D6E2F7 /* BoardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardInteractor.swift; sourceTree = "<group>"; };
-		561B67F728D4C12F00D6E2F7 /* UserExpectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserExpectation.swift; sourceTree = "<group>"; };
+		561B67F728D4C12F00D6E2F7 /* PickExpectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickExpectation.swift; sourceTree = "<group>"; };
 		561B67FB28D4C14700D6E2F7 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		561B67FD28D4C28C00D6E2F7 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		562D0E7028E1E60E00944DF2 /* FieldParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldParser.swift; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 				561B67F528D2604900D6E2F7 /* Board */,
 				569699C628CE47E300469E6B /* Piece */,
 				569699BF28CE42E800469E6B /* Game.swift */,
-				561B67F728D4C12F00D6E2F7 /* UserExpectation.swift */,
+				561B67F728D4C12F00D6E2F7 /* PickExpectation.swift */,
 				561B67FD28D4C28C00D6E2F7 /* GameState.swift */,
 				56BA8DDB28DE59C40012A5CE /* HistoryBrowser.swift */,
 				562D0E7528E1F2C500944DF2 /* CheckState.swift */,
@@ -543,7 +543,7 @@
 				569699CA28CE4DD300469E6B /* Field.swift in Sources */,
 				56BA8DE828DF09BF0012A5CE /* KingMoveGenerator.swift in Sources */,
 				567A568828CBA420008DDE40 /* MouseInteractionHandler.swift in Sources */,
-				561B67F828D4C12F00D6E2F7 /* UserExpectation.swift in Sources */,
+				561B67F828D4C12F00D6E2F7 /* PickExpectation.swift in Sources */,
 				56C3174728CFFDCB00C04F3C /* MovesGenerator.swift in Sources */,
 				56BA8DE628DF08CB0012A5CE /* BishopMoveGenerator.swift in Sources */,
 			);

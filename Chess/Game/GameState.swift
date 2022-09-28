@@ -10,13 +10,13 @@ class GameState {
     let board: Board
     let selectedPiece: Piece?
     let turn: PieceColor
-    let expectation: UserExpectation
+    let expectation: PickExpectation
     let checkState: CheckState
     init(previous: GameState?,
          board: Board,
          selectedPiece: Piece?,
          turn: PieceColor,
-         expectation: UserExpectation,
+         expectation: PickExpectation,
          checkState: CheckState) {
         self.previous = previous
         self.board = board
@@ -30,7 +30,7 @@ class GameState {
                   board: .initial,
                   selectedPiece: nil,
                   turn: .white,
-                  expectation: .piecePick,
+                  expectation: .piece,
                   checkState: .noCheck)
     }
 }
