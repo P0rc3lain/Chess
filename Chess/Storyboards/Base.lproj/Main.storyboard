@@ -398,6 +398,7 @@
                             </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MI7-Yz-tN3" secondAttribute="trailing" constant="20" symbolic="YES" id="B8w-z0-ZfA"/>
                             <constraint firstAttribute="bottom" secondItem="MI7-Yz-tN3" secondAttribute="bottom" constant="20" id="BNw-5u-MF2"/>
                             <constraint firstAttribute="bottom" secondItem="fp4-DB-IKP" secondAttribute="bottom" id="NKM-LO-sS3"/>
                             <constraint firstItem="MI7-Yz-tN3" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Tew-mL-r83"/>
