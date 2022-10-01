@@ -9,6 +9,11 @@ import Cocoa
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
+    @IBAction func createGame(_ sender: Any) {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateInitialController()
+        (controller as! NSWindowController).showWindow(self)
+    }
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }

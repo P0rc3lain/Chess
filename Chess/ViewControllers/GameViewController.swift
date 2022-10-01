@@ -36,7 +36,7 @@ class GameViewController: NSViewController, GameDelegate {
         manipulator = SceneManipulator(device: device)
         engine.scene = builder.build(board: state.board)
     }
-    override func keyDown(with event: NSEvent) {
+    func down(with event: NSEvent) -> Bool {
         switch event.charactersIgnoringModifiers {
         case "f":
             view.window?.toggleFullScreen(self)
@@ -49,13 +49,13 @@ class GameViewController: NSViewController, GameDelegate {
                 cameraController.rotate(camera: node, angleDegress: minus ? -45 : 45)
             })
         default:
-            break
+            return false
         }
+        return true
     }
     private func listenForKeyboardEvents() {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] in
-            self?.keyDown(with: $0)
-            return nil
+            return (self?.down(with: $0) ?? false) ? nil : $0
         }
     }
     override func mouseDown(with event: NSEvent) {
