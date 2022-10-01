@@ -6,11 +6,16 @@
 //
 
 import Engine
+import Metal
 import simd
 
 class SceneManipulator {
     private let interactor = PNINodeInteractor()
     private let infinity: Int = 20
+    private let builder: SceneBuilder
+    init(device: MTLDevice) {
+        self.builder = SceneBuilder(device: device)
+    }
     func select(scene: PNScene, piece: Piece) {
         guard let node = findPiece(scene: scene, piece: piece) else {
             fatalError("Could not find piece")
@@ -44,11 +49,14 @@ class SceneManipulator {
     func performMoves(scene: PNScene, moves: [Move]) {
         var delay: PNTimeInterval = 0
         for move in moves {
-            guard let piece = findPiece(scene: scene, piece: move.who) else {
-                fatalError("Could not find piece")
+            var piece: PNAnimatedNode! = findPiece(scene: scene, piece: move.who)
+            if piece == nil {
+                let sceneNode = builder.add(piece: move.who, position: simd_float3([move.to!.row, infinity, move.to!.column]))
+                scene.rootNode.children[2].add(child: sceneNode)
+                piece = sceneNode.data as? PNAnimatedNode
             }
             self.move(piece: piece, from: move.from, to: move.to, delay: delay)
-            delay += 2
+            delay += 1
         }
     }
     private func move(piece: PNAnimatedNode, from: Field?, to: Field?, delay: PNTimeInterval) {

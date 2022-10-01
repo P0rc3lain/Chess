@@ -11,7 +11,7 @@ import ModelIO
 import MetalKit
 import MetalBinding
 
-class GameViewController: NSViewController {
+class GameViewController: NSViewController, GameDelegate {
     @IBOutlet weak var info: NSTextField!
     private var engine: PNEngine!
     private var engineView: PNView!
@@ -19,7 +19,7 @@ class GameViewController: NSViewController {
     private let game = Game()
     private let nodeInteractor = PNINodeInteractor()
     private let cameraController = CameraController()
-    private let manipulator = SceneManipulator()
+    private var manipulator: SceneManipulator!
     private var state = GameState.initial
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +28,12 @@ class GameViewController: NSViewController {
         engine = engineView.engine
         interactionHandler = MouseInteractionHandler(interactor: engineView.interactor)
         listenForKeyboardEvents()
+        game.delegate = self
         guard let device = engineView.device else {
             fatalError("Device not set")
         }
         let builder = SceneBuilder(device: device)
+        manipulator = SceneManipulator(device: device)
         engine.scene = builder.build(board: state.board)
     }
     override func keyDown(with event: NSEvent) {
@@ -124,5 +126,14 @@ class GameViewController: NSViewController {
                 info.animator().alphaValue = 1
             }, completionHandler: { })
         }
+    }
+    func chooseAction(action: [Action]) -> Action {
+        let alert = NSAlert()
+        alert.messageText = "Promotion required"
+        alert.informativeText = "Select type that the pawn is going to be exchanged for"
+        for a in action {
+            alert.addButton(withTitle:a.piecesToAdd[0].piece.type.coreType.rawValue)
+        }
+        return action[alert.runModal().rawValue - 1000]
     }
 }

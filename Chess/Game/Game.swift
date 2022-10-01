@@ -5,9 +5,14 @@
 //  Created by Mateusz Stompór on 11/09/2022.
 //
 
+protocol GameDelegate: AnyObject {
+    func chooseAction(action: [Action]) -> Action
+}
+
 class Game {
     private let interactor = BoardInteractor()
     private let generator = MovesGenerator()
+    weak var delegate: GameDelegate?
     func select(piece: Piece?, state: GameState) -> (moves: [Move], newState: GameState) {
         guard let piece = piece else {
             return ([], state)
@@ -39,9 +44,13 @@ class Game {
         guard let fromField = interactor.field(of: selectedPiece, board: state.board) else {
             fatalError("From field not set")
         }
-        if let action = generator.actions(piece: selectedPiece,
-                                          desiredField: field,
-                                          state: state).first {
+        let availableActions = generator.actions(piece: selectedPiece,
+                                                 desiredField: field,
+                                                 state: state)
+        if !availableActions.isEmpty, var action = availableActions.first {
+            if availableActions.count > 1 {
+                action = delegate?.chooseAction(action: availableActions) ?? availableActions.first!
+            }
             let newBoard = interactor.perform(board: state.board, actions: [action])
             let newState = GameState(previous: state,
                                      board: newBoard,
@@ -74,16 +83,19 @@ class Game {
                 check = .noCheck
             }
             var moves = [Move]()
+            moves += action.sideEffects
+            moves += [Move(who: selectedPiece,
+                           from: fromField,
+                           to: field)]
             for piece in action.piecesToRemove {
                 guard let position = interactor.field(of: piece, board: state.board) else {
                     fatalError("Not found")
                 }
                 moves.append(Move(who: piece, from: position, to: nil))
             }
-            moves += action.sideEffects
-            moves += [Move(who: selectedPiece,
-                           from: fromField,
-                           to: field)]
+            for addAction in action.piecesToAdd {
+                moves.append(Move(who: addAction.piece, from: nil, to: addAction.field))
+            }
             return (moves, GameState(previous: newState.previous,
                                      board: newState.board,
                                      selectedPiece: newState.selectedPiece,

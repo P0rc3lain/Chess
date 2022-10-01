@@ -47,6 +47,37 @@ class SceneBuilder {
         boardTransform.add(child: board)
         return boardTransform
     }
+    func add(piece: Piece,
+             blackMaterial: PNMaterial,
+             whiteMaterial: PNMaterial,
+             position vector: simd_float3) -> PNScenePiece {
+        let material = piece.color == .black ? blackMaterial : whiteMaterial
+        let object = loader.loadObject(name: piece.type.coreType.rawValue.capitalized, material: material)
+        let angle = Float(piece.color == .black ? 180 : 0).radians
+        let orientation = simd_quatf(angle: angle, axis: [0, 1, 0]).rotationMatrix
+        let rotationNode = PNScenePiece.make(data: PNISceneNode(transform: orientation))
+        rotationNode.add(child: object)
+        let chrono = PNIChronometer(timeProducer: { Date() })
+        let animator = PNIAnimator(chronometer: chrono, interpolator: PNIInterpolator(), sampler: PNISinglePlaySampler())
+        let node = PNIAnimatedNode(animator: animator,
+                                   animation: .static(from: .translation(vector: vector)),
+                                   name: PieceParser().dump(piece: piece))
+        let p = PNScenePiece.make(data: node)
+        let groupNode = PNISceneNode(transform: .compose(translation: [-3.5, 2, 0],
+                                                         scale: [0.2, 0.2, 0.2]))
+        let groupTransform = PNScenePiece.make(data: groupNode)
+        p.add(child: groupTransform)
+        groupTransform.add(child: rotationNode)
+        return p
+    }
+    func add(piece: Piece, position: simd_float3) -> PNScenePiece {
+        let sapeleMaterial = loader.loadMaterial(textureName: "sapele")
+        let mahoganyMaterial = loader.loadMaterial(textureName: "mahogany")
+        return add(piece: piece,
+                   blackMaterial: mahoganyMaterial,
+                   whiteMaterial: sapeleMaterial,
+                   position: position)
+    }
     private func loadPieces(board: Board, blackMaterial: PNMaterial, whiteMaterial: PNMaterial) -> PNScenePiece {
         let group = PNScenePiece.make(data: PNISceneNode(transform: .identity))
         for rowIndex in 0 ..< board.fields.count {
@@ -54,25 +85,10 @@ class SceneBuilder {
                 guard let piece = board.fields[rowIndex][columnIndex] else {
                     continue
                 }
-                let material = piece.color == .black ? blackMaterial : whiteMaterial
-                let object = loader.loadObject(name: piece.type.coreType.rawValue.capitalized, material: material)
-                let angle = Float(piece.color == .black ? 180 : 0).radians
-                let orientation = simd_quatf(angle: angle, axis: [0, 1, 0]).rotationMatrix
-                let rotationNode = PNScenePiece.make(data: PNISceneNode(transform: orientation))
-                rotationNode.add(child: object)
-                let vector = simd_float3(rowIndex, 0, columnIndex)
-                let chrono = PNIChronometer(timeProducer: { Date() })
-                let animator = PNIAnimator(chronometer: chrono, interpolator: PNIInterpolator(), sampler: PNISinglePlaySampler())
-                let node = PNIAnimatedNode(animator: animator,
-                                           animation: .static(from: .translation(vector: vector)),
-                                           name: PieceParser().dump(piece: piece))
-                let p = PNScenePiece.make(data: node)
-                let groupNode = PNISceneNode(transform: .compose(translation: [-3.5, 2, 0],
-                                                                 scale: [0.2, 0.2, 0.2]))
-                let groupTransform = PNScenePiece.make(data: groupNode)
-                p.add(child: groupTransform)
-                groupTransform.add(child: rotationNode)
-                group.add(child: p)
+                group.add(child: add(piece: piece,
+                                     blackMaterial: blackMaterial,
+                                     whiteMaterial: whiteMaterial,
+                                     position: simd_float3(rowIndex, 0, columnIndex)))
             }
         }
         return group
