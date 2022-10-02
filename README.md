@@ -3,6 +3,10 @@ A clone of widely-known logic game.
 The project showcases features and abilities of a graphics engine that I've developed.
 The game is complete in terms of rules implemented
  
+<p align="center">
+    <img src="./Gameplay/fool-mate.gif" width="100%"/>
+</p>
+ 
 ## Application
 * Supports having multiple sessions open
 * Handles mouse interactions for pieces selection and movement
