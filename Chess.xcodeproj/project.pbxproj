@@ -118,6 +118,11 @@
 		56312CA728A950C50038DD47 /* Board.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Board.obj; sourceTree = "<group>"; };
 		56312CA928A950DF0038DD47 /* Textures.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Textures.xcassets; sourceTree = "<group>"; };
 		5634348B28A94BF300C2DA95 /* Bishop.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Bishop.obj; sourceTree = "<group>"; };
+		563B0D7528E9BF54000839A1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		563B0D7828E9BF89000839A1 /* en-passant.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "en-passant.gif"; sourceTree = "<group>"; };
+		563B0D7928E9BF89000839A1 /* castling.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = castling.gif; sourceTree = "<group>"; };
+		563B0D7A28E9BF89000839A1 /* promotion.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = promotion.gif; sourceTree = "<group>"; };
+		563B0D7B28E9BF89000839A1 /* multiple-sessions.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "multiple-sessions.gif"; sourceTree = "<group>"; };
 		564852F628C7E3E200BA4CC0 /* Engine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Engine.xcodeproj; path = Library/Engine.xcodeproj; sourceTree = "<group>"; };
 		5648530328C7E65300BA4CC0 /* SceneBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBuilder.swift; sourceTree = "<group>"; };
 		5648530A28C7F64800BA4CC0 /* ResourceLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoader.swift; sourceTree = "<group>"; };
@@ -263,6 +268,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		563B0D7728E9BF89000839A1 /* Gameplay */ = {
+			isa = PBXGroup;
+			children = (
+				563B0D7828E9BF89000839A1 /* en-passant.gif */,
+				563B0D7928E9BF89000839A1 /* castling.gif */,
+				563B0D7A28E9BF89000839A1 /* promotion.gif */,
+				563B0D7B28E9BF89000839A1 /* multiple-sessions.gif */,
+			);
+			path = Gameplay;
+			sourceTree = "<group>";
+		};
 		564852F728C7E3E200BA4CC0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,6 +401,8 @@
 		56BB949F28A94A750034D4AB = {
 			isa = PBXGroup;
 			children = (
+				563B0D7728E9BF89000839A1 /* Gameplay */,
+				563B0D7528E9BF54000839A1 /* README.md */,
 				564852F628C7E3E200BA4CC0 /* Engine.xcodeproj */,
 				5634348928A94BE900C2DA95 /* Assets */,
 				56BB94AA28A94A750034D4AB /* Chess */,
