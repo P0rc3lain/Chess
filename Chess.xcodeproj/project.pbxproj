@@ -52,7 +52,7 @@
 		56C3174728CFFDCB00C04F3C /* MovesGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3174628CFFDCB00C04F3C /* MovesGenerator.swift */; };
 		56C3174928CFFF7A00C04F3C /* MovesGenerator+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3174828CFFF7A00C04F3C /* MovesGenerator+Tests.swift */; };
 		56D8FCED28E4EE0400027132 /* PieceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D8FCEC28E4EE0400027132 /* PieceParser.swift */; };
-		56DA449E28CFE7AC009FE23C /* Field+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DA449D28CFE7AC009FE23C /* Field+Tests.swift */; };
+		56DA449E28CFE7AC009FE23C /* FieldParser+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DA449D28CFE7AC009FE23C /* FieldParser+Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,7 +148,7 @@
 		56C3174828CFFF7A00C04F3C /* MovesGenerator+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovesGenerator+Tests.swift"; sourceTree = "<group>"; };
 		56D8FCEC28E4EE0400027132 /* PieceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceParser.swift; sourceTree = "<group>"; };
 		56DA449B28CFE7AC009FE23C /* ChessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		56DA449D28CFE7AC009FE23C /* Field+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Field+Tests.swift"; sourceTree = "<group>"; };
+		56DA449D28CFE7AC009FE23C /* FieldParser+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FieldParser+Tests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +266,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		5689C76B28E97D1C008A8E9D /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				5689C76D28E97D22008A8E9D /* Field */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		5689C76D28E97D22008A8E9D /* Field */ = {
+			isa = PBXGroup;
+			children = (
+				56DA449D28CFE7AC009FE23C /* FieldParser+Tests.swift */,
+			);
+			path = Field;
+			sourceTree = "<group>";
+		};
 		569699C228CE479700469E6B /* Game */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,7 +396,7 @@
 		56DA449C28CFE7AC009FE23C /* ChessTests */ = {
 			isa = PBXGroup;
 			children = (
-				56DA449D28CFE7AC009FE23C /* Field+Tests.swift */,
+				5689C76B28E97D1C008A8E9D /* Game */,
 				56C3174828CFFF7A00C04F3C /* MovesGenerator+Tests.swift */,
 			);
 			path = ChessTests;
@@ -558,7 +574,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56C3174928CFFF7A00C04F3C /* MovesGenerator+Tests.swift in Sources */,
-				56DA449E28CFE7AC009FE23C /* Field+Tests.swift in Sources */,
+				56DA449E28CFE7AC009FE23C /* FieldParser+Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
