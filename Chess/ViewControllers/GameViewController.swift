@@ -36,6 +36,12 @@ class GameViewController: NSViewController, GameDelegate {
         manipulator = SceneManipulator(device: device)
         engine.scene = builder.build(board: state.board)
     }
+    override func viewWillAppear() {
+        super.viewWillAppear()
+    }
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+    }
     func down(with event: NSEvent) -> Bool {
         switch event.charactersIgnoringModifiers {
         case "f":
@@ -55,6 +61,9 @@ class GameViewController: NSViewController, GameDelegate {
     }
     private func listenForKeyboardEvents() {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] in
+            guard self?.view.window?.isKeyWindow ?? false else {
+                return $0
+            }
             return (self?.down(with: $0) ?? false) ? nil : $0
         }
     }
