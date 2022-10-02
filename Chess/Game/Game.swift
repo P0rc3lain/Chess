@@ -84,15 +84,15 @@ class Game {
             }
             var moves = [Move]()
             moves += action.sideEffects
-            moves += [Move(who: selectedPiece,
-                           from: fromField,
-                           to: field)]
             for piece in action.piecesToRemove {
                 guard let position = interactor.field(of: piece, board: state.board) else {
                     fatalError("Not found")
                 }
                 moves.append(Move(who: piece, from: position, to: nil))
             }
+            moves += [Move(who: selectedPiece,
+                           from: fromField,
+                           to: field)]
             for addAction in action.piecesToAdd {
                 moves.append(Move(who: addAction.piece, from: nil, to: addAction.field))
             }

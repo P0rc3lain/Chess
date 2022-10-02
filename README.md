@@ -1,4 +1,4 @@
-#  Chess
+# Chess
 
 #### En passant
 <p align="center">
