@@ -25,8 +25,8 @@ final class FieldParserTests: XCTestCase {
     }
     func testOrder() throws {
         let field = parser.create(literal: "a8")
-      XCTAssertEqual(field?.row, 0)
-      XCTAssertEqual(field?.column, 7)
+        XCTAssertEqual(field?.row, 0)
+        XCTAssertEqual(field?.column, 7)
     }
     func testRowOutOfBounds() throws {
         XCTAssertNil(parser.create(literal: "i8"))

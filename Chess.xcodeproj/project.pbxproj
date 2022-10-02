@@ -35,6 +35,8 @@
 		567A568828CBA420008DDE40 /* MouseInteractionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567A568728CBA420008DDE40 /* MouseInteractionHandler.swift */; };
 		5685903628A9695000785F1A /* Cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5685903428A9695000785F1A /* Cube.obj */; };
 		5689C77128E97F5F008A8E9D /* KingMoveGenerator+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689C77028E97F5F008A8E9D /* KingMoveGenerator+Tests.swift */; };
+		5689C77328E98117008A8E9D /* PawnMoveGenerator+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689C77228E98117008A8E9D /* PawnMoveGenerator+Tests.swift */; };
+		5689C77528E982A1008A8E9D /* HistoryBrowser+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689C77428E982A1008A8E9D /* HistoryBrowser+Tests.swift */; };
 		569699C028CE42E800469E6B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569699BF28CE42E800469E6B /* Game.swift */; };
 		569699CA28CE4DD300469E6B /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569699C928CE4DD300469E6B /* Field.swift */; };
 		56BA8DDA28DE559C0012A5CE /* PawnMoveGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8DD928DE559C0012A5CE /* PawnMoveGenerator.swift */; };
@@ -129,6 +131,8 @@
 		567A568728CBA420008DDE40 /* MouseInteractionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseInteractionHandler.swift; sourceTree = "<group>"; };
 		5685903428A9695000785F1A /* Cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cube.obj; sourceTree = "<group>"; };
 		5689C77028E97F5F008A8E9D /* KingMoveGenerator+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KingMoveGenerator+Tests.swift"; sourceTree = "<group>"; };
+		5689C77228E98117008A8E9D /* PawnMoveGenerator+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PawnMoveGenerator+Tests.swift"; sourceTree = "<group>"; };
+		5689C77428E982A1008A8E9D /* HistoryBrowser+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryBrowser+Tests.swift"; sourceTree = "<group>"; };
 		569699BF28CE42E800469E6B /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		569699C928CE4DD300469E6B /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		56BA8DD928DE559C0012A5CE /* PawnMoveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawnMoveGenerator.swift; sourceTree = "<group>"; };
@@ -273,6 +277,7 @@
 			children = (
 				5689C76E28E97F4C008A8E9D /* Move */,
 				5689C76D28E97D22008A8E9D /* Field */,
+				5689C77428E982A1008A8E9D /* HistoryBrowser+Tests.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				5689C77028E97F5F008A8E9D /* KingMoveGenerator+Tests.swift */,
+				5689C77228E98117008A8E9D /* PawnMoveGenerator+Tests.swift */,
 			);
 			path = Potential;
 			sourceTree = "<group>";
@@ -592,8 +598,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5689C77528E982A1008A8E9D /* HistoryBrowser+Tests.swift in Sources */,
 				56C3174928CFFF7A00C04F3C /* MovesGenerator+Tests.swift in Sources */,
 				56DA449E28CFE7AC009FE23C /* FieldParser+Tests.swift in Sources */,
+				5689C77328E98117008A8E9D /* PawnMoveGenerator+Tests.swift in Sources */,
 				5689C77128E97F5F008A8E9D /* KingMoveGenerator+Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
