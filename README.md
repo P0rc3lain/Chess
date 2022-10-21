@@ -24,13 +24,6 @@ The game is complete in terms of rules implemented
 * `cmd` + `n` - new session
 * `cmd` + `w` - close session
 
-## Can I try?
-No, let me explain...
-<br>
-Application is built on top of an engine developed by myself - [P0rc3lain](https://github.com/P0rc3lain/Engine).
-Its code is going to be released soon - once I finally decide that fhe form is close to what I expect from it.
-Until then only the game and engine's interface (through the project's code) can be examinated
-
 ## Gameplay
 
 #### En passant
