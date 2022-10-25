@@ -6,7 +6,6 @@
 //
 
 import Engine
-import Cocoa
 
 class MouseInteractionHandler {
     private let interactor: PNScreenInteractor
@@ -17,22 +16,19 @@ class MouseInteractionHandler {
         self.bbInteractor = PNIBoundingBoxInteractor.default
         self.bInteractor = PNIBoundInteractor()
     }
-    func click(event: NSEvent,
-               camera: PNCameraNode,
-               scene: PNScene,
-               viewframe frame: NSRect) -> [PNScenePiece] {
-        let location = event.locationInWindow
+    func click(location: CGPoint,
+              camera: PNCameraNode,
+              scene: PNScene,
+              viewframe frame: CGSize) -> [PNScenePiece] {
         let point = PNPoint2D(Float(location.x/frame.width * 2 - 1),
-                              Float(location.y/frame.height * 2 - 1))
-        
-        let allNodes = interactor.pick(camera: camera, scene: scene, point: point)
-        return allNodes
+                             Float(location.y/frame.height * 2 - 1))
+        return interactor.pick(camera: camera, scene: scene, point: point)
     }
-    func pickPiece(event: NSEvent,
-                   camera: PNCameraNode,
-                   scene: PNScene,
-                   viewframe frame: NSRect) -> PNScenePiece? {
-        let allFound = click(event: event, camera: camera, scene: scene, viewframe: frame)
+    func pickPiece(location: CGPoint,
+                  camera: PNCameraNode,
+                  scene: PNScene,
+                  viewframe frame: CGSize) -> PNScenePiece? {
+        let allFound = click(location: location, camera: camera, scene: scene, viewframe: frame)
         return allFound.compactMap({
             guard $0.data as? PNMeshNode != nil else {
                 return nil
@@ -52,11 +48,11 @@ class MouseInteractionHandler {
             $0.data.name.count > 2
         })
     }
-    func pickField(event: NSEvent,
-                   camera: PNCameraNode,
-                   scene: PNScene,
-                   viewframe frame: NSRect) -> PNScenePiece? {
-        let allFound = click(event: event, camera: camera, scene: scene, viewframe: frame)
+    func pickField(location: CGPoint,
+                  camera: PNCameraNode,
+                  scene: PNScene,
+                  viewframe frame: CGSize) -> PNScenePiece? {
+        let allFound = click(location: location, camera: camera, scene: scene, viewframe: frame)
         return allFound.compactMap({
             guard $0.data as? PNMeshNode != nil else {
                 return nil

@@ -5,6 +5,22 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "56BB94A728A94A750034D4AB"
+               BuildableName = "Chess-macOS.app"
+               BlueprintName = "Chess-macOS"
+               ReferencedContainer = "container:Chess.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -18,8 +34,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "56DA449A28CFE7AC009FE23C"
-               BuildableName = "ChessTests.xctest"
-               BlueprintName = "ChessTests"
+               BuildableName = "Chess-Tests.xctest"
+               BlueprintName = "Chess-Tests"
                ReferencedContainer = "container:Chess.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -34,7 +50,18 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
+      enableGPUFrameCaptureMode = "1"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "56BB94A728A94A750034D4AB"
+            BuildableName = "Chess-macOS.app"
+            BlueprintName = "Chess-macOS"
+            ReferencedContainer = "container:Chess.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -42,6 +69,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "56BB94A728A94A750034D4AB"
+            BuildableName = "Chess-macOS.app"
+            BlueprintName = "Chess-macOS"
+            ReferencedContainer = "container:Chess.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
