@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "56BB94A728A94A750034D4AB"
-               BuildableName = "Chess.app"
-               BlueprintName = "Chess"
+               BlueprintIdentifier = "565B627B2903414800C0C0D1"
+               BuildableName = "Chess-iOS.app"
+               BlueprintName = "Chess-iOS"
                ReferencedContainer = "container:Chess.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,17 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "56DA449A28CFE7AC009FE23C"
-               BuildableName = "ChessTests.xctest"
-               BlueprintName = "ChessTests"
-               ReferencedContainer = "container:Chess.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -51,14 +40,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       enableGPUFrameCaptureMode = "1"
+      showGraphicsOverview = "Yes"
+      logGraphicsOverview = "Yes"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "56BB94A728A94A750034D4AB"
-            BuildableName = "Chess.app"
-            BlueprintName = "Chess"
+            BlueprintIdentifier = "565B627B2903414800C0C0D1"
+            BuildableName = "Chess-iOS.app"
+            BlueprintName = "Chess-iOS"
             ReferencedContainer = "container:Chess.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -73,9 +64,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "56BB94A728A94A750034D4AB"
-            BuildableName = "Chess.app"
-            BlueprintName = "Chess"
+            BlueprintIdentifier = "565B627B2903414800C0C0D1"
+            BuildableName = "Chess-iOS.app"
+            BlueprintName = "Chess-iOS"
             ReferencedContainer = "container:Chess.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

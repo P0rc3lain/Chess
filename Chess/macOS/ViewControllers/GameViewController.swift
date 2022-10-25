@@ -36,12 +36,6 @@ class GameViewController: NSViewController, GameDelegate {
         manipulator = SceneManipulator(device: device)
         engine.scene = builder.build(board: state.board)
     }
-    override func viewWillAppear() {
-        super.viewWillAppear()
-    }
-    override func viewWillDisappear() {
-        super.viewWillDisappear()
-    }
     func down(with event: NSEvent) -> Bool {
         switch event.charactersIgnoringModifiers {
         case "f":
@@ -81,19 +75,19 @@ class GameViewController: NSViewController, GameDelegate {
         var moves = [Move]()
         let selected = state.selectedPiece
         if state.expectation == .piece {
-            let piece = interactionHandler.pickPiece(event: event,
+            let piece = interactionHandler.pickPiece(location: event.locationInWindow,
                                                      camera: camera,
                                                      scene: engine.scene,
-                                                     viewframe: frame)
+                                                     viewframe: frame.size)
             let pieceS = PieceParser().create(literal: piece?.data.name ?? "")
             let result = game.select(piece: pieceS, state: state)
             moves = result.moves
             state = result.newState
         } else {
-            let field = interactionHandler.pickField(event: event,
+            let field = interactionHandler.pickField(location: event.locationInWindow,
                                                      camera: camera,
                                                      scene: engine.scene,
-                                                     viewframe: frame)
+                                                     viewframe: frame.size)
             
             let fieldS = FieldParser().create(literal: field?.data.name ?? "")
             let result = game.select(field: fieldS, state: state)
