@@ -219,12 +219,13 @@
 		56BA8DE728DF09BF0012A5CE /* KingMoveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingMoveGenerator.swift; sourceTree = "<group>"; };
 		56BA8DE928DF09F80012A5CE /* QueenMoveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueenMoveGenerator.swift; sourceTree = "<group>"; };
 		56BA8DEC28DF0B080012A5CE /* CoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreType.swift; sourceTree = "<group>"; };
-		56BB94A828A94A750034D4AB /* Chess-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chess-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		56BB94A828A94A750034D4AB /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56BB94AB28A94A750034D4AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56BB94AD28A94A750034D4AB /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		56BB94AF28A94A770034D4AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56BB94B228A94A770034D4AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		56BB94B428A94A770034D4AB /* Chess.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chess.entitlements; sourceTree = "<group>"; };
+		56BEC3C6299FD286005CFC2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		56C3174128CFE95900C04F3C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		56C3174628CFFDCB00C04F3C /* MovesGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovesGenerator.swift; sourceTree = "<group>"; };
 		56C3174828CFFF7A00C04F3C /* MovesGenerator+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovesGenerator+Tests.swift"; sourceTree = "<group>"; };
@@ -530,7 +531,7 @@
 		56BB94A928A94A750034D4AB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				56BB94A828A94A750034D4AB /* Chess-macOS.app */,
+				56BB94A828A94A750034D4AB /* Chess.app */,
 				56DA449B28CFE7AC009FE23C /* Chess-Tests.xctest */,
 				565B627C2903414800C0C0D1 /* Chess-iOS.app */,
 			);
@@ -540,6 +541,7 @@
 		56BB94AA28A94A750034D4AB /* Chess */ = {
 			isa = PBXGroup;
 			children = (
+				56BEC3C6299FD286005CFC2F /* Info.plist */,
 				561814A1290851D40027EECD /* Common */,
 				565B62772903410F00C0C0D1 /* iOS */,
 				565B62752903410700C0C0D1 /* macOS */,
@@ -578,9 +580,9 @@
 			productReference = 565B627C2903414800C0C0D1 /* Chess-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		56BB94A728A94A750034D4AB /* Chess-macOS */ = {
+		56BB94A728A94A750034D4AB /* Chess */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "Chess-macOS" */;
+			buildConfigurationList = 56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "Chess" */;
 			buildPhases = (
 				56BB94A428A94A750034D4AB /* Sources */,
 				56BB94A528A94A750034D4AB /* Frameworks */,
@@ -592,9 +594,9 @@
 			dependencies = (
 				5648530228C7E3F800BA4CC0 /* PBXTargetDependency */,
 			);
-			name = "Chess-macOS";
+			name = Chess;
 			productName = Chess;
-			productReference = 56BB94A828A94A750034D4AB /* Chess-macOS.app */;
+			productReference = 56BB94A828A94A750034D4AB /* Chess.app */;
 			productType = "com.apple.product-type.application";
 		};
 		56DA449A28CFE7AC009FE23C /* Chess-Tests */ = {
@@ -656,7 +658,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				56BB94A728A94A750034D4AB /* Chess-macOS */,
+				56BB94A728A94A750034D4AB /* Chess */,
 				56DA449A28CFE7AC009FE23C /* Chess-Tests */,
 				565B627B2903414800C0C0D1 /* Chess-iOS */,
 			);
@@ -830,7 +832,7 @@
 		};
 		56DA44A028CFE7AC009FE23C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 56BB94A728A94A750034D4AB /* Chess-macOS */;
+			target = 56BB94A728A94A750034D4AB /* Chess */;
 			targetProxy = 56DA449F28CFE7AC009FE23C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1059,6 +1061,7 @@
 				DEVELOPMENT_TEAM = R78NEXF6E2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Chess/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Chess;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -1082,13 +1085,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Chess/macOS/SupportingFiles/Chess.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R78NEXF6E2;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = R78NEXF6E2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Chess/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Chess;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -1100,6 +1105,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stompor.mateusz.macos.porcelain.chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Chess macOS";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1164,7 +1171,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "Chess-macOS" */ = {
+		56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "Chess" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				56BB94B828A94A770034D4AB /* Debug */,

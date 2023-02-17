@@ -9,7 +9,7 @@ import Cocoa
 import Engine
 import ModelIO
 import MetalKit
-import MetalBinding
+import PNShared
 
 class GameViewController: NSViewController, GameDelegate {
     @IBOutlet weak var info: NSTextField!
