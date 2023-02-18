@@ -219,7 +219,7 @@
 		56BA8DE728DF09BF0012A5CE /* KingMoveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingMoveGenerator.swift; sourceTree = "<group>"; };
 		56BA8DE928DF09F80012A5CE /* QueenMoveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueenMoveGenerator.swift; sourceTree = "<group>"; };
 		56BA8DEC28DF0B080012A5CE /* CoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreType.swift; sourceTree = "<group>"; };
-		56BB94A828A94A750034D4AB /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		56BB94A828A94A750034D4AB /* YAChess Some Lol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YAChess Some Lol.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56BB94AB28A94A750034D4AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56BB94AD28A94A750034D4AB /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		56BB94AF28A94A770034D4AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -531,7 +531,7 @@
 		56BB94A928A94A750034D4AB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				56BB94A828A94A750034D4AB /* Chess.app */,
+				56BB94A828A94A750034D4AB /* YAChess Some Lol.app */,
 				56DA449B28CFE7AC009FE23C /* Chess-Tests.xctest */,
 				565B627C2903414800C0C0D1 /* Chess-iOS.app */,
 			);
@@ -580,9 +580,9 @@
 			productReference = 565B627C2903414800C0C0D1 /* Chess-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		56BB94A728A94A750034D4AB /* Chess */ = {
+		56BB94A728A94A750034D4AB /* YAChess Some Lol */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "Chess" */;
+			buildConfigurationList = 56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "YAChess Some Lol" */;
 			buildPhases = (
 				56BB94A428A94A750034D4AB /* Sources */,
 				56BB94A528A94A750034D4AB /* Frameworks */,
@@ -594,9 +594,9 @@
 			dependencies = (
 				5648530228C7E3F800BA4CC0 /* PBXTargetDependency */,
 			);
-			name = Chess;
+			name = "YAChess Some Lol";
 			productName = Chess;
-			productReference = 56BB94A828A94A750034D4AB /* Chess.app */;
+			productReference = 56BB94A828A94A750034D4AB /* YAChess Some Lol.app */;
 			productType = "com.apple.product-type.application";
 		};
 		56DA449A28CFE7AC009FE23C /* Chess-Tests */ = {
@@ -658,7 +658,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				56BB94A728A94A750034D4AB /* Chess */,
+				56BB94A728A94A750034D4AB /* YAChess Some Lol */,
 				56DA449A28CFE7AC009FE23C /* Chess-Tests */,
 				565B627B2903414800C0C0D1 /* Chess-iOS */,
 			);
@@ -832,7 +832,7 @@
 		};
 		56DA44A028CFE7AC009FE23C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 56BB94A728A94A750034D4AB /* Chess */;
+			target = 56BB94A728A94A750034D4AB /* YAChess Some Lol */;
 			targetProxy = 56DA449F28CFE7AC009FE23C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1057,12 +1057,12 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = R78NEXF6E2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Chess/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Chess;
+				INFOPLIST_KEY_CFBundleDisplayName = "YAChess Some Lol";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -1071,7 +1071,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stompor.mateusz.macos.porcelain.chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1089,13 +1089,13 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = R78NEXF6E2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Chess/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Chess;
+				INFOPLIST_KEY_CFBundleDisplayName = "YAChess Some Lol";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -1104,7 +1104,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stompor.mateusz.macos.porcelain.chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1173,7 +1173,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "Chess" */ = {
+		56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "YAChess Some Lol" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				56BB94B828A94A770034D4AB /* Debug */,
