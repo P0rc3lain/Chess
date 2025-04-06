@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "56BB94A728A94A750034D4AB"
-               BuildableName = "YAChess Some Lol.app"
-               BlueprintName = "YAChess Some Lol"
+               BuildableName = "Chess.app"
+               BlueprintName = "Chess-macOS"
                ReferencedContainer = "container:Chess.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "56BB94A728A94A750034D4AB"
-            BuildableName = "YAChess Some Lol.app"
-            BlueprintName = "YAChess Some Lol"
+            BuildableName = "Chess.app"
+            BlueprintName = "Chess-macOS"
             ReferencedContainer = "container:Chess.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "56BB94A728A94A750034D4AB"
-            BuildableName = "YAChess Some Lol.app"
-            BlueprintName = "YAChess Some Lol"
+            BuildableName = "Chess.app"
+            BlueprintName = "Chess-macOS"
             ReferencedContainer = "container:Chess.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
