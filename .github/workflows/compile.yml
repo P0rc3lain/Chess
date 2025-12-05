@@ -1,0 +1,19 @@
+---
+name: Compile
+
+on:
+  workflow_call:
+  pull_request:
+
+jobs:
+  compile:
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Build Chess
+        run: xcodebuild -project Chess.xcodeproj
+                        -scheme Chess build
+...
