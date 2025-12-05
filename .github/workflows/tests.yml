@@ -1,0 +1,19 @@
+---
+name: Tests
+
+on:
+  workflow_call:
+  pull_request:
+
+jobs:
+  unittests:
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Test Chess
+        run: xcodebuild -project Chess.xcodeproj
+                        -scheme Chess-Tests test
+...
