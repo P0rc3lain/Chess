@@ -466,9 +466,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		56BB94A728A94A750034D4AB /* Chess-macOS */ = {
+		56BB94A728A94A750034D4AB /* Chess */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "Chess-macOS" */;
+			buildConfigurationList = 56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "Chess" */;
 			buildPhases = (
 				56BB94A428A94A750034D4AB /* Sources */,
 				56BB94A528A94A750034D4AB /* Frameworks */,
@@ -480,7 +480,7 @@
 			dependencies = (
 				5648530228C7E3F800BA4CC0 /* PBXTargetDependency */,
 			);
-			name = "Chess-macOS";
+			name = Chess;
 			productName = Chess;
 			productReference = 56BB94A828A94A750034D4AB /* Chess.app */;
 			productType = "com.apple.product-type.application";
@@ -541,7 +541,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				56BB94A728A94A750034D4AB /* Chess-macOS */,
+				56BB94A728A94A750034D4AB /* Chess */,
 				56DA449A28CFE7AC009FE23C /* Chess-Tests */,
 			);
 		};
@@ -652,7 +652,7 @@
 		};
 		56DA44A028CFE7AC009FE23C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 56BB94A728A94A750034D4AB /* Chess-macOS */;
+			target = 56BB94A728A94A750034D4AB /* Chess */;
 			targetProxy = 56DA449F28CFE7AC009FE23C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -886,7 +886,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "Chess-macOS" */ = {
+		56BB94B728A94A770034D4AB /* Build configuration list for PBXNativeTarget "Chess" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				56BB94B828A94A770034D4AB /* Debug */,
