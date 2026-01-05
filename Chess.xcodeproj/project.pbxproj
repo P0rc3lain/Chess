@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0558E89E2F0BBAE8006EE0FA /* rook.icon in Resources */ = {isa = PBXBuildFile; fileRef = 0558E89D2F0BBAE8006EE0FA /* rook.icon */; };
 		561B67F328D2604600D6E2F7 /* BoardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67F228D2604600D6E2F7 /* BoardInteractor.swift */; };
 		561B67F828D4C12F00D6E2F7 /* PickExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67F728D4C12F00D6E2F7 /* PickExpectation.swift */; };
 		561B67FC28D4C14700D6E2F7 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B67FB28D4C14700D6E2F7 /* Action.swift */; };
@@ -49,7 +50,6 @@
 		56BA8DED28DF0B080012A5CE /* CoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8DEC28DF0B080012A5CE /* CoreType.swift */; };
 		56BB94AC28A94A750034D4AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AB28A94A750034D4AB /* AppDelegate.swift */; };
 		56BB94AE28A94A750034D4AB /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB94AD28A94A750034D4AB /* GameViewController.swift */; };
-		56BB94B028A94A770034D4AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56BB94AF28A94A770034D4AB /* Assets.xcassets */; };
 		56BB94B328A94A770034D4AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56BB94B128A94A770034D4AB /* Main.storyboard */; };
 		56C3174328CFE95900C04F3C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C3174128CFE95900C04F3C /* XCTest.framework */; };
 		56C3174728CFFDCB00C04F3C /* MovesGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3174628CFFDCB00C04F3C /* MovesGenerator.swift */; };
@@ -104,6 +104,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0558E89D2F0BBAE8006EE0FA /* rook.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = rook.icon; sourceTree = "<group>"; };
 		561B67F228D2604600D6E2F7 /* BoardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardInteractor.swift; sourceTree = "<group>"; };
 		561B67F728D4C12F00D6E2F7 /* PickExpectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickExpectation.swift; sourceTree = "<group>"; };
 		561B67FB28D4C14700D6E2F7 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
@@ -151,7 +152,6 @@
 		56BB94A828A94A750034D4AB /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56BB94AB28A94A750034D4AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56BB94AD28A94A750034D4AB /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		56BB94AF28A94A770034D4AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56BB94B228A94A770034D4AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		56BB94B428A94A770034D4AB /* Chess.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chess.entitlements; sourceTree = "<group>"; };
 		56BEC3C6299FD286005CFC2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -257,6 +257,7 @@
 		5634348928A94BE900C2DA95 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				0558E89D2F0BBAE8006EE0FA /* rook.icon */,
 				5685903428A9695000785F1A /* Cube.obj */,
 				56312CA728A950C50038DD47 /* Board.obj */,
 				56312CA528A950600038DD47 /* Rook.obj */,
@@ -266,7 +267,6 @@
 				56312C9C28A94FBF0038DD47 /* King.obj */,
 				5634348B28A94BF300C2DA95 /* Bishop.obj */,
 				56312CA928A950DF0038DD47 /* Textures.xcassets */,
-				56BB94AF28A94A770034D4AB /* Assets.xcassets */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -570,8 +570,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				56312CA828A950C50038DD47 /* Board.obj in Resources */,
-				56BB94B028A94A770034D4AB /* Assets.xcassets in Resources */,
 				56312CA228A950220038DD47 /* Pawn.obj in Resources */,
+				0558E89E2F0BBAE8006EE0FA /* rook.icon in Resources */,
 				56312CAA28A950DF0038DD47 /* Textures.xcassets in Resources */,
 				56BB94B328A94A770034D4AB /* Main.storyboard in Resources */,
 				56312CA028A950090038DD47 /* Knight.obj in Resources */,
@@ -789,7 +789,7 @@
 		56BB94B828A94A770034D4AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = rook;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Chess/macOS/SupportingFiles/Chess.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -816,7 +816,7 @@
 		56BB94B928A94A770034D4AB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = rook;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Chess/macOS/SupportingFiles/Chess.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
