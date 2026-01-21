@@ -58,17 +58,46 @@
                             </menuItem>
                             <menuItem title="Game" id="dMs-cI-mzQ" userLabel="Game">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Game" id="bib-Uj-vzu">
+                                <menu key="submenu" title="Game" id="FAx-tK-5un">
                                     <items>
-                                        <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
+                                        <menuItem title="New" keyEquivalent="n" id="mVI-Sz-gCb">
                                             <connections>
-                                                <action selector="createGame:" target="Voe-Tx-rLC" id="v5N-os-fej"/>
+                                                <action selector="createGame:" target="Voe-Tx-rLC" id="e7I-ec-vA0"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
-                                        <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
+                                        <menuItem isSeparatorItem="YES" id="2Dr-d7-Q8C"/>
+                                        <menuItem title="Load" id="pgn-Y5-zwz" userLabel="Load">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Load" id="cde-tx-kYb">
+                                                <items>
+                                                    <menuItem title="Save 1" id="SB3-wS-M06">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Save 2" id="HRu-tw-U9v">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Save 3" id="335-9Q-i9v">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="DoQ-Og-Rmt"/>
+                                                    <menuItem title="Clear history" id="2jD-2I-boB" userLabel="Clear history">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="deleteAll:" target="Voe-Tx-rLC" id="NdD-LT-Daj"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="Save" keyEquivalent="s" id="r3g-QF-ttr">
                                             <connections>
-                                                <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
+                                                <action selector="saveGame:" target="Voe-Tx-rLC" id="B83-dZ-oyh"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="zqC-8C-4Ki"/>
+                                        <menuItem title="Close" keyEquivalent="w" id="gMD-cO-hUr">
+                                            <connections>
+                                                <action selector="performClose:" target="Ady-hI-5gd" id="VX0-mG-oGG"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -349,11 +378,17 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Chess" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Chess" customModuleProvider="target">
+                    <connections>
+                        <outlet property="historyClear" destination="2jD-2I-boB" id="ImB-TX-82s"/>
+                        <outlet property="savesMenu" destination="cde-tx-kYb" id="Px4-6b-Tsn"/>
+                        <outlet property="separator" destination="DoQ-Og-Rmt" id="ea9-3s-QAr"/>
+                    </connections>
+                </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="36" y="-321"/>
+            <point key="canvasLocation" x="-260" y="-445"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
