@@ -5,7 +5,7 @@
 //  Created by Mateusz Stompór on 07/09/2022.
 //
 
-struct PieceType: CustomStringConvertible, Equatable {
+struct PieceType: CustomStringConvertible, Equatable, Codable {
     let coreType: CoreType
     let id: Int
     init(coreType: CoreType, id: Int) {

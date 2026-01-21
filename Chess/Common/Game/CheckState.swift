@@ -5,7 +5,7 @@
 //  Created by Mateusz Stompór on 26/09/2022.
 //
 
-enum CheckState {
+enum CheckState: Codable {
     case unknown
     case noCheck
     case check
