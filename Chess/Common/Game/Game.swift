@@ -90,9 +90,11 @@ class Game {
                 }
                 moves.append(Move(who: piece, from: position, to: nil))
             }
-            moves += [Move(who: selectedPiece,
-                           from: fromField,
-                           to: field)]
+            if !action.piecesToRemove.contains(selectedPiece) {
+                moves += [Move(who: selectedPiece,
+                               from: fromField,
+                               to: field)]
+            }
             for addAction in action.piecesToAdd {
                 moves.append(Move(who: addAction.piece, from: nil, to: addAction.field))
             }
