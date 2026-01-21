@@ -1,8 +1,5 @@
 //
-//  PickExpectation.swift
-//  Chess
-//
-//  Created by Mateusz Stompór on 16/09/2022.
+//  Copyright © 2022 Mateusz Stompór. All rights reserved.
 //
 
 enum PickExpectation: Codable {

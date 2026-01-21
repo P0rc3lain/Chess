@@ -1,28 +1,60 @@
 //
-//  ViewController.swift
-//  Chess
-//
-//  Created by Mateusz Stompór on 05/11/2020.
+//  Copyright © 2020 Mateusz Stompór. All rights reserved.
 //
 
 import Cocoa
+import Combine
 import Engine
 import ModelIO
 import MetalKit
 import PNShared
 
 class GameViewController: NSViewController, GameDelegate {
-    @IBOutlet weak var info: NSTextField!
+    @IBOutlet private weak var info: NSTextField!
     private var engine: PNEngine!
     private var engineView: PNView!
     private var interactionHandler: MouseInteractionHandler!
     private let game = Game()
+    private var cancellables = Set<AnyCancellable>()
     private let nodeInteractor = PNINodeInteractor()
     private let cameraController = CameraController()
     private var manipulator: SceneManipulator!
     private var state = GameState.initial
+    private func setupNotifications() {
+        NotificationCenter.default.publisher(for: .persistanceDeleteAll)
+        .sink { notification in
+            _ = SaveCoordinator.shared.wipe()
+        }
+        .store(in: &cancellables)
+        NotificationCenter.default.publisher(for: .persistanceSave)
+        .sink { [weak self] notification in
+            guard let self else { return }
+            let saveState = SaveGame(creationDate: .now, state: state)
+            _ = SaveCoordinator.shared.save(game: saveState)
+        }
+        .store(in: &cancellables)
+        NotificationCenter.default.publisher(for: .persistanceLoad)
+            .sink { [weak self] notification in
+            guard let self else { return }
+            guard let dictionary = notification.object as? [String: Int],
+                  let index = dictionary["index"] else {
+                fatalError("Incorrect type passed")
+            }
+            guard let gameSave = SaveCoordinator.shared.load(index: index) else {
+                fatalError("Index out of bounds")
+            }
+            state = gameSave.state
+            guard let device = engineView.device else {
+                fatalError("Device not set")
+            }
+            let builder = SceneBuilder(device: device)
+            engine.scene = builder.build(board: gameSave.state.board)
+        }
+        .store(in: &cancellables)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNotifications()
         info.alphaValue = 0
         engineView = view.subviews[0] as? PNView
         engine = engineView.engine

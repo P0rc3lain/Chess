@@ -1,8 +1,5 @@
 //
-//  SceneBuilder.swift
-//  Chess
-//
-//  Created by Mateusz Stompór on 06/09/2022.
+//  Copyright © 2022 Mateusz Stompór. All rights reserved.
 //
 
 import Metal

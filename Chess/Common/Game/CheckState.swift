@@ -1,8 +1,5 @@
 //
-//  CheckState.swift
-//  Chess
-//
-//  Created by Mateusz Stompór on 26/09/2022.
+//  Copyright © 2022 Mateusz Stompór. All rights reserved.
 //
 
 enum CheckState: Codable {
