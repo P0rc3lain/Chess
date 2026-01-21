@@ -113,10 +113,10 @@ class SceneBuilder {
         return fields
     }
     private func cameraNode() -> PNScenePiece {
-        let camera = PNOrthographicCamera(bound: PNBound(min: [-5, -5, 0.01], max: [5, 5, 100]))
+        let camera = PNOrthographicCamera(bound: PNBound(min: [-4.5, -4, 0.01], max: [4.5, 4, 100]))
         let rotation = simd_quatf(angle: Float(45).radians, axis: [0, 1, 0]) *
                        simd_quatf(angle: Float(45).radians, axis: [-1, 0, 0])
-        let translation = simd_float4x4.translation(vector: [0, 0, 5])
+        let translation = simd_float4x4.translation(vector: [0, 0.41, 5])
         let animator = PNIAnimator(chronometer: PNIChronometer(timeProducer: { Date() }),
                                    interpolator: PNIInterpolator(),
                                    sampler: PNISinglePlaySampler(),
