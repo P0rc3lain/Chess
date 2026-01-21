@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Piece: Equatable {
+struct Piece: Equatable, Codable {
     let color: PieceColor
     let type: PieceType
     init(color: PieceColor, type: PieceType) {

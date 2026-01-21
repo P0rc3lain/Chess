@@ -5,7 +5,7 @@
 //  Created by Mateusz Stompór on 07/09/2022.
 //
 
-struct Board {
+struct Board: Codable {
     let fields: [[Piece?]]
     init(fields: [[Piece?]]) {
         self.fields = fields
