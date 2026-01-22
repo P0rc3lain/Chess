@@ -30,7 +30,7 @@ class SceneBuilder {
         let fields = loadBoardFields(mahogany: mahoganyMaterial, sapele: sapeleMaterial)
         all.add(children: pieces, boardPiece, fields)
         scene.rootNode.add(child: all)
-        scene.environmentMap = device.makeTextureSolidCube(color: [1, 1, 1, 1])
+        scene.environmentMap = device.makeTextureSolidCube(color: [0, 0, 0, 1])
         scene.directionalLights.append(PNIDirectionalLight(color: [1, 1, 1],
                                                            intensity: 1.5,
                                                            direction: simd_float3(0, -1, 0).normalized,
