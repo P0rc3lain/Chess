@@ -12,7 +12,14 @@ extension Notification.Name {
 }
 
 @main
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.title == "Save" {
+            return NSApp.windows.contains(where: { $0.isVisible })
+        }
+        return true
+    }
+    
     private var gameSavesSubscription: AnyCancellable?
     @IBOutlet private weak var historyClear: NSMenuItem!
     @IBOutlet private weak var separator: NSMenuItem!
@@ -25,22 +32,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
     }
     @IBAction func deleteAll(_ sender: NSMenuItem) {
-        NotificationCenter.default.post(
-            name: .persistanceDeleteAll,
-            object: nil
-        )
+        _ = SaveCoordinator.shared.wipe()
     }
     @IBAction func createGame(_ sender: Any) {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateInitialController()
-        (controller as! NSWindowController).showWindow(self)
+        let windowController = (controller as! NSWindowController)
+        windowController.showWindow(self)        
     }
     @objc
     func loadGame(sender: NSMenuItem) {
-        NotificationCenter.default.post(
-            name: .persistanceLoad,
-            object: ["index": sender.tag]
-        )
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateInitialController()
+        let windowController = (controller as! NSWindowController)
+        windowController.showWindow(self)
+        let game = windowController.contentViewController as? GameViewController
+        guard let gameSave = SaveCoordinator.shared.load(index: sender.tag) else {
+            fatalError("Index out of bounds")
+        }
+        game?.load(save: gameSave)
     }
     private func updateItems() {
         let count = SaveCoordinator.shared.saveCount
