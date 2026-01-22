@@ -20,7 +20,7 @@ class SceneManipulator {
         guard let node = findPiece(scene: scene, piece: piece) else {
             fatalError("Could not find piece")
         }
-        let current = node.transform.value.translation
+        let current = node.transform.translation
         var translation = PNAnimatedFloat3.defaultTranslation
         translation = PNKeyframeAnimation(keyFrames: [simd_float3(current.x, 0, current.z),
                                                       simd_float3(current.x, 0.3, current.z)],
@@ -35,7 +35,7 @@ class SceneManipulator {
         guard let node = findPiece(scene: scene, piece: piece) else {
             fatalError("Could not find piece")
         }
-        let current = node.transform.value.translation
+        let current = node.transform.translation
         var translation = PNAnimatedFloat3.defaultTranslation
         translation = PNKeyframeAnimation(keyFrames: [simd_float3(current.x, current.y, current.z),
                                                       simd_float3(current.x, 0, current.z)],
@@ -62,7 +62,7 @@ class SceneManipulator {
     private func move(piece: PNAnimatedNode, from: Field?, to: Field?, delay: PNTimeInterval) {
         assert(from != nil || to != nil, "Either 'from' or 'to' must be non-nil")
         var translation = PNAnimatedFloat3.defaultTranslation
-        let currentTranslation = piece.transform.value.translation
+        let currentTranslation = piece.transform.translation
         if let from = from, let to = to {
             translation = PNKeyframeAnimation(keyFrames: [simd_float3(Float(from.row), currentTranslation.y, Float(from.column)),
                                                           simd_float3(Float(from.row), 1.5, Float(from.column)),

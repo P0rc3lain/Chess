@@ -35,9 +35,9 @@ class MouseInteractionHandler {
             }
             return $0.parent?.parent?.parent?.parent
         }).sorted(by: { first, second in
-            guard let firstBB = first.data.worldBoundingBox.value,
-                  let secondBB = second.data.worldBoundingBox.value,
-                  let cameraBB = camera.worldBoundingBox.value else {
+            guard let firstBB = first.data.worldBoundingBox,
+                  let secondBB = second.data.worldBoundingBox,
+                  let cameraBB = camera.worldBoundingBox else {
                 return false
             }
             let cameraCenter = bInteractor.center(bbInteractor.bound(cameraBB))
