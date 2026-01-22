@@ -9,7 +9,7 @@ import ModelIO
 import MetalKit
 import PNShared
 
-class GameViewController: NSViewController, GameDelegate {
+class GameViewController: NSViewController, GameDelegate, NSGestureRecognizerDelegate {
     @IBOutlet private weak var info: NSTextField!
     private var engine: PNEngine!
     private var engineView: PNView!
@@ -20,6 +20,7 @@ class GameViewController: NSViewController, GameDelegate {
     private let cameraController = CameraController()
     private var manipulator: SceneManipulator!
     private var state = GameState.initial
+    private var last: NSPoint = .zero
     private func setupNotifications() {
         NotificationCenter.default.publisher(for: .persistanceDeleteAll)
         .sink { notification in
@@ -52,8 +53,53 @@ class GameViewController: NSViewController, GameDelegate {
         }
         .store(in: &cancellables)
     }
+    func rotateArcball(from start: SIMD3<Float>,
+                       to end: SIMD3<Float>) -> simd_quatf {
+        let axis = cross(start, end)
+        let dotp = max(min(dot(start, end), 1.0), -1.0) // clamp to avoid NaN
+        let angle = acos(dotp)
+        
+        return simd_quatf(angle: angle, axis: normalize(axis))
+    }
+    func mapToSphere(nx: Float, ny: Float) -> simd_float3 {
+        let len2 = nx*nx + ny*ny
+        if len2 <= 1.0 {
+            return normalize(SIMD3(nx, ny, sqrt(1.0 - len2)))
+        } else {
+            return normalize(SIMD3(nx, ny, 0))
+        }
+    }
+    @objc
+    func handlePan(recognizer: NSPanGestureRecognizer) {
+        let translation = recognizer.translation(in: view)
+        let tNormalized = NSPoint(x: translation.x / view.bounds.width,
+                                  y: translation.y / view.bounds.height)
+        if recognizer.state == .began {
+            last = tNormalized
+        }
+        let start = mapToSphere(nx: Float(last.x), ny: Float(last.y))
+        let end = mapToSphere(nx: Float(tNormalized.x), ny: Float(tNormalized.y))
+        let distance = length(end - start)
+        if (distance < 1e-3) {
+            return
+        }
+        print("s: \(start), e: \(end)")
+        nodeInteractor.forEach(node: engine.scene.rootNode, { node in
+            guard let node = node.data as? PNAnimatedCameraNode else {
+                return
+            }
+            let arc = rotateArcball(from: end, to: start)
+            cameraController.rotate(camera: node, quatf: arc)
+        })
+        last = tNormalized
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let panGestureRecognizer = NSPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer: )))
+        panGestureRecognizer.allowedTouchTypes = [.direct]
+        view.addGestureRecognizer(panGestureRecognizer)
+        
         setupNotifications()
         info.alphaValue = 0
         engineView = view.subviews[0] as? PNView
@@ -79,6 +125,16 @@ class GameViewController: NSViewController, GameDelegate {
                     return
                 }
                 cameraController.rotate(camera: node, angleDegress: minus ? -45 : 45)
+            })
+        case "r":
+            let rotation = simd_quatf(angle: Float(45).radians, axis: [0, 1, 0]) *
+                           simd_quatf(angle: Float(45).radians, axis: [-1, 0, 0])
+            let translation = simd_float4x4.translation(vector: [0, 0.41, 5])
+            nodeInteractor.forEach(node: engine.scene.rootNode, { node in
+                guard let node = node.data as? PNAnimatedCameraNode else {
+                    return
+                }
+                cameraController.set(camera: node, transformation: translation * rotation.rotationMatrix)
             })
         default:
             return false
