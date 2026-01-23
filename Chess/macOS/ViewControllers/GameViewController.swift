@@ -22,37 +22,24 @@ class GameViewController: NSViewController, GameDelegate, NSGestureRecognizerDel
     private var state = GameState.initial
     private var last: NSPoint = .zero
     private func setupNotifications() {
-        NotificationCenter.default.publisher(for: .persistanceDeleteAll)
-        .sink { notification in
-            _ = SaveCoordinator.shared.wipe()
-        }
-        .store(in: &cancellables)
         NotificationCenter.default.publisher(for: .persistanceSave)
         .sink { [weak self] notification in
             guard let self else { return }
-            let saveState = SaveGame(creationDate: .now, state: state)
-            _ = SaveCoordinator.shared.save(game: saveState)
-        }
-        .store(in: &cancellables)
-        NotificationCenter.default.publisher(for: .persistanceLoad)
-            .sink { [weak self] notification in
-            guard let self else { return }
-            guard let dictionary = notification.object as? [String: Int],
-                  let index = dictionary["index"] else {
-                fatalError("Incorrect type passed")
+            if self.view.window?.isKeyWindow ?? false {
+                let saveState = SaveGame(creationDate: .now, state: state)
+                _ = SaveCoordinator.shared.save(game: saveState)
             }
-            guard let gameSave = SaveCoordinator.shared.load(index: index) else {
-                fatalError("Index out of bounds")
-            }
-            state = gameSave.state
-            guard let device = engineView.device else {
-                fatalError("Device not set")
-            }
-            let builder = SceneBuilder(device: device)
-            engine.scene = builder.build(board: gameSave.state.board)
         }
         .store(in: &cancellables)
     }
+    func load(save gameSave: SaveGame) {
+        guard let device = engineView.device else {
+            fatalError("Device not set")
+        }
+        let builder = SceneBuilder(device: device)
+        engine.scene = builder.build(board: gameSave.state.board)
+    }
+    
     func rotateArcball(from start: SIMD3<Float>,
                        to end: SIMD3<Float>) -> simd_quatf {
         let axis = cross(start, end)
@@ -83,7 +70,6 @@ class GameViewController: NSViewController, GameDelegate, NSGestureRecognizerDel
         if (distance < 1e-3) {
             return
         }
-        print("s: \(start), e: \(end)")
         nodeInteractor.forEach(node: engine.scene.rootNode, { node in
             guard let node = node.data as? PNAnimatedCameraNode else {
                 return
@@ -96,7 +82,8 @@ class GameViewController: NSViewController, GameDelegate, NSGestureRecognizerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let panGestureRecognizer = NSPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer: )))
+        let panGestureRecognizer = NSPanGestureRecognizer(target: self,
+                                                          action: #selector(handlePan(recognizer: )))
         panGestureRecognizer.allowedTouchTypes = [.direct]
         view.addGestureRecognizer(panGestureRecognizer)
         
