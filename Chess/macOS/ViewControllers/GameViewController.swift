@@ -70,14 +70,14 @@ class GameViewController: NSViewController, GameDelegate, NSGestureRecognizerDel
         if (distance < 1e-3) {
             return
         }
-        nodeInteractor.forEach(node: engine.scene.rootNode, { node in
-            guard let node = node.data as? PNAnimatedCameraNode else {
-                return
-            }
+        if let camera = getCameraNode() {
             let arc = rotateArcball(from: end, to: start)
-            cameraController.rotate(camera: node, quatf: arc)
-        })
+            cameraController.rotate(camera: camera, quatf: arc)
+        }
         last = tNormalized
+    }
+    private func getCameraNode() -> PNAnimatedCameraNode? {
+        return nodeInteractor.firstCasting(from: engine.scene.rootNode)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,22 +107,18 @@ class GameViewController: NSViewController, GameDelegate, NSGestureRecognizerDel
             view.window?.toggleFullScreen(self)
         case "d", "a":
             let minus = event.charactersIgnoringModifiers == "a"
-            nodeInteractor.forEach(node: engine.scene.rootNode, { node in
-                guard let node = node.data as? PNAnimatedCameraNode else {
-                    return
-                }
-                cameraController.rotate(camera: node, angleDegress: minus ? -45 : 45)
-            })
+            if let camera = getCameraNode() {
+                cameraController.rotate(camera: camera,
+                                        angleDegress: minus ? -45 : 45)
+            }
         case "r":
             let rotation = simd_quatf(angle: Float(45).radians, axis: [0, 1, 0]) *
                            simd_quatf(angle: Float(45).radians, axis: [-1, 0, 0])
             let translation = simd_float4x4.translation(vector: [0, 0.41, 5])
-            nodeInteractor.forEach(node: engine.scene.rootNode, { node in
-                guard let node = node.data as? PNAnimatedCameraNode else {
-                    return
-                }
-                cameraController.set(camera: node, transformation: translation * rotation.rotationMatrix)
-            })
+            if let camera = getCameraNode() {
+                cameraController.set(camera: camera,
+                                     transformation: translation * rotation.rotationMatrix)
+            }
         default:
             return false
         }
@@ -140,10 +136,7 @@ class GameViewController: NSViewController, GameDelegate, NSGestureRecognizerDel
         guard state.checkState != .stalemate && state.checkState != .checkmate else {
             return
         }
-        let camera = engine.scene.rootNode.all().compactMap({
-            $0.data as? PNAnimatedCameraNode
-        }).first
-        guard let camera = camera else {
+        guard let camera = getCameraNode() else {
             return
         }
         let frame = view.frame
@@ -215,3 +208,4 @@ class GameViewController: NSViewController, GameDelegate, NSGestureRecognizerDel
         return action[alert.runModal().rawValue - 1000]
     }
 }
+
