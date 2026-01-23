@@ -10,7 +10,8 @@ The game is complete in terms of rules implemented
 ## Application
 * Supports having multiple sessions open
 * Handles mouse interactions for pieces selection and movement
-* Provides control over the camera through keyboard bindings 
+* Provides control over the camera through keyboard bindings and arc ball rotation
+* Support game state saving and loading
 
 # Rules
 * Game implements no time limit for move
