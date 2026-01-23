@@ -60,7 +60,7 @@ class SceneBuilder {
                                    animation: .static(from: .translation(vector: vector)),
                                    name: PieceParser().dump(piece: piece))
         let p = PNScenePiece.make(data: node)
-        let groupNode = PNISceneNode(transform: .compose(translation: [-3.5, 2, 0],
+        let groupNode = PNISceneNode(transform: .compose(translation: [-3.5, 1.93, 0],
                                                          scale: [0.2, 0.2, 0.2]))
         let groupTransform = PNScenePiece.make(data: groupNode)
         p.add(child: groupTransform)
